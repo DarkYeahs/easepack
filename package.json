@@ -1,0 +1,32 @@
+{
+  "name": "easepack",
+  "version": "1.0.0",
+  "description": "前端工程构建工具",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "keywords": [
+    "前端",
+    "构建工具"
+  ],
+  "bin": {
+    "easepack": "bin/easepack.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dante1977/easepack.git"
+  },
+  "author": "zhengquanbin",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/dante1977/easepack/issues"
+  },
+  "homepage": "https://github.com/dante1977/easepack#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.2.1"
+  }
+}
