@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/dante1977/easepack#readme",
   "dependencies": {
+    "async": "^2.1.4",
     "commander": "^2.9.0",
     "glob": "^7.1.1",
     "tapable": "^0.2.6",
