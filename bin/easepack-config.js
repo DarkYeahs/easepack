@@ -6,6 +6,10 @@ function MatchProps(config) {
   this.props = {};
 }
 
+MatchProps.prototype.media = function (media) {
+  return this.config.media(media);
+};
+
 function Config() {
   this.context = path.resolve('.');
   this.matches = [];
