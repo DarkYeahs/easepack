@@ -1,5 +1,5 @@
 {
-  "name": "easepack",
+  "request": "easepack",
   "version": "1.0.0",
   "description": "前端工程构建工具",
   "main": "index.js",
@@ -28,7 +28,10 @@
     "commander": "^2.9.0",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.2",
+    "file-loader": "^0.10.0",
     "glob": "^7.1.1",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.1.1",
     "tapable": "^0.2.6",
     "vue-loader": "^10.2.1",
     "vue-template-compiler": "^2.1.10",

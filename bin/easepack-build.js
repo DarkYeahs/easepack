@@ -46,6 +46,7 @@ if (!config.output) {
 }
 
 var compiler = easepack(config);
+
 if (config.watch) {
   compiler.watch(compilerCallback);
 } else {
