@@ -1,5 +1,7 @@
 var easepack = require('..');
+var fs = require('fs');
 var path = require('path');
+var async = require('async');
 var program = require('commander');
 var config = require('./easepack-config');
 
@@ -41,31 +43,32 @@ tempPath = tempPath || (__dirname + '/..');
 config.tempPath = path.join(tempPath, tempDirName);
 
 if (!config.output) {
-  config.output = path.join(config.tempPath, 'temp');
+  config.output = path.join(config.tempPath, 'web');
   config.watch = true;
 }
 
-var compiler = easepack(config);
-
-if (config.watch) {
-  compiler.watch(compilerCallback);
-} else {
-  compiler.run(compilerCallback);
-}
+readdir(path.join(config.tempPath, 'components'), function () {
+  var compiler = easepack(config);
+  if (config.watch) {
+    compiler.watch(compilerCallback);
+  } else {
+    compiler.run(compilerCallback);
+  }
+});
 
 function compilerCallback(err, stats) {
   var webpackCompiler = this.compiler || this;
 
-  if(!config.watch) {
+  if (!config.watch) {
     webpackCompiler.purgeInputFileSystem();
   }
 
-  if(err) {
+  if (err) {
     lastHash = null;
     console.error(err.stack || err);
-    if(err.details) console.error(err.details);
-    if(!options.watch) {
-      process.on("exit", function() {
+    if (err.details) console.error(err.details);
+    if (!options.watch) {
+      process.on("exit", function () {
         process.exit(1); // eslint-disable-line
       });
     }
@@ -78,4 +81,16 @@ function compilerCallback(err, stats) {
       chunkOrigins: false,
       chunkModules: false,
     }) + '\n');
+}
+
+function readdir(dir, callback) {
+  fs.readdir(dir, function (error, files) {
+    if (error) {
+      return callback(error);
+    }
+    files.forEach(function (file) {
+      config.alias[file] = path.join(dir, file);
+    });
+    callback();
+  });
 }

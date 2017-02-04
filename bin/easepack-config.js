@@ -12,6 +12,7 @@ MatchProps.prototype.media = function (media) {
 
 function Config() {
   this.context = path.resolve('.');
+  this.alias = {};
   this.matches = [];
 }
 
