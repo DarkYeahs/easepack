@@ -1,9 +1,13 @@
 var easepack = require('..');
 var fs = require('fs');
 var path = require('path');
-var async = require('async');
+var ora = require('ora');
 var program = require('commander');
 var config = require('./easepack-config');
+
+var spawn = require('child_process').spawn;
+var repo = 'https://github.com/kevva/download.git';
+var spinner = ora().start();
 
 Object.defineProperty(global, 'easepack', {
   enumerable: true,
@@ -42,6 +46,7 @@ for (var i = 0, temp = tempDirs[i]; temp; i++) {
 }
 tempPath = tempPath || (__dirname + '/..');
 config.tempPath = path.join(tempPath, tempDirName);
+config.tempComponents = path.join(config.tempPath, 'components');
 
 if (!config.output) {
   config.output = path.join(config.tempPath, 'web');
@@ -49,7 +54,7 @@ if (!config.output) {
   config.watch = true;
 }
 
-readdir(path.join(config.tempPath, 'components'), function () {
+readdir(config.tempComponents, function () {
   var compiler = easepack(config);
   if (config.watch) {
     compiler.watch(compilerCallback);
@@ -62,6 +67,7 @@ function compilerCallback(err, stats) {
   if (!config.watch || err) {
     this.webpackCompiler.purgeInputFileSystem();
   }
+  spinner.stop();
 
   if (err) {
     lastHash = null;
@@ -84,14 +90,19 @@ function compilerCallback(err, stats) {
 }
 
 function readdir(dir, callback) {
-  fs.readdir(dir, function (error, files) {
-    if (error) {
-      return callback(error);
+  fs.stat(dir, function (err, files) {
+    if (err) {
+      var process = spawn('git', ['clone', '--', repo, dir]);
     }
-    files.forEach(function (file) {
-      var alias = path.basename(file, path.extname(file));
-      config.alias[alias] = path.join(dir, file);
-    });
-    callback();
   });
+  //fs.readdir(dir, function (error, files) {
+  //  if (error) {
+  //    return callback(error);
+  //  }
+  //  files.forEach(function (file) {
+  //    var alias = path.basename(file, path.extname(file));
+  //    config.alias[alias] = path.join(dir, file);
+  //  });
+  //  callback();
+  //});
 }
