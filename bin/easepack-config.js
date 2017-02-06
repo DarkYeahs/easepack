@@ -10,6 +10,10 @@ MatchProps.prototype.media = function (media) {
   return this.config.media(media);
 };
 
+MatchProps.prototype.set = function () {
+  return this.config.set.apply(this.config, arguments);
+};
+
 function Config() {
   this.context = path.resolve('.');
   this.alias = {};
@@ -25,6 +29,11 @@ Config.prototype.match = function (pattern, props) {
     props: mps.props
   });
   return mps;
+};
+
+Config.prototype.set = function (key, value) {
+  this[key] = value;
+  return this;
 };
 
 Config.prototype.media = function (media) {

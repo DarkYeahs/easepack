@@ -16,6 +16,7 @@ program
   .option('-c, --config [file]', 'use custom config file')
   .option('-o, --output [target]', 'write the files to disk')
   .option('-m, --media [media]', 'output directory for bundled files')
+  .option('--port [port]', 'set server port')
   .option('--display-chunks', 'display the separation of the modules into chunks')
   .parse(process.argv);
 
@@ -27,7 +28,7 @@ Object.assign(config, program);
   };
 });
 
-var configName = program.config || 'ep.config.js';
+var configName = program.config || 'easepack.config.js';
 require(path.join(config.context, configName));
 
 var tempDirs = ['LOCALAPPDATA', 'HOME', 'APPDATA'];
@@ -44,6 +45,7 @@ config.tempPath = path.join(tempPath, tempDirName);
 
 if (!config.output) {
   config.output = path.join(config.tempPath, 'web');
+  config.publicPath = '/';
   config.watch = true;
 }
 
@@ -57,10 +59,8 @@ readdir(path.join(config.tempPath, 'components'), function () {
 });
 
 function compilerCallback(err, stats) {
-  var webpackCompiler = this.compiler || this;
-
-  if (!config.watch) {
-    webpackCompiler.purgeInputFileSystem();
+  if (!config.watch || err) {
+    this.webpackCompiler.purgeInputFileSystem();
   }
 
   if (err) {
@@ -89,7 +89,8 @@ function readdir(dir, callback) {
       return callback(error);
     }
     files.forEach(function (file) {
-      config.alias[file] = path.join(dir, file);
+      var alias = path.basename(file, path.extname(file));
+      config.alias[alias] = path.join(dir, file);
     });
     callback();
   });
