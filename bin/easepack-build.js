@@ -6,7 +6,7 @@ var program = require('commander');
 var config = require('./easepack-config');
 
 var spawn = require('child_process').spawn;
-var repo = 'https://github.com/kevva/download.git';
+var repo = 'https://github.com/dante1977/components.git';
 var spinner = ora().start();
 
 Object.defineProperty(global, 'easepack', {
@@ -54,13 +54,15 @@ if (!config.output) {
   config.watch = true;
 }
 
-readdir(config.tempComponents, function () {
-  var compiler = easepack(config);
-  if (config.watch) {
-    compiler.watch(compilerCallback);
-  } else {
-    compiler.run(compilerCallback);
-  }
+upToDate(config.tempComponents, function () {
+  readdir(config.tempComponents, function () {
+    var compiler = easepack(config);
+    if (config.watch) {
+      compiler.watch(compilerCallback);
+    } else {
+      compiler.run(compilerCallback);
+    }
+  });
 });
 
 function compilerCallback(err, stats) {
@@ -89,20 +91,27 @@ function compilerCallback(err, stats) {
     }) + '\n');
 }
 
-function readdir(dir, callback) {
-  fs.stat(dir, function (err, files) {
-    if (err) {
-      var process = spawn('git', ['clone', '--', repo, dir]);
-    }
+function upToDate(dir, callback) {
+  fs.access(dir, function (err) {
+    var git = err ?
+      spawn('git', ['clone', '--progress', repo, dir]) :
+      spawn('git', ['pull', 'origin/master'], {cwd: dir});
+
+    git.on('close', function (code) {
+      callback(code);
+    });
   });
-  //fs.readdir(dir, function (error, files) {
-  //  if (error) {
-  //    return callback(error);
-  //  }
-  //  files.forEach(function (file) {
-  //    var alias = path.basename(file, path.extname(file));
-  //    config.alias[alias] = path.join(dir, file);
-  //  });
-  //  callback();
-  //});
+}
+
+function readdir(dir, callback) {
+  fs.readdir(dir, function (error, files) {
+    if (error) {
+      return callback(error);
+    }
+    files.forEach(function (file) {
+      var alias = path.basename(file, path.extname(file));
+      config.alias[alias] = path.join(dir, file);
+    });
+    callback();
+  });
 }
