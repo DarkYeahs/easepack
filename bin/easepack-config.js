@@ -1,19 +1,6 @@
 var path = require('path');
 var _config = module.exports = new Config();
 
-function MatchProps(config) {
-  this.config = config;
-  this.props = {};
-}
-
-MatchProps.prototype.media = function (media) {
-  return this.config.media(media);
-};
-
-MatchProps.prototype.set = function () {
-  return this.config.set.apply(this.config, arguments);
-};
-
 function Config() {
   this.context = path.resolve('.');
   this.alias = {};
@@ -32,7 +19,11 @@ Config.prototype.match = function (pattern, props) {
 };
 
 Config.prototype.set = function (key, value) {
-  this[key] = value;
+  if (typeof key === 'string') {
+    this[key] = value;
+  } else if (typeof key === 'object') {
+    Object.assign(this, key);
+  }
   return this;
 };
 
@@ -42,3 +33,14 @@ Config.prototype.media = function (media) {
     _config;
 };
 
+//
+function MatchProps(config) {
+  this.config = config;
+  this.props = {};
+}
+
+['set', 'media', 'match'].forEach(function (key) {
+  MatchProps.prototype[key] = function () {
+    return this.config[key].apply(this.config, arguments);
+  }
+});

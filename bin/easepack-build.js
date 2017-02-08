@@ -22,18 +22,19 @@ program
   .option('-m, --media [media]', 'output directory for bundled files')
   .option('--port [port]', 'set server port')
   .option('--display-chunks', 'display the separation of the modules into chunks')
+  .option('--up-to-date', 'run without update components')
   .parse(process.argv);
 
 Object.assign(config, program);
 
-['match', 'media'].map(function (key) {
+['match', 'media', 'set'].map(function (key) {
   easepack[key] = function () {
     return config[key].apply(config, arguments);
   };
 });
 
-var configName = program.config || 'easepack.config.js';
-require(path.join(config.context, configName));
+config.config = program.config || 'easepack.config.js';
+require(path.join(config.context, config.config));
 
 var tempDirs = ['LOCALAPPDATA', 'HOME', 'APPDATA'];
 var tempDirName = '.easepack-temp';
@@ -92,10 +93,12 @@ function compilerCallback(err, stats) {
 }
 
 function upToDate(dir, callback) {
+  if (config.upToDate) return callback();
+
   fs.access(dir, function (err) {
     var git = err ?
       spawn('git', ['clone', '--progress', repo, dir]) :
-      spawn('git', ['pull', 'origin/master'], {cwd: dir});
+      spawn('git', ['pull', 'origin'], {cwd: dir});
 
     git.on('close', function (code) {
       callback(code);
