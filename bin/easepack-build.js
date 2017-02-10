@@ -21,8 +21,11 @@ program
   .option('-o, --output [target]', 'write the files to disk')
   .option('-m, --media [media]', 'output directory for bundled files')
   .option('--port [port]', 'set server port')
-  .option('--display-chunks', 'display the separation of the modules into chunks')
+  .option('--public-path [url]', 'the public URL of the output directory')
   .option('--up-to-date', 'run without update components')
+  .option('--use-uglifyjs', 'minify your JavaScript')
+  .option('--use-cleancss', 'minify your css file')
+  .option('--display-chunks', 'display the separation of the modules into chunks')
   .parse(process.argv);
 
 Object.assign(config, program);
@@ -53,6 +56,12 @@ if (!config.output) {
   config.output = path.join(config.tempPath, 'web');
   config.publicPath = '/';
   config.watch = true;
+  config.dev = true;
+} else {
+  config.useUglifyjs = config.useUglifyjs === undefined ?
+    true : config.useUglifyjs;
+  config.useCleancss = config.useCleancss === undefined ?
+    true : config.useCleancss;
 }
 
 upToDate(config.tempComponents, function () {
@@ -73,7 +82,7 @@ function compilerCallback(err, stats) {
   spinner.stop();
 
   if (err) {
-    lastHash = null;
+    //lastHash = null;
     console.error(err.stack || err);
     if (err.details) console.error(err.details);
     if (!options.watch) {
@@ -88,7 +97,7 @@ function compilerCallback(err, stats) {
       colors: true,
       version: false,
       chunkOrigins: false,
-      chunkModules: false,
+      chunkModules: false
     }) + '\n');
 }
 
