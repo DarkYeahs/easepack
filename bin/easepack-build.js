@@ -64,9 +64,11 @@ if (!config.output) {
     true : config.useCleancss;
 }
 
+var compiler;
+
 upToDate(config.tempComponents, function () {
   readdir(config.tempComponents, function () {
-    var compiler = easepack(config);
+    compiler = easepack(config);
     if (config.watch) {
       compiler.watch(compilerCallback);
     } else {
@@ -91,6 +93,10 @@ function compilerCallback(err, stats) {
       });
     }
     return;
+  }
+
+  if (this.options.dev) {
+    this.server.refresh();
   }
 
   process.stdout.write(stats.toString({
