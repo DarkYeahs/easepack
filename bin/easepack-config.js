@@ -9,7 +9,7 @@ function Config() {
 
 Config.prototype.match = function (pattern, props) {
   var mps = new MatchProps(this);
-  Object.assign(mps.props, props);
+  Object.assign(mps.props, props || {});
 
   this.matches.push({
     pattern: pattern,
@@ -39,7 +39,14 @@ function MatchProps(config) {
   this.props = {};
 }
 
-['set', 'media', 'match'].forEach(function (key) {
+MatchProps.prototype.media = function (media, props) {
+  if (this.config.media === media) {
+    Object.assign(this.props, props || {});
+  }
+  return this;
+};
+
+['set', 'match'].forEach(function (key) {
   MatchProps.prototype[key] = function () {
     return this.config[key].apply(this.config, arguments);
   }
