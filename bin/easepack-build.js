@@ -3,9 +3,11 @@ var fs = require('fs');
 var path = require('path');
 var ora = require('ora');
 var program = require('commander');
+var spawn = require('child_process').spawn;
+
+var pkg = require('../package.json');
 var config = require('./easepack-config');
 
-var spawn = require('child_process').spawn;
 var repo = 'https://github.com/dante1977/components.git';
 var spinner = ora().start();
 
@@ -130,7 +132,15 @@ function readdir(dir, callback) {
     }
     files.forEach(function (file) {
       var alias = path.basename(file, path.extname(file));
-      config.alias[alias] = path.join(dir, file);
+      var versionExpr = /@(\d)$/;
+
+      if (versionExpr.test(alias)) {
+        if (RegExp.$1 == pkg.version[0]) {
+          config.alias[alias.replace(versionExpr, '')] = path.join(dir, file);
+        }
+      } else {
+        config.alias[alias] = path.join(dir, file);
+      }
     });
     callback();
   });
