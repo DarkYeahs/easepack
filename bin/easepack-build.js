@@ -58,10 +58,8 @@ if (!config.output) {
   config.watch = true;
   config.dev = true;
 } else {
-  config.useUglifyjs = config.useUglifyjs === undefined ?
-    true : config.useUglifyjs;
-  config.useCleancss = config.useCleancss === undefined ?
-    true : config.useCleancss;
+  config.setIfUndefined('useUglifyjs', true);
+  config.setIfUndefined('useCleancss', true);
 }
 
 var compiler;

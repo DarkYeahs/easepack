@@ -27,6 +27,19 @@ Config.prototype.set = function (key, value) {
   return this;
 };
 
+Config.prototype.setIfUndefined = function (key) {
+  if (typeof key === 'string') {
+    if (this[key] === undefined) {
+      this.set.apply(this, arguments);
+    }
+  } else if (typeof key === 'object') {
+    Object.keys(key).forEach(function (k) {
+      this.setIfUndefined.call(this, k, key[k]);
+    }, this);
+  }
+  return this;
+};
+
 Config.prototype.media = function (media) {
   return media !== this.media ?
     new Config() :
