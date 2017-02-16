@@ -23,8 +23,9 @@ program
   .option('--port [port]', 'set server port')
   .option('--public-path [url]', 'the public URL of the output directory')
   .option('--up-to-date', 'run without update components')
-  .option('--use-uglifyjs', 'minify your JavaScript')
+  .option('--use-uglifyjs', 'minify your javascript file')
   .option('--use-cleancss', 'minify your css file')
+  .option('--use-imagemin', 'minify your image(png) file')
   .option('--display-chunks', 'display the separation of the modules into chunks')
   .parse(process.argv);
 
@@ -63,11 +64,9 @@ if (!config.output) {
   config.setIfUndefined('useImagemin', true);
 }
 
-var compiler;
-
 upToDate(config.tempComponents, function () {
   readdir(config.tempComponents, function () {
-    compiler = easepack(config);
+    var compiler = easepack(config);
     if (config.watch) {
       compiler.watch(compilerCallback);
     } else {
@@ -113,6 +112,10 @@ function upToDate(dir, callback) {
     var git = err ?
       spawn('git', ['clone', '--progress', repo, dir]) :
       spawn('git', ['pull', 'origin'], {cwd: dir});
+
+    git.stderr.on('data', function (data) {
+      console.log(data)
+    });
 
     git.on('close', function (code) {
       callback(code);
