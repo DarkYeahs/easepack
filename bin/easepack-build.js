@@ -60,6 +60,7 @@ if (!config.output) {
 } else {
   config.setIfUndefined('useUglifyjs', true);
   config.setIfUndefined('useCleancss', true);
+  config.setIfUndefined('useImagemin', true);
 }
 
 var compiler;

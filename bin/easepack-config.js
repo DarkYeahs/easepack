@@ -22,7 +22,9 @@ Config.prototype.set = function (key, value) {
   if (typeof key === 'string') {
     this[key] = value;
   } else if (typeof key === 'object') {
-    Object.assign(this, key);
+    Object.keys(key).forEach(function (k) {
+      this.set.call(this, k, key[k]);
+    }, this)
   }
   return this;
 };
