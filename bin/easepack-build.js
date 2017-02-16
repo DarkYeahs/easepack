@@ -66,9 +66,13 @@ if (!config.output) {
   config.setIfUndefined('useImagemin', true);
 }
 
-upToDate(config.tempComponents, function () {
-  readdir(config.tempComponents, function () {
+upToDate(config.tempComponents, function (uerr) {
+  readdir(config.tempComponents, function (rerr) {
     var compiler = easepack(config);
+
+    compiler.emitError(uerr);
+    compiler.emitError(rerr);
+
     if (config.watch) {
       compiler.watch(compilerCallback);
     } else {
@@ -84,12 +88,11 @@ function compilerCallback(err, stats) {
   spinner.stop();
 
   if (err) {
-    //lastHash = null;
-    console.error(err.stack || err);
+    //console.error(err.stack || err);
     if (err.details) console.error(err.details);
     if (!options.watch) {
       process.on("exit", function () {
-        process.exit(1); // eslint-disable-line
+        process.exit(1);
       });
     }
     return;
@@ -97,6 +100,12 @@ function compilerCallback(err, stats) {
 
   if (this.options.dev) {
     this.server.refresh();
+  }
+  if (this.errors.length) {
+    stats.compilation.errors.push.apply(
+      stats.compilation.errors,
+      this.errors
+    )
   }
 
   process.stdout.write(stats.toString({
@@ -111,16 +120,17 @@ function upToDate(dir, callback) {
   if (config.upToDate) return callback();
 
   fs.access(dir, function (err) {
+    var updateErr = undefined;
     var git = err ?
       spawn('git', ['clone', '--progress', repo, dir]) :
       spawn('git', ['pull', 'origin'], {cwd: dir});
 
     git.stderr.on('data', function (data) {
-      console.log(data)
+      updateErr = new Error('update components ' + data.toString());
     });
 
     git.on('close', function (code) {
-      callback(code);
+      callback(code > 0 ? updateErr : undefined);
     });
   });
 }
