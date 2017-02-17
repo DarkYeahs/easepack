@@ -8,7 +8,7 @@ var spawn = require('child_process').spawn;
 var pkg = require('../package.json');
 var config = require('./easepack-config');
 
-var repo = 'https://github.com/dante1977/components.git';
+var repo = 'ssh://git@git-cc.nie.netease.com:32200/frontend/ep_components.git';
 var spinner = ora().start();
 
 Object.defineProperty(global, 'easepack', {
@@ -30,6 +30,9 @@ program
   .option('--use-imagemin', 'minify your image(png) file')
   .option('--display-chunks', 'display the separation of the modules into chunks')
   .parse(process.argv);
+
+program._media = program.media;
+delete program.media;
 
 Object.assign(config, program);
 
@@ -69,7 +72,6 @@ if (!config.output) {
 upToDate(config.tempComponents, function (uerr) {
   readdir(config.tempComponents, function (rerr) {
     var compiler = easepack(config);
-
     compiler.emitError(uerr);
     compiler.emitError(rerr);
 

@@ -43,7 +43,7 @@ Config.prototype.setIfUndefined = function (key) {
 };
 
 Config.prototype.media = function (media) {
-  return media !== this.media ?
+  return media !== this._media ?
     new Config() :
     _config;
 };
@@ -55,7 +55,7 @@ function MatchProps(config) {
 }
 
 MatchProps.prototype.media = function (media, props) {
-  if (this.config.media === media) {
+  if (this.config._media === media) {
     Object.assign(this.props, props || {});
   }
   return this;
