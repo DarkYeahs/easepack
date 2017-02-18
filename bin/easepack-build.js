@@ -66,9 +66,12 @@ if (!config.output) {
   config.watch = true;
   config.dev = true;
 } else {
-  config.setIfUndefined('useUglifyjs', true);
-  config.setIfUndefined('useCleancss', true);
-  config.setIfUndefined('useImagemin', true);
+  config.setIfUndefined({
+    useUglifyjs: true,
+    useCleancss: true,
+    useImagemin: true,
+    publicPath: '/'
+  });
 }
 
 upToDate(config.tempComponents, function (updateErr) {
@@ -146,7 +149,7 @@ function readdir(dirs, callback) {
     }
     fs.readdir(dir, function (error, files) {
       if (error) {
-        return callback(new Error('reading components ' + error));
+        return callback(new Error('reading components ' + error) + '\n');
       }
       files.forEach(function (file) {
         var alias = path.basename(file, path.extname(file));
