@@ -2,6 +2,7 @@ var easepack = require('..');
 var fs = require('fs');
 var path = require('path');
 var ora = require('ora');
+var async = require('async');
 var program = require('commander');
 var spawn = require('child_process').spawn;
 
@@ -24,6 +25,7 @@ program
   .option('-m, --media [media]', 'output directory for bundled files')
   .option('--port [port]', 'set server port')
   .option('--public-path [url]', 'the public URL of the output directory')
+  .option('--private-repo [path]', 'the private component repository')
   .option('--up-to-date', 'run without update components')
   .option('--use-uglifyjs', 'minify your javascript file')
   .option('--use-cleancss', 'minify your css file')
@@ -69,11 +71,11 @@ if (!config.output) {
   config.setIfUndefined('useImagemin', true);
 }
 
-upToDate(config.tempComponents, function (uerr) {
-  readdir(config.tempComponents, function (rerr) {
+upToDate(config.tempComponents, function (updateErr) {
+  readdir([config.tempComponents, config.privateRepo], function (readErr) {
     var compiler = easepack(config);
-    compiler.emitError(uerr);
-    compiler.emitError(rerr);
+    compiler.emitError(updateErr);
+    compiler.emitError(readErr);
 
     if (config.watch) {
       compiler.watch(compilerCallback);
@@ -137,23 +139,28 @@ function upToDate(dir, callback) {
   });
 }
 
-function readdir(dir, callback) {
-  fs.readdir(dir, function (error, files) {
-    if (error) {
-      return callback(error);
+function readdir(dirs, callback) {
+  async.eachSeries(dirs, function (dir, callback) {
+    if (!dir) {
+      return callback();
     }
-    files.forEach(function (file) {
-      var alias = path.basename(file, path.extname(file));
-      var versionExpr = /@(\d)$/;
-
-      if (versionExpr.test(alias)) {
-        if (RegExp.$1 == pkg.version[0]) {
-          config.alias[alias.replace(versionExpr, '')] = path.join(dir, file);
-        }
-      } else {
-        config.alias[alias] = path.join(dir, file);
+    fs.readdir(dir, function (error, files) {
+      if (error) {
+        return callback(new Error('reading components ' + error));
       }
+      files.forEach(function (file) {
+        var alias = path.basename(file, path.extname(file));
+        var versionExpr = /@(\d)$/;
+
+        if (versionExpr.test(alias)) {
+          if (RegExp.$1 == pkg.version[0]) {
+            config.alias[alias.replace(versionExpr, '')] = path.join(dir, file);
+          }
+        } else {
+          config.alias[alias] = path.join(dir, file);
+        }
+      });
+      callback();
     });
-    callback();
-  });
+  }, callback);
 }
