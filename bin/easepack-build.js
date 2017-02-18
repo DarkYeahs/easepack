@@ -5,6 +5,7 @@ var ora = require('ora');
 var async = require('async');
 var program = require('commander');
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 
 var pkg = require('../package.json');
 var config = require('./easepack-config');
@@ -124,22 +125,30 @@ function compilerCallback(err, stats) {
 }
 
 function upToDate(dir, callback) {
-  if (config.upToDate) return callback();
+  async.parallel([
+    function (callback) {
+      if (config.upToDate) {
+        return callback();
+      }
+      fs.access(dir, function (error) {
+        var err, git = error ?
+          spawn('git', ['clone', '--progress', repo, dir]) :
+          spawn('git', ['pull', 'origin'], {cwd: dir});
 
-  fs.access(dir, function (err) {
-    var updateErr = undefined;
-    var git = err ?
-      spawn('git', ['clone', '--progress', repo, dir]) :
-      spawn('git', ['pull', 'origin'], {cwd: dir});
+        git.stderr.on('data', function (data) {
+          err = new Error('update components ' + data.toString());
+        });
 
-    git.stderr.on('data', function (data) {
-      updateErr = new Error('update components ' + data.toString());
-    });
-
-    git.on('close', function (code) {
-      callback(code > 0 ? updateErr : undefined);
-    });
-  });
+        git.on('close', function (code) {
+          callback(code > 0 ? err : undefined);
+        });
+      });
+    }, function (callabck) {
+      exec('git config --get user.name', function (error, name) {
+        config.anchor = name && JSON.stringify(name.toString().trim()).slice(1, -1);
+        callabck();
+      });
+    }], callback);
 }
 
 function readdir(dirs, callback) {
