@@ -1,14 +1,16 @@
 {
   "request": "easepack",
-  "version": "1.0.0",
-  "description": "前端工程构建工具",
+  "version": "1.0.1",
+  "description": "A simple CLI in a easy way to use, base on webpack",
+  "preferGlobal": true,
   "main": "index.js",
   "scripts": {
     "test": "mocha test"
   },
   "keywords": [
-    "前端",
-    "构建工具"
+    "cli",
+    "frontend",
+    "build tool"
   ],
   "bin": {
     "easepack": "bin/easepack.js"
@@ -18,7 +20,7 @@
     "url": "git+https://github.com/dante1977/easepack.git"
   },
   "author": "zhengquanbin",
-  "license": "BSD",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dante1977/easepack/issues"
   },
@@ -50,6 +52,9 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.2.1"
+    "mocha": "^2.4.5"
+  },
+  "engines": {
+    "node": ">=4.4.7"
   }
 }

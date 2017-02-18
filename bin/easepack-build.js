@@ -9,7 +9,7 @@ var spawn = require('child_process').spawn;
 var pkg = require('../package.json');
 var config = require('./easepack-config');
 
-var repo = 'ssh://git@git-cc.nie.netease.com:32200/frontend/ep_components.git';
+var repo = 'https://github.com/dante1977/easepack.git';
 var spinner = ora().start();
 
 Object.defineProperty(global, 'easepack', {
