@@ -43,7 +43,7 @@ Config.prototype.setIfUndefined = function (key) {
 };
 
 Config.prototype.media = function (media, value) {
-  var config = media !== this._media ?
+  var config = media !== _config._media ?
     new Config() :
     _config;
   if (typeof value === 'object') {
