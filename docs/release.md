@@ -27,3 +27,13 @@ easepack build --private-repo E:/workplace/ep_components
 //如 开发者，开发目录
 /*! zhengquanbin,htdocs\activity\mobileActivity */
 ```
+
+## v1.0.1
+
+### Fixed
+
+- Asset Path 条件判断的正则为空的问题
+
+## v1.0.0
+
+基础功能

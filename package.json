@@ -1,5 +1,5 @@
 {
-  "request": "easepack",
+  "name": "easepack",
   "version": "1.0.1",
   "description": "A simple CLI in a easy way to use, base on webpack",
   "preferGlobal": true,
@@ -50,6 +50,7 @@
     "vue-style-loader": "^2.0.0",
     "vue-template-compiler": "^2.1.10",
     "webpack": "^2.2.1",
+    "webpack-sources": "^0.1.4",
     "ws": "^1.1.0"
   },
   "devDependencies": {
