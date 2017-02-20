@@ -34,6 +34,8 @@ easepack build --private-repo E:/workplace/ep_components
 
 - Asset Path 条件判断的正则为空的问题
 
+- webpack RawSource 的引用问题
+
 ## v1.0.0
 
 基础功能
