@@ -5,7 +5,7 @@
   "preferGlobal": true,
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "e2e:build": "mocha test/e2e/test-build.js --timeout 60000"
   },
   "keywords": [
     "cli",
@@ -55,7 +55,9 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "execa": "^0.6.0",
+    "mocha": "^2.4.5",
+    "rimraf": "^2.5.0"
   },
   "engines": {
     "node": ">=4.4.7"
