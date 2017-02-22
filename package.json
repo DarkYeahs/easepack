@@ -1,14 +1,16 @@
 {
-  "request": "easepack",
-  "version": "1.0.0",
-  "description": "前端工程构建工具",
+  "name": "easepack",
+  "version": "1.0.3",
+  "description": "A simple CLI in a easy way to use, base on webpack",
+  "preferGlobal": true,
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "e2e:build": "mocha test/e2e/test-build.js --timeout 60000"
   },
   "keywords": [
-    "前端",
-    "构建工具"
+    "cli",
+    "frontend",
+    "build tool"
   ],
   "bin": {
     "easepack": "bin/easepack.js"
@@ -18,7 +20,7 @@
     "url": "git+https://github.com/dante1977/easepack.git"
   },
   "author": "zhengquanbin",
-  "license": "BSD",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dante1977/easepack/issues"
   },
@@ -36,6 +38,8 @@
     "glob": "^7.1.1",
     "imagemin": "^5.2.2",
     "imagemin-pngquant": "^5.0.0",
+    "images": "^3.0.0",
+    "layout": "^2.2.0",
     "loader-utils": "^0.2.16",
     "node-images": "^1.5.5",
     "node-sass": "^3.8.0",
@@ -47,10 +51,16 @@
     "vue-style-loader": "^2.0.0",
     "vue-template-compiler": "^2.1.10",
     "webpack": "^2.2.1",
+    "webpack-sources": "^0.1.4",
     "ws": "^1.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.2.1"
+    "execa": "^0.6.0",
+    "mocha": "^2.4.5",
+    "rimraf": "^2.5.0"
+  },
+  "engines": {
+    "node": ">=4.4.7"
   }
 }

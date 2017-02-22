@@ -42,10 +42,14 @@ Config.prototype.setIfUndefined = function (key) {
   return this;
 };
 
-Config.prototype.media = function (media) {
-  return media !== this._media ?
+Config.prototype.media = function (media, value) {
+  var config = media !== _config._media ?
     new Config() :
     _config;
+  if (typeof value === 'object') {
+    config.set(value);
+  }
+  return config;
 };
 
 //
