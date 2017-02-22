@@ -86,6 +86,8 @@ $icons: sprite-map("icons/*.png");
 
 * `easepack.media` 的二次匹配问题
 
+* `privateRepo` 输出文件时，若存在依赖的组件存在 `privateRepo` 中，会发出警告
+
 ## v1.0.2
 
 released this on 2017.2.20
