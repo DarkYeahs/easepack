@@ -37,6 +37,7 @@
     "imagemin": "^5.2.2",
     "imagemin-pngquant": "^5.0.0",
     "loader-utils": "^0.2.16",
+    "node-images": "^1.5.5",
     "node-sass": "^3.8.0",
     "ora": "^1.1.0",
     "raw-loader": "^0.5.1",
