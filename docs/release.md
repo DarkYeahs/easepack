@@ -88,6 +88,8 @@ $icons: sprite-map("icons/*.png");
 
 * `privateRepo` 输出文件时，若存在依赖的组件存在 `privateRepo` 中，会发出警告
 
+* `banner` 可以自定义设置banner显示的文字
+
 ## v1.0.2
 
 released this on 2017.2.20
