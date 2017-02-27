@@ -9,5 +9,6 @@
 <style>
   body {
     display: flex;
+    background-image: url("./image1.png");
   }
 </style>
