@@ -90,6 +90,8 @@ $icons: sprite-map("icons/*.png");
 
 * `banner` 可以自定义设置banner显示的文字
 
+* 处理component中的静态资源的引用问题
+
 ## v1.0.2
 
 released this on 2017.2.20

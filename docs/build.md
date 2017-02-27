@@ -10,5 +10,9 @@
 
 可以通过 `--config [file]` 自定义配置文件.
 
-#### easepack.set
+#### easepack.set(key, value)
+
+设置全局变量
+
+* key [String] 要解析的 URL 查询字符串
 
