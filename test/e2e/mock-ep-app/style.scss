@@ -1,0 +1,12 @@
+$sprite: sprite-map('image/*.png');
+$names: sprite-names($sprite);
+
+.bg {
+  font-size: 12px;
+
+  @each $name in $names {
+    .#{$name} {
+      background: sprite($sprite, $name) no-repeat;
+    }
+  }
+}

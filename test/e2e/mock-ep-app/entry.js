@@ -1,2 +1,3 @@
-import App from './App.vue'
-console.log('this is test entry');
+//var b = require('./App.vue');
+var a = require('./style.scss');
+console.log('this is test entry', a);

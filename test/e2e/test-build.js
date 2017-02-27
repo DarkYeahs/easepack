@@ -15,7 +15,7 @@ describe('command:build', function () {
   }
 
   function teardown(done) {
-    rm('dist');
+    //rm('dist');
     process.chdir(originalCwd)
     done()
   }
