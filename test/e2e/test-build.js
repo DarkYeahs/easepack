@@ -61,7 +61,7 @@ describe('command:build', function () {
           var content = fs.readFileSync(path.join('dist', file), 'utf8');
           expect(content.split('\n').length).to.equal(2);
           expect(content).to.contain(anchor);
-          expect(content).to.contain('e2e\\mock-ep-app');
+          expect(content).to.contain('e2e/mock-ep-app');
           if (file.endsWith('.css')) {
             expect(content).to.contain('background:url(//cc.cdn.com/image.png)');
             expect(content).to.contain('body{display:flex;');
