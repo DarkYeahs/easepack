@@ -10,7 +10,7 @@
 
 `easepack` 编译的整个流程都是通过配置来控制的，固化了构建流程，让工程构建变得简单
 
-#### easepack.match(glob, props)
+### easepack.match(glob, props)
 
 首先介绍设置规则的配置接口
 
@@ -36,7 +36,7 @@ easepack.match('src/*.js', {
 
 * 规则覆盖
 
-#### easepack.media(media, props)
+### easepack.media(media, props)
 
 接口提供多种状态功能，比如有些配置是仅供开发环境下使用，有些则是仅供生产环境使用的。
 
