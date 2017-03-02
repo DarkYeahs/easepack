@@ -12,7 +12,7 @@
 
 ### easepack.match(glob, props)
 
-首先介绍设置规则的配置接口
+首先介绍设置规则的配置接口，配置处理入口文件
 
 * `glob` [String] `easepack` 把匹配文件路径的路径作为 `glob`，匹配到的文件会分配给它设置的 props。关于 `glob` 语法，[请参看glob](https://github.com/isaacs/node-glob)
 
@@ -30,11 +30,34 @@ easepack.match('src/*.js', {
 
 * `url` [String] 指定文件的资源定位路径，如 `[name].[ext]?[hash]`
 
-* `name` [String]
+* `name` [String] `webpack` 的 `module` 的姓名
 
 ##### 重要特性
 
 * 规则覆盖
+
+假设有两条规则 A 和 B，它俩同时命中了文件 `test.js`，如果 A 在 B 前面，B 的属性会覆盖 A 的同名属性。不同名属性追加到 `test.js` 的 File 对象上。
+
+```
+// A
+easepack.match('*.js', {
+  url: '[name].[ext]?[hash]'
+});
+
+// B
+easepack.match('test.js', {
+  url: '[name].[hash].[ext]'
+})
+```
+
+那么 `test.js` 分配到的属性
+
+```
+{
+  url: '[name].[hash].[ext]'
+}
+
+```
 
 ### easepack.media(media, props)
 
@@ -47,9 +70,22 @@ easepack.match('src/*.js', {
 ```javascript
 //通过 easepack build -m dev 来匹配，给 'src/*.js' 文件添加 '[name].[ext]?[hash]' 属性
 easepack
-  .match('src/*.js')
+  .match('src/*.js', {
+    url: '[name].[ext]'
+  })
   .media('dev', {
     url: '[name].[ext]?[hash]'
   });
 ```
+
+### easepack.set(key, value)
+
+设置一些全局属性
+
+
+
+
+
+
+
 

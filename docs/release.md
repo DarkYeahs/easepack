@@ -1,3 +1,9 @@
+## v1.0.4
+
+### New Features
+
+* `useSourceMap` 是否生成 source map 文件，默认为 `false`
+
 ## v1.0.3
 
 ### New Features
