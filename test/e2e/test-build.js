@@ -87,7 +87,7 @@ describe('command:build', function () {
       expect(typeof pngFile).to.equal('string');
       var spriteContent = fs.readFileSync(path.join('dist', spriteFile));
       var pngImage = images(spriteContent);
-      expect(spriteContent.length).to.equal(3619);
+      expect(spriteContent.length < 3620).to.equal(true);
       expect(pngImage.height()).to.equal(44);
       expect(pngImage.width()).to.equal(78);
       done();
