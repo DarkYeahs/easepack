@@ -75,6 +75,8 @@ if (!config.output) {
   });
 }
 
+config.setIfUndefined('useBase64', '2kb');
+
 upToDate(config.tempComponents, function (updateErr) {
   readdir([config.tempComponents, config.privateRepo], function (readErr) {
     var compiler = easepack(config);
