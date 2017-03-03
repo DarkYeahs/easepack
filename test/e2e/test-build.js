@@ -76,6 +76,7 @@ describe('command:build', function () {
       var htmlContent = fs.readFileSync(path.join('dist', htmlFile), 'utf8');
       expect(htmlContent).to.contain('//cc.cdn.com/entry.js');
       expect(htmlContent).to.contain('//cc.cdn.com/entry.css');
+      expect(htmlContent).to.contain('//cc.cdn.com/image1.png');
       expect(htmlContent).to.not.contain('<!-- inject_css -->');
       done();
     })

@@ -31,6 +31,8 @@ program
   .option('--use-uglifyjs', 'minify your javascript file')
   .option('--use-cleancss', 'minify your css file')
   .option('--use-imagemin', 'minify your image(png) file')
+  .option('--use-base64', 'inline your image in base64 way')
+  .option('--use-sourcemap', 'generate sourcemap file for js/css file')
   .option('--display-chunks', 'display the separation of the modules into chunks')
   .parse(process.argv);
 
