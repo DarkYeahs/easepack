@@ -65,7 +65,6 @@ config.tempComponents = path.join(config.tempPath, 'components');
 
 if (!config.output) {
   config.output = path.join(config.tempPath, 'web');
-  config.publicPath = '/';
   config.watch = true;
   config.dev = true;
 } else {
@@ -77,8 +76,11 @@ if (!config.output) {
   });
 }
 
-config.setIfUndefined('port', '8080');
-config.setIfUndefined('useBase64', '2kb');
+config.setIfUndefined({
+  useBase64: '2kb',
+  publicPath: '/',
+  port: 8080
+});
 
 upToDate(config.tempComponents, function (updateErr) {
   readdir([config.tempComponents, config.privateRepo], function (readErr) {
