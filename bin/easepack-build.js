@@ -147,13 +147,6 @@ function upToDate(dir, callback) {
           callback(code > 0 ? err : undefined);
         });
       });
-    }, function (callabck) {
-      exec('git config --get user.name', function (error, name) {
-        if (name) {
-          config.anchor = JSON.stringify(name.toString().trim()).slice(1, -1);
-        }
-        callabck();
-      });
     }], callback);
 }
 
