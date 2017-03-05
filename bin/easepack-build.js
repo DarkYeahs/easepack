@@ -77,6 +77,7 @@ if (!config.output) {
   });
 }
 
+config.setIfUndefined('port', '8080');
 config.setIfUndefined('useBase64', '2kb');
 
 upToDate(config.tempComponents, function (updateErr) {
