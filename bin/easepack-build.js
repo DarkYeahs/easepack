@@ -1,13 +1,7 @@
 var easepack = require('..');
-var fs = require('fs');
 var path = require('path');
 var ora = require('ora');
-var async = require('async');
 var program = require('commander');
-var spawn = require('child_process').spawn;
-var exec = require('child_process').exec;
-
-var pkg = require('../package.json');
 var config = require('./easepack-config');
 
 var repo = 'https://github.com/dante1977/components.git';
@@ -50,21 +44,7 @@ Object.assign(config, program);
 config.config = program.config || 'easepack.config.js';
 require(path.join(config.context, config.config));
 
-var tempDirs = ['LOCALAPPDATA', 'HOME', 'APPDATA'];
-var tempDirName = '.easepack-temp';
-var tempPath = '';
-
-for (var i = 0, temp = tempDirs[i]; temp; i++) {
-  if (tempPath = process.env[temp]) {
-    break;
-  }
-}
-tempPath = tempPath || (__dirname + '/..');
-config.tempPath = path.join(tempPath, tempDirName);
-config.tempComponents = path.join(config.tempPath, 'components');
-
 if (!config.output) {
-  config.output = path.join(config.tempPath, 'web');
   config.watch = true;
   config.dev = true;
 } else {
@@ -82,19 +62,13 @@ config.setIfUndefined({
   port: 8080
 });
 
-upToDate(config.tempComponents, function (updateErr) {
-  readdir([config.tempComponents, config.privateRepo], function (readErr) {
-    var compiler = easepack(config);
-    compiler.emitError(updateErr);
-    compiler.emitError(readErr);
+var compiler = easepack(config);
 
-    if (config.watch) {
-      compiler.watch(compilerCallback);
-    } else {
-      compiler.run(compilerCallback);
-    }
-  });
-});
+if (config.watch) {
+  compiler.watch(compilerCallback);
+} else {
+  compiler.run(compilerCallback);
+}
 
 function compilerCallback(err, stats) {
   if (!config.watch || err) {
@@ -129,52 +103,4 @@ function compilerCallback(err, stats) {
       chunkOrigins: false,
       chunkModules: false
     }) + '\n');
-}
-
-function upToDate(dir, callback) {
-  async.parallel([
-    function (callback) {
-      if (config.upToDate) {
-        return callback();
-      }
-      fs.access(dir, function (error) {
-        var err, git = error ?
-          spawn('git', ['clone', '--progress', repo, dir]) :
-          spawn('git', ['pull', 'origin'], {cwd: dir});
-
-        git.stderr.on('data', function (data) {
-          err = new Error('update components ' + data.toString());
-        });
-
-        git.on('close', function (code) {
-          callback(code > 0 ? err : undefined);
-        });
-      });
-    }], callback);
-}
-
-function readdir(dirs, callback) {
-  async.eachSeries(dirs, function (dir, callback) {
-    if (!dir) {
-      return callback();
-    }
-    fs.readdir(dir, function (error, files) {
-      if (error) {
-        return callback(new Error('reading components ' + error) + '\n');
-      }
-      files.forEach(function (file) {
-        var alias = path.basename(file, path.extname(file));
-        var versionExpr = /@(\d)$/;
-
-        if (versionExpr.test(alias)) {
-          if (RegExp.$1 == pkg.version[0]) {
-            config.alias[alias.replace(versionExpr, '')] = path.join(dir, file);
-          }
-        } else {
-          config.alias[alias] = path.join(dir, file);
-        }
-      });
-      callback();
-    });
-  }, callback);
 }
