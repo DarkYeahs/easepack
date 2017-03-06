@@ -4,7 +4,6 @@ var ora = require('ora');
 var program = require('commander');
 var config = require('./easepack-config');
 
-var repo = 'https://github.com/dante1977/components.git';
 var spinner = ora().start();
 
 Object.defineProperty(global, 'easepack', {
@@ -77,7 +76,6 @@ function compilerCallback(err, stats) {
   spinner.stop();
 
   if (err) {
-    //console.error(err.stack || err);
     if (err.details) console.error(err.details);
     if (!options.watch) {
       process.on("exit", function () {
@@ -86,7 +84,6 @@ function compilerCallback(err, stats) {
     }
     return;
   }
-
   if (this.options.dev) {
     this.server.refresh();
   }
