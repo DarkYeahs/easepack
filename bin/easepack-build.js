@@ -76,8 +76,9 @@ function compilerCallback(err, stats) {
   spinner.stop();
 
   if (err) {
+    console.log(err);
     if (err.details) console.error(err.details);
-    if (!options.watch) {
+    if (!this.options.watch) {
       process.on("exit", function () {
         process.exit(1);
       });
