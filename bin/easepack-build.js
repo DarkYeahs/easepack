@@ -18,6 +18,7 @@ program
   .option('-o, --output [target]', 'write the files to disk')
   .option('-m, --media [media]', 'output directory for bundled files')
   .option('--port [port]', 'set server port')
+  .option('--msg [message]', 'set message for this compilation')
   .option('--public-path [url]', 'the public URL of the output directory')
   .option('--private-repo [path]', 'the private component repository')
   .option('--up-to-date', 'run without update components')
