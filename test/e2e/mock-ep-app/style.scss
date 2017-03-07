@@ -10,3 +10,15 @@ $names: sprite-names($sprite);
     }
   }
 }
+
+.lt15kb {
+  background-image: url("./base64/lt15kb.png");
+}
+
+.gt15kb {
+  background-image: url("./base64/gt15kb.png");
+}
+
+.jpgtest {
+  background-image: url("./base64/jpgtest.jpg");
+}

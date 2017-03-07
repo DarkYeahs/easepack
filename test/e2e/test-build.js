@@ -38,7 +38,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(5);
+      expect(files.length).to.equal(6);
       expect(result.code).to.equal(0);
       done();
     })
@@ -74,12 +74,12 @@ describe('command:build', function () {
       var htmlFile = files.filter(file => (file.endsWith('.html')))[0];
       expect(typeof htmlFile).to.equal('string');
       var htmlContent = fs.readFileSync(path.join('dist', htmlFile), 'utf8');
-      expect(htmlContent).to.contain('//cc.cdn.com/entry.js');
-      expect(htmlContent).to.contain('//cc.cdn.com/entry.css');
-      expect(htmlContent).to.contain('//cc.cdn.com/image1.png');
       expect(htmlContent).to.not.contain('<!-- inject_css -->');
+      expect(htmlContent).to.contain('//cc.cdn.com/image1.png');
+      expect(htmlContent).to.contain('//cc.cdn.com/entry.css');
+      expect(htmlContent).to.contain('//cc.cdn.com/entry.js');
       done();
-    })
+    });
 
     it('build with sprite correct sprite minify', function (done) {
       var spriteFile = files.filter(file => (file.endsWith('image.png')))[0];
@@ -92,7 +92,16 @@ describe('command:build', function () {
       expect(pngImage.height()).to.equal(44);
       expect(pngImage.width()).to.equal(78);
       done();
-    })
+    });
+
+    it('build with images using base64', function (done) {
+      var file = files.filter(file => (file.endsWith('.css')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain('data:image/jpeg;base64');
+      expect(content).to.contain('data:image/png;base64');
+      expect(typeof file).to.equal('string');
+      done();
+    });
 
   });
 });
