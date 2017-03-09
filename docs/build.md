@@ -20,21 +20,28 @@
 
 我们修改例子的配置文件 `easepack.config.js`，添加以下内容
 
+若 src 目录下有 entry1.js, entry2.js 文件
+
 ```javascript
-//若 src 目录下有 entry1.js, entry2.js 文件
 easepack.match('src/*.js', {
   url: '[name].[ext]?[hash]'
 });
+```
 
-//等同于 webpack 的 webpack.config.js
+等同于 webpack 的 webpack.config.js
+
+```
 module.exports = {
   entry: {
     'src/entry1': './src/entry1.js',
     'src/entry2': './src/entry2.js'
   }
 };
+```
 
-//不同于 webpack，easepack 也会处理 .html 文件
+不同于 webpack，easepack 也会处理 .html 文件
+
+```
 easepack.match('*.html');
 ```
 
