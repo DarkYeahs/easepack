@@ -6,9 +6,9 @@
 
 ## Configuration files
 
-默认地，`easepack` 会加载根目录下的 `~/easepack.config.js` 配置文件，当然也可以通过 `--config [file]` 自定义配置文件（可参见 `easepack` 的命令）
+默认地，`easepack` 会加载根目录下的 `~/easepack.config.js` 配置文件，当然也可以通过 `--config [file]` 自定义配置文件（可参见命令）
 
-`easepack` 通过 `easepack.config.js` 编译的整个流程都是通过配置来控制的，固化了构建流程，让工程构建变得简单，下面是 `easepack` 提供的API
+通过 `easepack.config.js` 控制编译的整个流程，让工程构建变得简单，下面是 `easepack` 提供的API
 
 ### easepack.match(glob, props)
 
@@ -20,7 +20,7 @@
 
 我们修改例子的配置文件 `easepack.config.js`，添加以下内容
 
-若 src 目录下有 entry1.js, entry2.js 文件
+若 src 目录下有 entry1.js 文件
 
 ```javascript
 easepack.match('src/*.js', {
@@ -33,8 +33,10 @@ easepack.match('src/*.js', {
 ```
 module.exports = {
   entry: {
-    'src/entry1': './src/entry1.js',
-    'src/entry2': './src/entry2.js'
+    'src/entry1': './src/entry1.js'
+  },
+  output: {
+    filename: '[name].js?[chunkhash]'
   }
 };
 ```

@@ -1,8 +1,10 @@
-## v1.0.4
+## v1.1.0
 
 ### New Features
 
-* `useSourceMap` 是否生成 source map 文件，默认为 `false`
+* `autoRsync` 是否在 `output` 的目录自动提交SVN，并同步远程测试服。默认为 `false`
+
+* `rsyncMsg` 在 `autoRsync` 设置为 `true` 后，自动提交SVN时的 `message`。
 
 ## v1.0.3
 
