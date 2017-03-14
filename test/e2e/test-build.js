@@ -38,7 +38,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(6);
+      expect(files.length).to.equal(7);
       expect(result.code).to.equal(0);
       done();
     })
@@ -91,6 +91,16 @@ describe('command:build', function () {
       expect(spriteContent.length < 3620).to.equal(true);
       expect(pngImage.height()).to.equal(44);
       expect(pngImage.width()).to.equal(78);
+      done();
+    });
+
+    it('build with left-right sprite corrected', function (done) {
+      var spriteFile = files.filter(file => (file.endsWith('leftright.png')))[0];
+      expect(typeof spriteFile).to.equal('string');
+      var spriteContent = fs.readFileSync(path.join('dist', spriteFile));
+      var pngImage = images(spriteContent);
+      expect(pngImage.height()).to.equal(129);
+      expect(pngImage.width()).to.equal(816);
       done();
     });
 

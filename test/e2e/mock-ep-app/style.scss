@@ -1,12 +1,28 @@
-$sprite: sprite-map('image/*.png');
+$sprite: sprite-map("image/*.png");
 $names: sprite-names($sprite);
 
-.bg {
+$leftright: sprite-map("leftright/*.png", "left-right");
+$name2: sprite-names($leftright);
+
+.bg4 {
   font-size: 12px;
 
   @each $name in $names {
     .#{$name} {
+      width: #{sprite-width($sprite, $name)}px;
+      height: #{sprite-height($sprite, $name)}px;
       background: sprite($sprite, $name) no-repeat;
+      background-position: -#{sprite-position-x($sprite, $name)}px -#{sprite-position-y($sprite, $name)}px;
+    }
+  }
+}
+
+.left-right {
+  font-size: 12px;
+
+  @each $name2 in $name2 {
+    .#{$name2} {
+      background: sprite($leftright, $name2) no-repeat;
     }
   }
 }
