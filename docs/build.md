@@ -14,9 +14,9 @@
 
 首先介绍设置规则的配置接口，配置处理入口文件（类似 `webpack` 的 `entry` 接口）
 
-* `glob` [String] `easepack` 把匹配文件路径的路径作为 `glob`，匹配到的文件会分配给它设置的 props。关于 `glob` 语法，[请参看glob](https://github.com/isaacs/node-glob)
+* `glob` **[String]** `easepack` 把匹配文件路径的路径作为 `glob`，匹配到的文件会分配给它设置的 props。关于 `glob` 语法，[请参看glob](https://github.com/isaacs/node-glob)
 
-* `props` [Object] 编译规则属性，包括文件属性和插件属性
+* `props` **[Object]** 编译规则属性，包括文件属性和插件属性
 
 我们修改例子的配置文件 `easepack.config.js`，添加以下内容
 
@@ -47,46 +47,19 @@ module.exports = {
 easepack.match('*.html');
 ```
 
-##### 更多属性
+##### 更多可设置属性
 
-* `url` [String] 指定文件的资源定位路径，如 `[name].[ext]?[hash]`
+* `url` **[String]** 指定文件的资源定位路径，如 `[name].[ext]?[hash]`
 
-* `name` [String] `webpack` 的 `module` 的姓名
-
-##### 重要特性
-
-* 规则覆盖
-
-假设有两条规则 A 和 B，它俩同时命中了文件 `test.js`，如果 A 在 B 前面，B 的属性会覆盖 A 的同名属性。不同名属性追加到 `test.js` 的 File 对象上。
-
-```
-// A
-easepack.match('*.js', {
-  url: '[name].[ext]?[hash]'
-});
-
-// B
-easepack.match('test.js', {
-  url: '[name].[hash].[ext]'
-})
-```
-
-那么 `test.js` 分配到的属性
-
-```
-{
-  url: '[name].[hash].[ext]'
-}
-
-```
+* `name` **[String]** `webpack` 的 `name`，默认为文件的相对根目录的路径（不带后缀）
 
 ### easepack.media(media, props)
 
 接口提供多种状态功能，比如有些配置是仅供开发环境下使用，有些则是仅供生产环境使用的。
 
-* `media` [String] 配置的 `media` 值
+* `media` **[String]** 配置的 `media` 值
 
-* `props` [Object] 编译规则属性，包括文件属性和插件属性
+* `props` **[Object]** 编译规则属性，包括文件属性和插件属性
 
 ```javascript
 //通过 easepack build -m dev 来匹配，给 'src/*.js' 文件添加 '[name].[ext]?[hash]' 属性
@@ -101,9 +74,20 @@ easepack
 
 ### easepack.set(key, value)
 
-设置一些全局属性
+设置一些全局属性，用于控制构建过程和文件最终的输出形式。
 
+```javascript
+//压缩JS文件
+easepack.set('useUglifyjs', true);
+```
 
+##### 更多可设置属性
+
+* `output` **[String]** 设置文件输出的路径（类似 `webpack` 的 `output`）。
+
+> 当 `output` 为空时
+
+* `useUglifyjs` **[Boolean]**  是否输出压缩的JS文件。
 
 
 

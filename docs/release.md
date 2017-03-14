@@ -6,6 +6,18 @@
 
 * `rsyncMsg` 在 `autoRsync` 设置为 `true` 后，自动提交SVN时的 `message`。
 
+例子：
+
+```javascript
+//会在编译后，自动在 `../beta` 提交SVN，并同步远程测试服
+easepack.set({
+  autoRsync: true,
+  output: '../beta'
+});
+```
+
+> 注意：提交到正式服时，也会自动提交SVN，但不会同步远程正试服，需要手动访问链接
+
 ## v1.0.3
 
 ### New Features
