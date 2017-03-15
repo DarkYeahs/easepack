@@ -85,9 +85,13 @@ easepack.set('useUglifyjs', true);
 
 * `output` **[String]** 设置文件输出的路径（类似 `webpack` 的 `output`）。
 
-> 当 `output` 为空时
+> 当 `output` 为空时，`easepack` 会在本地开启服务，通过 `http://127.0.0.1:8080/` 访问编译后的文件内容。
 
 * `useUglifyjs` **[Boolean]**  是否输出压缩的JS文件。
+
+* `useCleancss` **[Boolean]**  是否输出压缩的CSS文件。
+
+* `useImagemin` **[Boolean]**  是否输出压缩的IMAGE文件。
 
 
 
