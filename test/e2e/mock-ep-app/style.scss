@@ -38,3 +38,7 @@ $name2: sprite-names($leftright);
 .jpgtest {
   background-image: url("./base64/jpgtest.jpg");
 }
+
+.inline {
+  background-image: url("./base64/inline.png?__inline");
+}

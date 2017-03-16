@@ -63,7 +63,7 @@ describe('command:build', function () {
           expect(content).to.contain(anchor);
           expect(content).to.contain('e2e/mock-ep-app');
           if (file.endsWith('.css')) {
-            expect(content).to.contain('background:url(//cc.cdn.com/image.png)');
+            expect(content).to.contain('background:url(//cc.cdn.com/image.spr.png?a83eaf)');
             expect(content).to.contain('body{display:flex;');
           }
         });
@@ -82,7 +82,7 @@ describe('command:build', function () {
     });
 
     it('build with sprite correct sprite minify', function (done) {
-      var spriteFile = files.filter(file => (file.endsWith('image.png')))[0];
+      var spriteFile = files.filter(file => (file.endsWith('image.spr.png')))[0];
       var pngFile = files.filter(file => (file.endsWith('image1.png')))[0];
       expect(typeof spriteFile).to.equal('string');
       expect(typeof pngFile).to.equal('string');
@@ -95,7 +95,7 @@ describe('command:build', function () {
     });
 
     it('build with left-right sprite corrected', function (done) {
-      var spriteFile = files.filter(file => (file.endsWith('leftright.png')))[0];
+      var spriteFile = files.filter(file => (file.endsWith('leftright.spr.png')))[0];
       expect(typeof spriteFile).to.equal('string');
       var spriteContent = fs.readFileSync(path.join('dist', spriteFile));
       var pngImage = images(spriteContent);
@@ -109,7 +109,16 @@ describe('command:build', function () {
       var content = fs.readFileSync(path.join('dist', file), 'utf8');
       expect(content).to.contain('data:image/jpeg;base64');
       expect(content).to.contain('data:image/png;base64');
+      expect(content).to.not.contain('base64/inline.png');
       expect(typeof file).to.equal('string');
+      done();
+    });
+
+    it('build with image/sprite using url', function (done) {
+      var file = files.filter(file => (file.endsWith('.css')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain('gt15kb.str.png?ea33fc');
+      expect(content).to.contain('image.spr.png?a83eaf');
       done();
     });
 
