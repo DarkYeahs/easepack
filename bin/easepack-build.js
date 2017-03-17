@@ -101,5 +101,5 @@ function compilerCallback(err, stats) {
       version: false,
       chunkOrigins: false,
       chunkModules: false
-    }) + '\n');
+    }) + '\n\n');
 }
