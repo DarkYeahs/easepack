@@ -122,5 +122,13 @@ describe('command:build', function () {
       done();
     });
 
+    it('build with entry using es2015', function (done) {
+      var file = files.filter(file => (file.endsWith('.js')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain(', and output "+');
+      expect(content).not.to.contain('let ');
+      done();
+    });
+
   });
 });

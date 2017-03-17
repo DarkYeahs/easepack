@@ -1,4 +1,5 @@
 easepack
+  .set('useEs2015', true)
   .set('useBase64', '15kb')
   .set('publicPath', '//cc.cdn.com/')
   .set('spriteUrl', '[name].spr.[ext]?[hash]');

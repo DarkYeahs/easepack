@@ -1,3 +1,3 @@
-var b = require('./App.vue');
-var a = require('./style.scss');
-console.log('this is test entry', a, b);
+let b = require('./App.vue');
+import a from './style.scss';
+console.log(`this is test entry, and output ${a} ${b}?`);
