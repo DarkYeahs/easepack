@@ -1,6 +1,8 @@
+var path = require('path');
 var easeapck = require('../..');
+
 easeapck({
-  context: 'C:\\Users\\ADMIN\\AppData\\Roaming\\npm\\node_modules\\easepack\\test\\e2e\\mock-ep-app',
+  context: path.resolve('./mock-ep-app'),
   matches: [
     {pattern: 'base64/*.png', props: {url: '[name].str.[ext]?[hash]'}},
     {pattern: '*.{js,html}', props: {}}
@@ -12,7 +14,11 @@ easeapck({
   publicPath: '//cc.cdn.com/',
   config: 'easepack.config.js',
   spriteUrl: '[name].spr.[ext]?[hash]'
-}).run(function (stats) {
+}).run(function (err, stats) {
+  if (err) {
+    console.log(err);
+    return;
+  }
   process.stdout.write(stats.toString({
       colors: true,
       version: false,
