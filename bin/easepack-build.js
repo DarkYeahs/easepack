@@ -1,10 +1,10 @@
 var easepack = require('..');
 var path = require('path');
-var ora = require('ora');
+//var ora = require('ora');
 var program = require('commander');
 var config = require('./easepack-config');
 
-var spinner = ora().start();
+//var spinner = ora().start();
 
 Object.defineProperty(global, 'easepack', {
   enumerable: true,
@@ -74,7 +74,7 @@ function compilerCallback(err, stats) {
   if (!config.watch || err) {
     this.webpackCompiler.purgeInputFileSystem();
   }
-  spinner.stop();
+  //spinner.stop();
 
   if (err) {
     console.log(err);
