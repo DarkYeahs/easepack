@@ -46,6 +46,9 @@ Config.prototype.media = function (media, value) {
   var config = media !== _config._media ?
     new Config() :
     _config;
+  if (~media.indexOf(',')) {
+    throw new Error('media key contains an invalid character `,`');
+  }
   if (typeof value === 'object') {
     config.set(value);
   }

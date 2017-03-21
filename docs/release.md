@@ -1,3 +1,11 @@
+## v1.2.0
+
+### New Features
+
+* `useEs2015` 是否启用 `ES2015` 。默认为 `false`
+
+* `?__inline` 通过添加 ?__inline 后缀，显性表示将图片用 `base64` 添加到代码中
+
 ## v1.1.0
 
 ### New Features
