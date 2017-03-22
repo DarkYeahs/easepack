@@ -1,6 +1,6 @@
 {
   "name": "easepack",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "A simple CLI in a easy way to use, base on webpack",
   "preferGlobal": true,
   "main": "index.js",
