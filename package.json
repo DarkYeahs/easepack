@@ -44,7 +44,7 @@
     "imagemin-pngquant": "^5.0.0",
     "images": "^3.0.0",
     "layout": "^2.2.0",
-    "loader-utils": "^0.2.16",
+    "loader-utils": "0.2.16",
     "node-sass": "^3.13.1",
     "raw-loader": "^0.5.1",
     "sass-loader": "^4.1.1",
