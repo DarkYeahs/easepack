@@ -26,7 +26,7 @@ describe('command:build', function () {
 
     before(function (done) {
       setup();
-      execa('node', [cli, '-o', 'dist'])
+      execa('node', [cli, '-o', 'dist'], {stdio: 'inherit'})
         .then(function (res) {
           result = res;
           files = fs.readdirSync('dist');
