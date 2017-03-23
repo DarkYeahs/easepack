@@ -26,7 +26,7 @@ describe('command:build', function () {
 
     before(function (done) {
       setup();
-      execa('node', [cli, '-o', 'dist'], {stdio: 'inherit'})
+      execa('node', [cli])
         .then(function (res) {
           result = res;
           files = fs.readdirSync('dist');
@@ -131,4 +131,29 @@ describe('command:build', function () {
     });
 
   });
+
+  describe('build with media', function () {
+    var result, files;
+
+    before(function (done) {
+      setup();
+      execa('node', [cli, '-m', 'm1'])
+        .then(function (res) {
+          result = res;
+          files = fs.readdirSync('dist');
+          done();
+        })
+        .catch(done);
+    });
+
+    after(teardown);
+
+    it('build with customing a banner', function (done) {
+      var file = files.filter(file => (file.endsWith('.js')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain('/*! custom a banner */');
+      done();
+    })
+  });
+
 });
