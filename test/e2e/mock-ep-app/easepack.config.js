@@ -10,10 +10,10 @@ easepack
 
 easepack
   .match('base64/*.png', {
-	url: '[name].str.[ext]?[hash]'
+	  url: '[name].str.[ext]?[hash]'
   })
   .media('willnotmatch', {
-	url: '[name].[ext]'
+	  url: '[name].[ext]'
   });
 
 easepack
