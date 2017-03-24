@@ -12,8 +12,17 @@ easepack
   .match('base64/*.png', {
 	  url: '[name].str.[ext]?[hash]'
   })
+  .match('*.md', {
+    emit: true
+  })
   .media('willnotmatch', {
 	  url: '[name].[ext]'
+  });
+
+ easepack
+  .match('*.md')
+  .media('m1', {
+  	url: '[name].[hash].[ext]'
   });
 
 easepack

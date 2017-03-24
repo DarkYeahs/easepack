@@ -38,7 +38,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(7);
+      expect(files.length).to.equal(8);
       expect(result.code).to.equal(0);
       done();
     })
@@ -137,7 +137,7 @@ describe('command:build', function () {
 
     before(function (done) {
       setup();
-      execa('node', [cli, '-m', 'm1'])
+      execa('node', [cli, '-m', 'm1'], {stdio: 'inherit'})
         .then(function (res) {
           result = res;
           files = fs.readdirSync('dist');
@@ -152,6 +152,14 @@ describe('command:build', function () {
       var file = files.filter(file => (file.endsWith('.js')))[0];
       var content = fs.readFileSync(path.join('dist', file), 'utf8');
       expect(content).to.contain('/*! custom a banner */');
+      done();
+    })
+
+    it('build with emit files', function (done) {
+      var file = files.filter(file => (file.endsWith('.md')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain('# guide file');
+      expect(file).to.equal('guide.23556b.md');
       done();
     })
   });
