@@ -5,6 +5,7 @@ easepack
   .set('publicPath', '//cc.cdn.com/')
   .set('spriteUrl', '[name].spr.[ext]?[hash]')
   .media('m1', {
+    useAutoprefixer: true,
   	banner: 'custom a banner'
   });
 

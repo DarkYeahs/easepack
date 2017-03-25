@@ -148,10 +148,24 @@ describe('command:build', function () {
 
     after(teardown);
 
+    it('build with expected files', function (done) {
+      expect(files.length).to.equal(8);
+      expect(result.code).to.equal(0);
+      done();
+    })
+
     it('build with customing a banner', function (done) {
       var file = files.filter(file => (file.endsWith('.js')))[0];
       var content = fs.readFileSync(path.join('dist', file), 'utf8');
       expect(content).to.contain('/*! custom a banner */');
+      done();
+    })
+
+    it('build with autoprefixer', function (done) {
+      var file = files.filter(file => (file.endsWith('.css')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain('display:-webkit-box;display:-webkit-flex;');
+      expect(content).to.contain('-webkit-transition:all 1s ease;transition:all 1s ease');
       done();
     })
 
