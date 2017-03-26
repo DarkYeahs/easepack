@@ -149,8 +149,14 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(8);
+      expect(files.length).to.equal(10);
       expect(result.code).to.equal(0);
+      done();
+    })
+
+    it('build with source map', function (done) {
+      var mapFiles = files.filter(file => (file.endsWith('.map')));
+      expect(mapFiles.length).to.equal(2);
       done();
     })
 
