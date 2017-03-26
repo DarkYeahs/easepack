@@ -4,12 +4,14 @@ var Path = require('path');
 var program = require('commander');
 var exec = require('child_process').exec;
 var loaderUtils = require("loader-utils");
+var NodeOutputFileSystem = require('webpack/lib/node/NodeOutputFileSystem')
 
 var config = require('./easepack-config');
 
 var tempDirName = '.easepack-temp';
 var tempPath = Path.join(os.tmpdir(), '..', tempDirName);
 var repo = 'ssh://git@git-cc.nie.netease.com:32200/frontend/';
+var fileSystem = new NodeOutputFileSystem();
 
 program
   .usage('<project-name> [template-name]')
@@ -39,6 +41,11 @@ fs.access(templatePath, function (err) {
 function copyTo(from, to, callback) {
   fs.readdir(from, function (err, files) {
     if (err) return callback(err);
+    files.forEach(function (err, file) {
 
+    })
   });
+}
+
+function writeOut(err) {
 }
