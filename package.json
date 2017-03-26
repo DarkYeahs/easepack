@@ -36,7 +36,6 @@
     "bytes": "^2.4.0",
     "commander": "^2.9.0",
     "css-loader": "^0.26.1",
-    "download": "^5.0.3",
     "express": "^4.14.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "fastparse": "^1.1.1",
