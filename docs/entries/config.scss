@@ -1,0 +1,44 @@
+@import "~mixins";
+
+.easepack-title {
+  display: block;
+  padding: 100px 180px;
+}
+
+.ui-vue-spinner {
+  &.static {
+    position: static;
+    @include translate(0, 0);
+  }
+}
+
+a.trigger {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+div.sidebar-toggle {
+  z-index: 700;
+}
+
+header.header.is-fixed {
+  z-index: 999;
+}
+
+.weui-dialog__ft {
+  .weui-dialog__btn.weui-dialog__btn_primary {
+    color: #0BB20C;
+  }
+}
+
+.vux-popup-mask.vux-popup-show {
+  z-index: 1000 !important;
+}
+
+div.vux-popup-dialog {
+  z-index: 1001;
+}
+
+.inline-calendar {
+  max-width: 372px;
+}
