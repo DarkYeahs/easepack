@@ -16,7 +16,7 @@ npm install git+ssh://git@git-cc.nie.netease.com:32200/frontend/easepack.git -g
 
 ## 快速入门
 
-在正式介绍 `easepack` 功能之前，请确保你有安装 [Git]()
+在正式介绍 `easepack` 功能之前，请确保你有安装 [Git](https://git-scm.com/)
 
 <p class="tip">
   项目根目录：`easepack` 配置文件（默认`easepack.config.js`）所在的目录为项目根目录。
@@ -56,7 +56,7 @@ easepack.set(key, value); //或者 easepack.set(obj);
 easepack.set('useUglifyjs', true);
 ```
 
-#### 更多属性
+#### 更多全局属性
 
 <p class="danger">
   当 `output` 为空时，`easepack` 会在本地开启服务，通过 `http://127.0.0.1:8080/` 访问编译后的文件内容。
@@ -103,7 +103,7 @@ module.exports = {
 easepack.match('*.html');
 ```
 
-#### 更多属性
+#### 更多文件属性
 
 * `url` String 指定文件的资源定位路径，如 `[name].[ext]?[hash]`
 
@@ -129,6 +129,8 @@ easepack
     url: '[name].[ext]?[hash]'
   });
 ```
+
+## easeapck命令
 
 ## 初级使用
 
@@ -161,4 +163,39 @@ easepack.match('a.png', {
 
 ### CSS精灵图
 
-#### sprite-map($glob)
+#### sprite-map
+
+根据匹配的图片文件生成一张css雪碧图
+
+* `$glob` [String] 用于匹配需要合成雪碧图的图片
+
+```sass
+$icons: sprite-map("icons/*.png");
+```
+
+<p class="danger">
+ 文件
+</p>
+
+#### sprite
+
+返回指定图片的 `url` 和 `position`
+
+```sass
+// icons目录里有 icons/icon1.png，icons/icon2.png
+$icons: sprite-map("icons/*.png");
+
+.bg-icon1 {
+  background: sprite($icons, icon1) no-repeat; // url('/icons.png') 0 -24px no-repeat;
+}
+```
+
+#### sprite-width
+
+#### sprite-names
+
+#### sprite-position-x
+
+#### sprite-position-y
+
+#### sprite-url

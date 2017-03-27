@@ -171,7 +171,7 @@ var vuxDivider = require('vuxDivider');
 <vux-inline-calendar></vux-inline-calendar>
 
 ``` js
-import vuxInlineCalendar from 'vuxInlineCalendar';
+var vuxInlineCalendar = require('vuxInlineCalendar');
 ```
 
 <span class="vux-props-title">Props</span>
@@ -242,7 +242,7 @@ var vuxLoading = require('vuxLoading');
 </vux-popup>
 
 ``` js
-import vuxPopup from 'vuxPopup'
+var vuxPopup = require('vuxPopup');
 ```
 
 <span class="vux-props-title">Props</span>
@@ -316,12 +316,10 @@ var vuxToast = require('vuxToast');
 
 ### vuxXSwitch
 
-{{ switchValue }}
-
-<vux-x-switch v-model="switchValue"></vux-x-switch>
+<vux-x-switch v-model="switchValue"></vux-x-switch>&nbsp;&nbsp;<vux-x-switch :disabled="true"></vux-x-switch>
 
 ``` js
-import vuxXSwitch from 'vuxXSwitch'
+var vuxXSwitch = require('vuxXSwitch');
 ```
 
 
@@ -349,55 +347,20 @@ import vuxXSwitch from 'vuxXSwitch'
 
 ---
 
-### uiVueSpinner
-
-loading的小图标
-
-<ui-vue-spinner class="static"></ui-vue-spinner>
-
-### uiVueModal
-
-垂直左右居中的模态框
-
-用法
-
-```html
-<ui-vue-modal ref="modal">
-</ui-vue-modal>
-```
-
 ### uiVueTicktock
 
 一个VUE的倒计时组件
 
-<div>
-  <ui-vue-ticktock :seconds="10000"></ui-vue-ticktock>
-</div>
+<ui-vue-ticktock :seconds="10000"></ui-vue-ticktock>
 
-* `props.seconds` [Number] 倒计时的秒数
-
-* `events.ended` [Function] 当倒计到 `0` 的时候，会触发 `ended` 事件
-
-例子：
-
-```javascript
+```js
 <ui-vue-ticktock :seconds="100" @ended="handleEnded"/> //输出：<span>00:01:30</span>
 ```
 
-### uivueconfirm
+<span class="vux-props-title">Props</span>
 
-VUE的confirm组件
+| name   | type | default  |  version | description   |
+|-------|-------|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">seconds</span> | <span class="type type-boolean">Integer</span> | 0 | <span style="font-size:12px;white-space:nowrap;"></span> | 是否不可点击 |
 
-![](http://c.cotton.netease.com/buckets/4NhQWd/files/QCn17fI)
-
-* `props.text` [Number] 需要显示的文本
-
-* `events.ok` [Function] 点击确认的时候会触发
-
-* `events.cancel` [Function] 点击取消的时候会触发
-
-例子：
-
-```javascript
-<ui-vue-confirm text="内容" @ok="handleOK" @cancel="handleCancel"></ui-vue-confirm>
-```
+---

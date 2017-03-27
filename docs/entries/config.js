@@ -1,5 +1,4 @@
-var style = require('./config.scss')
-var uiVueSpinner = require('uiVueSpinner');
+var style = require('./config.scss');
 var uiVueTicktock = require('vuxActionsheet');
 
 docute.init({
@@ -44,7 +43,8 @@ docute.init({
           vuxLoading: require('vuxLoading'),
           vuxXSwitch: require('vuxXSwitch'),
           vuxPopup: require('vuxPopup'),
-          vuxInlineCalendar: require('vuxInlineCalendar')
+          vuxInlineCalendar: require('vuxInlineCalendar'),
+          uiVueTicktock: require('uiVueTicktock')
         },
         methods: {
           handleActionsheet: function () {

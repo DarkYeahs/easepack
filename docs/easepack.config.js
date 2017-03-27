@@ -1,7 +1,7 @@
 easepack
   .set('rsyncMsg', '手机直播PK模板提交')
   .set('spriteUrl', '[name].sprite.[ext]?[hash]')
-  .set('privateRepo', 'E:/workplace/ep_components')
+  //.set('privateRepo', 'E:/workplace/ep_components')
   .media('dev', {
     autoRsync: true,
     //output: './release',

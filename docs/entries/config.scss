@@ -1,8 +1,9 @@
 @import "~mixins";
 
 .easepack-title {
-  display: block;
-  padding: 100px 180px;
+  @include center-block();
+  max-width: 420px;
+  padding: 120px 0;
 }
 
 .ui-vue-spinner {
@@ -41,4 +42,8 @@ div.vux-popup-dialog {
 
 .inline-calendar {
   max-width: 372px;
+}
+
+.nav-item-dropdown {
+  cursor: pointer;
 }
