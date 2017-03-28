@@ -169,6 +169,24 @@ easepack.match('a.png', {
 
 ### CSS精灵图
 
+`easepack` 在建构 SCSS 文件中提供几项 Functions，用于实现精灵图
+
+<p class="danger">
+ `easepack` 的sprite的实现主要参考 `compass`，如果你熟悉了解 `compass` ，那也对下面方法比较熟悉。
+</p>
+
+```sass
+// icons目录里有 icons/i1.png，icons/i2.png文件
+$icons: sprite-map("icons/*.png");
+
+.bg-sprite-i1 {
+  display: block;
+  width: sprite-width($icons, i1);
+  height: sprite-height($icons, i1);
+  background: sprite($icons, i1) no-repeat;
+}
+```
+
 #### sprite-map
 
 根据匹配的图片文件生成一张css雪碧图
@@ -176,32 +194,34 @@ easepack.match('a.png', {
 * `$glob` [String] 用于匹配需要合成雪碧图的图片
 
 ```sass
-$icons: sprite-map("icons/*.png");
-```
+// icons目录里有 icons/i1.png，icons/i2.png文件
 
-<p class="danger">
- 文件
-</p>
+$icons: sprite-map("icons/*.png");
+$names: sprite-names($icons); // output ['i1', 'i2']
+
+.bg-sprite-icon {
+  background-image: sprite-url($icons);
+  background-repeat: no-repeat;
+
+  @each $name in $names {
+    &.#{$name} {
+      display: block;
+      width: sprite-width($icons, $name);
+      height: sprite-height($icons, $name);
+      background-position: -#{sprite-position-x($icons, $name)}px, -#{sprite-position-y($icons, $name)}px;
+    }
+  }
+}
+```
 
 #### sprite
 
 返回指定图片的 `url` 和 `position`
 
 ```sass
-// icons目录里有 icons/icon1.png，icons/icon2.png
 $icons: sprite-map("icons/*.png");
 
 .bg-icon1 {
   background: sprite($icons, icon1) no-repeat; // url('/icons.png') 0 -24px no-repeat;
 }
 ```
-
-#### sprite-width
-
-#### sprite-names
-
-#### sprite-position-x
-
-#### sprite-position-y
-
-#### sprite-url
