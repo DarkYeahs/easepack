@@ -230,6 +230,148 @@ var vuxLoading = require('vuxLoading');
 
 ---
 
+
+### vuxLoadMore
+
+<vux-load-more tip="数据加载中"></vux-load-more>
+
+``` js
+var vuxLoadMore = require('vuxLoadMore');
+```
+
+<span class="vux-props-title">Props</span>
+
+| name   | type | default  |  version | description   |
+|-------|-------|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">show-loading</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;"></span> | 是否显示 loading 图标 |
+| <span class="prop-key" style="white-space:nowrap;">tip</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 提示文字，如果没有显示图标也没有显示文字，则显示点 |
+| <span class="prop-key" style="white-space:nowrap;">background-color</span> | <span class="type type-string">String</span> | <span class="type" style="width:65px;background-color:#ffffff">#ffffff</span> | <span style="font-size:12px;white-space:nowrap;"></span> | 背景颜色，需要配置以让文字与背景完全融合 |
+
+
+
+
+
+---
+
+### vuxPicker
+
+<vux-picker v-model="picker" :data="pickerData" :fixed-columns="3" class="vux-my-picker"></vux-picker>
+
+``` js
+var vuxPicker = require('vuxPicker');
+```
+
+<p class="warning">
+  请确保列表项的`value`值是字符串，使用数字会出错。
+  <br />
+  如果你的业务接口返回数字值为数字，需要你先处理成数字；同样，获取到值时为字符串，你需要自己转换成数字。
+</p>
+
+非联动情况下，列表数据格式示例：
+
+``` js
+// data
+[['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你'], ['小米1', 'iPhone2', '华为3', '情怀4', '三星5', '其他6', '不告诉你7']]
+
+// 或者使用 name => value 的形式
+[[{
+  name: '2019届5班',
+  value: '1'
+}, {
+  name: '2019届4班',
+  value: '2'
+}]]
+
+// value
+['小米', '小米1']
+```
+
+联动时，列表数据格式示例：
+
+``` js
+// data
+[{
+  name: '中国',
+  value: 'china',
+  parent: 0
+}, {
+  name: '美国',
+  value: 'USA',
+  parent: 0
+}, {
+  name: '广东',
+  value: 'china001',
+  parent: 'china'
+}, {
+  name: '广西',
+  value: 'china002',
+  parent: 'china'
+}, {
+  name: '美国001',
+  value: 'usa001',
+  parent: 'USA'
+}, {
+  name: '美国002',
+  value: 'usa002',
+  parent: 'USA'
+}, {
+  name: '广州',
+  value: 'gz',
+  parent: 'china001'
+}, {
+  name: '深圳',
+  value: 'sz',
+  parent: 'china001'
+}, {
+  name: '广西001',
+  value: 'gx001',
+  parent: 'china002'
+}, {
+  name: '广西002',
+  value: 'gx002',
+  parent: 'china002'
+}, {
+  name: '美国001_001',
+  value: '0003',
+  parent: 'usa001'
+}, {
+  name: '美国001_002',
+  value: '0004',
+  parent: 'usa001'
+}, {
+  name: '美国002_001',
+  value: '0005',
+  parent: 'usa002'
+}, {
+  name: '美国002_002',
+  value: '0006',
+  parent: 'usa002'
+}]
+```
+
+
+<span class="vux-props-title">Props</span>
+
+| name   | type | default  |  version | description   |
+|-------|-------|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">value</span> | <span class="type type-array">Array</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 表单值，使用 `v-model` 绑定 |
+| <span class="prop-key" style="white-space:nowrap;">data</span> | <span class="type type-array">Array</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 选项列表数据 |
+| <span class="prop-key" style="white-space:nowrap;">columns</span> | <span class="type type-number">Number</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 指定联动模式下的列数，当不指定时表示非联动 |
+| <span class="prop-key" style="white-space:nowrap;">fixed-columns</span> | <span class="type type-number">Number</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 指定显示多少列，隐藏多余的 |
+
+<span class="vux-props-title">Events</span>
+
+| name    | params   | description |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">on-change</span> |   `(value)` | 选择值变化时触发 |
+
+
+
+
+
+
+---
+
 ### vuxPopup
 
 <a class="trigger" @click="handlePopup">点击查看DOME</a>
@@ -267,6 +409,49 @@ var vuxPopup = require('vuxPopup');
 | <span class="prop-key" style="white-space:nowrap;">on-hide</span> |   &nbsp; | 关闭时触发 |
 | <span class="prop-key" style="white-space:nowrap;">on-show</span> |   &nbsp; | 显示时触发 |
 | <span class="prop-key" style="white-space:nowrap;">on-first-show</span> |   &nbsp; | 第一次显示时触发，可以在该事件回调里初始化数据或者界面 |
+
+
+
+
+
+---
+
+### vuxPopupPicker
+
+<a class="trigger" @click="handlePopupPicker">点击查看DOME</a>
+
+<vux-popup-picker v-model="picker" :data="pickerData" :show="popupPicker" @on-hide="handelOnHide"></vux-popup-picker>
+
+``` js
+var vuxPopupPicker = require('vuxPopupPicker');
+```
+
+<p class="tip">
+  其他选项与`picker`一致
+</p>
+
+
+<span class="vux-props-title">Props</span>
+
+| name   | type | default  |  version | description   |
+|-------|-------|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">value</span> | <span class="type type-array">Array</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 表单值，使用`v-model绑定` |
+| <span class="prop-key" style="white-space:nowrap;">title</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 标题 |
+| <span class="prop-key" style="white-space:nowrap;">cancel-text</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗的取消文字 |
+| <span class="prop-key" style="white-space:nowrap;">confirm-text</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗的确认文字 |
+| <span class="prop-key" style="white-space:nowrap;">placeholder</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 提示文字 |
+| <span class="prop-key" style="white-space:nowrap;">show-name</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否显示文字值而不是key |
+| <span class="prop-key" style="white-space:nowrap;">inline-desc</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | Cell的描述文字 |
+| <span class="prop-key" style="white-space:nowrap;">value-text-align</span> | <span class="type type-string">String</span> | right | <span style="font-size:12px;white-space:nowrap;">v2.1.0-rc.3</span> | value 对齐方式(text-align) |
+| <span class="prop-key" style="white-space:nowrap;">display-format</span> | <span class="type type-function">Function</span> |  | <span style="font-size:12px;white-space:nowrap;">v2.1.1-rc.7</span> | 自定义在cell上的显示格式，参数为当前 value，使用该属性时，show-name 属性将失效 |
+
+<span class="vux-props-title">Events</span>
+
+| name    | params   | description |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">on-change</span> |   `(value)` | 值变化时触发 |
+| <span class="prop-key" style="white-space:nowrap;">on-show</span> |   &nbsp; | 弹窗出现时触发 |
+| <span class="prop-key" style="white-space:nowrap;">on-hide</span> |   `(closeType)` true表示confirm(选择确认), false表示其他情况的关闭 | 弹窗关闭时触发 |
 
 
 
@@ -324,7 +509,7 @@ var vuxXSwitch = require('vuxXSwitch');
 
 
 ```html
-<x-switch v-model="value"></x-switch>
+<vux-x-switch v-model="value"></vux-x-switch>
 ```
 
 
@@ -361,6 +546,14 @@ var vuxXSwitch = require('vuxXSwitch');
 
 | name   | type | default  |  version | description   |
 |-------|-------|-------|-------|-------|
-| <span class="prop-key" style="white-space:nowrap;">seconds</span> | <span class="type type-boolean">Integer</span> | 0 | <span style="font-size:12px;white-space:nowrap;"></span> | 是否不可点击 |
+| <span class="prop-key" style="white-space:nowrap;">seconds</span> | <span class="type type-boolean">Integer</span> | 0 | <span style="font-size:12px;white-space:nowrap;"></span> | 倒计时的时长 |
+
+<span class="vux-props-title">Events</span>
+
+| name    | params   | description |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">on-ended</span> |  | 倒计结束时触发 |
+
+
 
 ---

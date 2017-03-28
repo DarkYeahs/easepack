@@ -7,29 +7,30 @@ easepack
   .media('m1', {
     useSourceMap: true,
     useAutoprefixer: true,
-  	banner: 'custom a banner'
+    banner: 'custom a banner',
+    privateRepo: '../mock-components'
   })
   .media('m2', {
     output: false,
     publicPath: '/',
     useSourceMap: true
-  })
+  });
 
 easepack
   .match('base64/*.png', {
-	  url: '[name].str.[ext]?[hash]'
+    url: '[name].str.[ext]?[hash]'
   })
   .match('*.md', {
     emit: true
   })
   .media('willnotmatch', {
-	  url: '[name].[ext]'
+    url: '[name].[ext]'
   });
 
- easepack
+easepack
   .match('*.md')
   .media('m1', {
-  	url: '[name].[hash].[ext]'
+    url: '[name].[hash].[ext]'
   });
 
 easepack

@@ -149,7 +149,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(10);
+      expect(files.length).to.equal(11);
       expect(result.code).to.equal(0);
       done();
     })
@@ -180,6 +180,15 @@ describe('command:build', function () {
       var content = fs.readFileSync(path.join('dist', file), 'utf8');
       expect(content).to.contain('# guide file');
       expect(file).to.equal('guide.23556b.md');
+      done();
+    });
+
+    it('build correct width components', function (done) {
+      var file = files.filter(file => (file.endsWith('.css')))[0];
+      var components = files.filter(file => (file.endsWith('_c_')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain('_c_/vuxDivider@1/divider.ea33fc.png');
+      expect(typeof components).to.equal('string');
       done();
     })
   });

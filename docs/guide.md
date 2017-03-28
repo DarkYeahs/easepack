@@ -4,7 +4,7 @@
 
 ## 简介
 
-`easepack build` 命令会给你个近乎于零配置来构建你的项目, 高效而又简单。
+`easepack build` 命令将会给你个近乎于零配置来构建你的项目, 高效而又简单。
 
 ## 安装
 
@@ -131,6 +131,12 @@ easepack
 ```
 
 ## easeapck命令
+
+通过以下 `easepack -h` 命令查看 `easepack` 提供了哪些命令。
+
+### init
+
+### build
 
 ## 初级使用
 

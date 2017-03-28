@@ -1,5 +1,6 @@
 var style = require('./config.scss');
 var uiVueTicktock = require('vuxActionsheet');
+var pickerData = require('../pickerData');
 
 docute.init({
   nav: [{
@@ -11,15 +12,15 @@ docute.init({
     title: '组件',
     type: 'dropdown',
     items: [{
-      title: '基础样式',
+      title: '样式库',
       path: '/style',
       markdown: require('!raw-loader!../components/style.md')
     }, {
-      title: '基础JS模块',
+      title: 'JS工具库',
       path: '/script',
       markdown: require('!raw-loader!../components/script.md')
     }, {
-      title: 'VUE组件',
+      title: 'VUE组件库',
       path: '/vue',
       markdown: require('!raw-loader!../components/vue.md'),
       component: {
@@ -31,7 +32,10 @@ docute.init({
             toast: false,
             loading: false,
             switchValue: false,
-            popup: false
+            popup: false,
+            picker: [],
+            pickerData: pickerData,
+            popupPicker: false
           }
         },
         components: {
@@ -44,7 +48,10 @@ docute.init({
           vuxXSwitch: require('vuxXSwitch'),
           vuxPopup: require('vuxPopup'),
           vuxInlineCalendar: require('vuxInlineCalendar'),
-          uiVueTicktock: require('uiVueTicktock')
+          uiVueTicktock: require('uiVueTicktock'),
+          vuxPicker: require('vuxPicker'),
+          vuxPopupPicker: require('vuxPopupPicker'),
+          vuxLoadMore: require('vuxLoadMore')
         },
         methods: {
           handleActionsheet: function () {
@@ -67,6 +74,13 @@ docute.init({
           },
           handlePopup: function () {
             this.popup = true;
+          },
+          handlePopupPicker: function () {
+            this.popupPicker = true;
+          },
+          handelOnHide: function () {
+
+            this.popupPicker = false;
           }
         }
       }
@@ -89,4 +103,4 @@ docute.init({
       url: 'https://docute.js.org'
     })
   ]
-})
+});

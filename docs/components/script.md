@@ -1,52 +1,46 @@
-## 基础JS模块
+## JS工具库
 
 ### ccActEnv
 
 WEB活动项目中用于判断CC环境
 
-#### ccActEnv.isRelease
-
-判断当前环境是否为正式服
-
-#### ccActEnv.isInGameRoom4PC
-
-判断是否在PC客户端的游戏房间的浏览器
-
-#### ccActEnv.isInMicRoom4PC
-
-判断是否在PC客户端的娱乐房间的浏览器
-
-#### ccActEnv.isInMobileRoom4PC
-
-判断是否在PC客户端的手机直播房间的浏览器
-
-#### ccActEnv.isInAndroid
-
-判断是否在Android客户端中打开的页面
-
-#### ccActEnv.isInIOS
-
-判断是否在IOS客户端中打开的页面
-
 ```js
-//判断源码
+//判断当前环境是否为正式服
 exports.isRelease = (window.location.hostname === 'cc.163.com');
+
+//判断是否在PC客户端的房间的浏览器
 exports.isInGameRoom4PC = !!(typeof external !== 'undefined' && external.ICC_WebkitVersion);
 exports.isInMicRoom4PC = !!(typeof external !== 'undefined' && external.ICC_WebkitVersion);
 exports.isInMobileRoom4PC = !!(typeof external !== 'undefined' && external.ICC_ShowMobileUserInfoTip);
 
-//isInIOS,isInAndroid 是通过判断 url 中否有含 'm_from=android/m_from=ios'
-//注意：从客户端打开的页面会加上 'm_from=android/m_from=ios' 参数，但在页面自已内跳转到其它的页面时没有
+//判断是否在手机客户端中打开的页面
+exports.isInIOS
+exports.isInAndroid
 ```
 
-### toUserPhotoUrl(purl, ptype)
+<p class="tip">
+  注意：从客户端打开的页面会加上 'm_from=android/m_from=ios' 参数，但在页面自已内跳转到其它的页面时没有
+</p>
+
+
+---
+
+### toUserPhotoUrl
 
 根据purl, ptype来获取用户头像的url
 
 * ` purl ` [string] 默认 = ` '22' `
 * ` ptype `  [Integer] 默认 = ` 0 `
 
-### classNames(class...)
+```js
+var toUserPhotoUrl = require('toUserPhotoUrl');
+
+toUserPhotoUrl(22, 0);
+```
+
+---
+
+### classNames
 
 详细文档见 [classNames](https://github.com/JedWatson/classnames)
 
@@ -65,11 +59,13 @@ classNames('foo', { bar: true, duck: false }, 'baz', { quux: true }); // => 'foo
 classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
 ```
 
+---
+
 ### querystring 
 
 解析的 URL 查询字符串
 
-#### querystring.parse(str[, sep[, eq[, options]]])
+querystring.parse(str[, sep[, eq[, options]]])
 
 * `str` [String] 要解析的 URL 查询字符串。 
 
@@ -92,7 +88,9 @@ classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1
 querystring.parse(location.search.substr(1))
 ```
 
-### pad(str, n) 
+---
+
+### pad
 
 数字字符串补0
 
@@ -105,16 +103,19 @@ querystring.parse(location.search.substr(1))
 pad(1, 3); //001
 ```
 
+---
 
 ### weinreClient
 
 将 `weinreClient` 引入进你的代码中，它会在页面的左上角创建一个 `10px*10px` 可点击的透明小按钮，点击后让会加载 `weinre` 的对应host的js
 
-#### weinreClient.init(host)
+weinreClient.init(host)
 
 ```javascript
 require('weinreClient').init('http://10.255.204.197:8020');
 ```
+
+---
 
 ### ccapiPcShiv
 
@@ -125,7 +126,11 @@ require('weinreClient').init('http://10.255.204.197:8020');
 require('ccapiPcShiv'); 
 ```
 
-* 目前只测试了在手机直播的房间有效，其它的还没有测试过
+<p class="tip">
+  目前只测试了在手机直播的房间有效，其它的还没有测试过
+</p>
+
+---
 
 ### keysPrevented
 
@@ -144,11 +149,13 @@ require('keysPrevented');
 
 * `onkeypress/onkeydown` 禁止后退等其它按键事件
 
+---
+
 ### domUtils
 
 HTML DOM 操作的工具方法
 
-#### domUtils.contains(container, contained)
+domUtils.contains(container, contained)
 
 判断 container 是否包含 contained
 

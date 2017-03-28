@@ -3,6 +3,7 @@
 </template>
 
 <script>
+  var vuxDivider = require('vuxDivider');
   module.exports = {};
 </script>
 
