@@ -39,19 +39,19 @@ docute.init({
           }
         },
         components: {
-          vuxAlert: require('vuxAlert'),
-          vuxActionsheet: require('vuxActionsheet'),
-          vuxConfirm: require('vuxConfirm'),
-          vuxDivider: require('vuxDivider'),
-          vuxToast: require('vuxToast'),
-          vuxLoading: require('vuxLoading'),
-          vuxXSwitch: require('vuxXSwitch'),
-          vuxPopup: require('vuxPopup'),
-          vuxInlineCalendar: require('vuxInlineCalendar'),
-          uiVueTicktock: require('uiVueTicktock'),
-          vuxPicker: require('vuxPicker'),
-          vuxPopupPicker: require('vuxPopupPicker'),
-          vuxLoadMore: require('vuxLoadMore')
+          //vuxAlert: require('vuxAlert'),
+          //vuxActionsheet: require('vuxActionsheet'),
+          //vuxConfirm: require('vuxConfirm'),
+          //vuxDivider: require('vuxDivider'),
+          //vuxToast: require('vuxToast'),
+          //vuxLoading: require('vuxLoading'),
+          //vuxXSwitch: require('vuxXSwitch'),
+          //vuxPopup: require('vuxPopup'),
+          //vuxInlineCalendar: require('vuxInlineCalendar'),
+          //uiVueTicktock: require('uiVueTicktock'),
+          //vuxPicker: require('vuxPicker'),
+          //vuxPopupPicker: require('vuxPopupPicker'),
+          //vuxLoadMore: require('vuxLoadMore')
         },
         methods: {
           handleActionsheet: function () {

@@ -4,11 +4,11 @@
 
 ## 简介
 
-`easepack build` 命令将会给你个近乎于零配置来构建你的项目, 高效而又简单。
+easepack 是面向前端的工程构建工具。解决前端工程中性能优化、资源加载（异步、同步、按需、预加载、依赖管理、合并、内嵌）、模块化开发、自动化工具、开发规范、代码部署等问题。
 
 ## 安装
 
-Using npm:
+使用 npm:
 
 ```bash
 npm install git+ssh://git@git-cc.nie.netease.com:32200/frontend/easepack.git -g
@@ -16,22 +16,25 @@ npm install git+ssh://git@git-cc.nie.netease.com:32200/frontend/easepack.git -g
 
 ## 快速入门
 
-在正式介绍 `easepack` 功能之前，请确保你有安装 [Git](https://git-scm.com/)
-
-<p class="tip">
-  项目根目录：`easepack` 配置文件（默认`easepack.config.js`）所在的目录为项目根目录。
-</p>
+在正式介绍 easepack 功能之前，请确保你有安装 [Git](https://git-scm.com/)。
 
 ```bash
+# 初始化项目
 easepack init ep-project
 
-cd ep-project
-easepack build -o ./output
+# 构建项目
+cd ep-project && easepack build
 ```
+
+easepack 内置了一个 Web Server 提供给构建后的代码进行调试。访问 `http://127.0.0.1:8080` URL 即可查看到页面渲染结果。
 
 * `./output` 输出构建后文件的目录
 
 * `easepack build -h` 获取更多参数
+
+<p class="tip">
+  项目根目录：easepack 配置文件（默认 easepack.config.js ）所在的目录为项目根目录。
+</p>
 
 ## 配置文件
 
@@ -161,15 +164,21 @@ easepack.set('useImagemin', false);
 
 ### 添加文件指纹
 
-`easepack` 是通过修改文件的 `url` 来实现添加 MD5 戳，配置如下：
+easepack 是通过 match 方法来匹配文件，并赋于 url 属性来实现添加 MD5 戳，配置如下：
 
-```javascript
-//清除其他配置，只剩下如下配置
+```js
 easepack.match('a.png', {
-  url: '[name].[ext]?[hash]'
+  url: '[name].[ext]?[hash]' //将会生成 a.png?eccc43
 });
 ```
 
+又或者：
+
+```js
+easepack.match('a.png', {
+  url: '[name]-[hash].[ext]?' //将会生成 a-eccc43.png
+});
+```
 
 ---
 
@@ -253,12 +262,10 @@ background-position: 0 -20px;
 ```
 
 ```css
-// icons目录里有 icons/i1.png，icons/i2.png文件
 $icons: sprite-map("icons/*.png");
 $names: sprite-names($icons); // output ['i1', 'i2']
 
 .bg-sprite-icon {
-  display: block;
   background-image: sprite-url($icons);
   background-repeat: no-repeat;
 
@@ -276,18 +283,14 @@ $names: sprite-names($icons); // output ['i1', 'i2']
 
 ```css
 .bg-sprite-icon {
-  display: block;
   background-image: url(/icons.png);
-  background-repeat: no-repeat;
-}
+  background-repeat: no-repeat; }
 .bg-sprite-icon.i1 {
   width: 20px;
   height: 20px;
-  background-position: 0 0;
-}
+  background-position: 0 0; }
 .bg-sprite-icon.i2 {
   width: 20px;
   height: 20px;
-  background-position: 0 -20px;
-}
+  background-position: 0 -20px; }
 ```
