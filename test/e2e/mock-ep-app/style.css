@@ -1,0 +1,14 @@
+.scroller-component {
+  display: block;
+  position: relative;
+  height: 238px;
+  overflow: hidden;
+  width: 100%;
+}
+.scroller-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}

@@ -1,3 +1,5 @@
+@import "style.css";
+
 $sprite: sprite-map("image/*.png");
 $names: sprite-names($sprite);
 

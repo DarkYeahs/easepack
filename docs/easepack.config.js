@@ -4,7 +4,7 @@ easepack
   //.set('privateRepo', 'E:/workplace/ep_components')
   .media('dev', {
     //autoRsync: true,
-    output: 'E:/htdocs/activity/easepack_doc',
+    output: 'E:\\htdocs\\activity\\easepack_doc',
     publicPath: '//192.168.229.171/web/activity/easepack_doc/'
   });
 

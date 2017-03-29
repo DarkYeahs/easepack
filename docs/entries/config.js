@@ -79,7 +79,6 @@ docute.init({
             this.popupPicker = true;
           },
           handelOnHide: function () {
-
             this.popupPicker = false;
           }
         }
