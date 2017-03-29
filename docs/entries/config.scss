@@ -1,5 +1,20 @@
 @import "~mixins";
 
+.markdown-body hr {
+  margin: 35px 0 !important;
+}
+
+//div.page,
+//header.header.is-fixed {
+//  left: 440px;
+//}
+//
+//figure.sidebar,
+//div.sidebar-toggle {
+//  left: 220px;
+//  width: 220px;
+//}
+
 .easepack-title {
   @include center-block();
   max-width: 420px;

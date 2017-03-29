@@ -134,9 +134,11 @@ easepack
 
 通过以下 `easepack -h` 命令查看 `easepack` 提供了哪些命令。
 
-### init
+### easepack init
 
-### build
+
+
+### easepack build
 
 ## 初级使用
 
@@ -155,6 +157,7 @@ easepack.set('useCleancss', false);
 easepack.set('useImagemin', false);
 ```
 
+---
 
 ### 添加文件指纹
 
@@ -167,61 +170,124 @@ easepack.match('a.png', {
 });
 ```
 
-### CSS精灵图
 
-`easepack` 在建构 SCSS 文件中提供几项 Functions，用于实现精灵图
+---
+
+### CssSprite图片合并
+
+These helpers make it easier to build and to work with css sprites.
+
+While it is allowed to use these directly, to do so is considered "advanced usage". It is recommended that you instead use the css sprite mixins that are designed to work with these functions.
 
 <p class="danger">
- `easepack` 的sprite的实现主要参考 `compass`，如果你熟悉了解 `compass` ，那也对下面方法比较熟悉。
+ easepack 的 CssSprite 的实现主要参考compass（文档是从那边复制过来的）。
 </p>
 
-```sass
-// icons目录里有 icons/i1.png，icons/i2.png文件
-$icons: sprite-map("icons/*.png");
+**sprite-map($glob, $layout)**
 
-.bg-sprite-i1 {
-  display: block;
-  width: sprite-width($icons, i1);
-  height: sprite-height($icons, i1);
-  background: sprite($icons, i1) no-repeat;
-}
+Generates a css sprite map from the files matching the glob pattern.
+
+The `$glob` should be glob pattern relative to the images directory that specifies what files will be in the css sprite. For example:
+
+```css
+/* icons目录里有 icons/i1.png，icons/i2.png文件 */
+$map: sprite-map("images/icons/*.png");
+background: sprite($map, i1) no-repeat;
 ```
 
-#### sprite-map
+This will generate a css sprite map and return a reference to it. It's important to capture this to a variable, because you will need to use it later when creating css sprites. In the above example you might end up with a new file named `images/icons.png` and your css stylesheet will have:
 
-根据匹配的图片文件生成一张css雪碧图
+```css
+background: url('/images/icons.png') 0px -24px no-repeat;
+```
 
-* `$glob` [String] 用于匹配需要合成雪碧图的图片
 
-```sass
+**sprite($map, $sprite)**
+
+Returns the image and background position for use in a single shorthand property:
+
+```css
+$map: sprite-map("images/icons/*.png");
+background: sprite($map, i1) no-repeat;
+```
+
+Becomes:
+
+```css
+background: url('/images/icons.png') 0 -24px no-repeat;
+```
+
+**sprite-names($map)**
+
+Returns a list of all sprite names within the supplied map
+
+**sprite-url($map)**
+
+Returns a url to the sprite image.
+
+**sprite-width($map, $sprite:?)**
+
+Returns the width of the generated sprite
+
+**sprite-height($map, $sprite:?)**
+
+Returns the height of the generated sprite
+
+**sprite-position-x($map, $sprite)**
+
+Returns the position for the original image in the sprite. This is suitable for use as a value to background-position.
+
+**sprite-position-y($map, $sprite)**
+
+Returns the position for the original image in the sprite. This is suitable for use as a value to background-position:
+
+```css
+$map: sprite-map("images/icons/*.png");
+background-position: -#{sprite-position-x($map, i1)}px -#{sprite-position-y($map, i1)}px;
+```
+
+Might generate something like:
+
+```css
+background-position: 0 -20px;
+```
+
+```css
 // icons目录里有 icons/i1.png，icons/i2.png文件
-
 $icons: sprite-map("icons/*.png");
 $names: sprite-names($icons); // output ['i1', 'i2']
 
 .bg-sprite-icon {
+  display: block;
   background-image: sprite-url($icons);
   background-repeat: no-repeat;
 
   @each $name in $names {
     &.#{$name} {
-      display: block;
-      width: sprite-width($icons, $name);
-      height: sprite-height($icons, $name);
+      width: -#{sprite-width($icons, $name)}px;
+      height: -#{sprite-height($icons, $name)}px;
       background-position: -#{sprite-position-x($icons, $name)}px, -#{sprite-position-y($icons, $name)}px;
     }
   }
 }
 ```
 
-#### sprite
+编译后
 
-返回指定图片的 `url` 和 `position`
-
-```sass
-$icons: sprite-map("icons/*.png");
-
-.bg-icon1 {
-  background: sprite($icons, icon1) no-repeat; // url('/icons.png') 0 -24px no-repeat;
+```css
+.bg-sprite-icon {
+  display: block;
+  background-image: url(/icons.png);
+  background-repeat: no-repeat;
+}
+.bg-sprite-icon.i1 {
+  width: 20px;
+  height: 20px;
+  background-position: 0 0;
+}
+.bg-sprite-icon.i2 {
+  width: 20px;
+  height: 20px;
+  background-position: 0 -20px;
 }
 ```

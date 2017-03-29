@@ -8,7 +8,7 @@ var rm = require('rimraf').sync;
 var exec = require('child_process').execSync;
 
 describe('command:build', function () {
-  var cli = path.join(__dirname, '../../bin/easepack-build');
+  var cli = path.join(__dirname, '../../bin/easepack-build.js');
   var originalCwd = process.cwd();
 
   function setup() {
