@@ -8,7 +8,7 @@ easepack 是面向前端的工程构建工具。解决前端工程中性能优�
 
 ## 安装
 
-使用 npm:
+使用 npm （Node.js Version, 6.x preferred）:
 
 ```bash
 npm install git+ssh://git@git-cc.nie.netease.com:32200/frontend/easepack.git -g
@@ -26,44 +26,78 @@ easepack init ep-project
 cd ep-project && easepack build
 ```
 
-easepack 内置了一个 Web Server 提供给构建后的代码进行调试。访问 `http://127.0.0.1:8080` URL 即可查看到页面渲染结果。
-
-* `./output` 输出构建后文件的目录
-
-* `easepack build -h` 获取更多参数
-
 <p class="tip">
-  项目根目录：easepack 配置文件（默认 easepack.config.js ）所在的目录为项目根目录。
+  easepack 内置了一个 Web Server 提供给构建后的代码进行调试。访问 `http://127.0.0.1:8080` URL 即可查看到页面渲染结果。easepack 在构建发布到具体的目录时，是不会开启内置的 Web Server。
 </p>
+
+构建发布到项目目录的 beta 目录下
+
+```bash
+easepack build -o ./beta
+```
+
+构建发布到项目父级目录的 dist 子目录下
+
+```bash
+easepack build -o ../dist
+```
+
+发布到其他盘 （Windows）
+
+```bash
+easepack build -o D:\\hosted\\activeiy\\dome
+```
 
 ## 配置文件
 
-默认配置文件为 `~/easepack.config.js` ，`easepack` 定义了一种类似 CSS 的配置方式。
-
-<p class="tip">
-  当然也可以通过 `--config [file]` 自定义配置文件（可参见命令）。
-</p>
+默认配置文件为 easepack.config.js，easepack 编译的整个流程都是通过配置来控制的。easepack 定义了一种类似 CSS 的配置方式。固化了构建流程，让工程构建变得简单。
 
 ### easepack.set
 
 首先介绍设置全局属性的接口，用于控制构建过程和全部文件最终的输出形式。
 
-```javascript
-easepack.set(key, value); //或者 easepack.set(obj);
+```js
+easepack.set(key, value);
 ```
 
-我们修改例子的配置文件 `easepack.config.js`，添加以下内容
+* `key` ： 可配置的全局属性，useUglifyjs, useCleancss 等。
 
-```javascript
+* `value` ： 对应属性的值。
+
+我们修改例子的配置文件 easepack.config.js ，添加以下内容
+
+```js
 //压缩JS文件
 easepack.set('useUglifyjs', true);
 ```
 
 #### 更多全局属性
 
-<p class="danger">
-  当 `output` 为空时，`easepack` 会在本地开启服务，通过 `http://127.0.0.1:8080/` 访问编译后的文件内容。
-</p>
+**output**
+
+指定构建输出文件的目录，默认为 false 。若 output 为 false 时，则会开启内置的 Web Server。
+
+**useUglifyjs**
+
+设置是否需要压缩 javascript 文件。当 output 为 false 时，默认为 false，反之。
+
+**useCleancss**
+
+设置是否需要压缩 css 文件。当 output 为 false 时，默认为 false，反之。
+
+**useImagemin**
+
+设置是否需要压缩 png 文件。当 output 为 false 时，默认为 false，反之。
+
+**useSourcemap**
+
+设置是否生成 source-map 文件，默认为 false。
+
+**useBase64**
+
+设置是否生成 source-map 文件，默认为 false。
+
+---
 
 ### easepack.match
 
