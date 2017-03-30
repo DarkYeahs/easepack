@@ -430,7 +430,6 @@ var vuxPopupPicker = require('vuxPopupPicker');
   其他选项与`picker`一致
 </p>
 
-
 <span class="vux-props-title">Props</span>
 
 | name   | type | default  |  version | description   |

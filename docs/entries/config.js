@@ -18,7 +18,12 @@ docute.init({
     }, {
       title: 'JS工具库',
       path: '/script',
-      markdown: require('!raw-loader!../components/script.md')
+      markdown: require('!raw-loader!../components/script.md'),
+      component: {
+        components: {
+          //vueLottery: require('../components/vueLottery.vue')
+        }
+      }
     }, {
       title: 'VUE组件库',
       path: '/vue',
@@ -39,19 +44,19 @@ docute.init({
           }
         },
         components: {
-          //vuxAlert: require('vuxAlert'),
-          //vuxActionsheet: require('vuxActionsheet'),
-          //vuxConfirm: require('vuxConfirm'),
-          //vuxDivider: require('vuxDivider'),
-          //vuxToast: require('vuxToast'),
-          //vuxLoading: require('vuxLoading'),
-          //vuxXSwitch: require('vuxXSwitch'),
-          //vuxPopup: require('vuxPopup'),
-          //vuxInlineCalendar: require('vuxInlineCalendar'),
-          //uiVueTicktock: require('uiVueTicktock'),
-          //vuxPicker: require('vuxPicker'),
-          //vuxPopupPicker: require('vuxPopupPicker'),
-          //vuxLoadMore: require('vuxLoadMore')
+          vuxAlert: require('vuxAlert'),
+          vuxActionsheet: require('vuxActionsheet'),
+          vuxConfirm: require('vuxConfirm'),
+          vuxDivider: require('vuxDivider'),
+          vuxToast: require('vuxToast'),
+          vuxLoading: require('vuxLoading'),
+          vuxXSwitch: require('vuxXSwitch'),
+          vuxPopup: require('vuxPopup'),
+          vuxInlineCalendar: require('vuxInlineCalendar'),
+          uiVueTicktock: require('uiVueTicktock'),
+          vuxPicker: require('vuxPicker'),
+          vuxPopupPicker: require('vuxPopupPicker'),
+          vuxLoadMore: require('vuxLoadMore')
         },
         methods: {
           handleActionsheet: function () {

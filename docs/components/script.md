@@ -167,3 +167,6 @@ domUtils.contains(container, contained)
 domUtils.contains( document.documentElement, document.body ); // true
 domUtils.contains( document.body, document.documentElement ); // false
 ```
+
+
+### 抽奖组件

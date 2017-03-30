@@ -1,10 +1,7 @@
 var easepack = require('..');
 var path = require('path');
-//var ora = require('ora');
 var program = require('commander');
 var config = require('./easepack-config');
-
-//var spinner = ora().start();
 
 Object.defineProperty(global, 'easepack', {
   enumerable: true,
@@ -15,19 +12,12 @@ Object.defineProperty(global, 'easepack', {
 program
   .usage('[entry]')
   .option('-c, --config [file]', 'use custom config file')
-  .option('-o, --output [target]', 'write the files to disk')
-  .option('-m, --media [media]', 'output directory for bundled files')
+  .option('-o, --output [target]', 'the output directory as an absolute path')
+  .option('-m, --media [media]', 'to define different rules for different media types')
+  .option('-rm, --rsync-msg [message]', 'set rsync message for this compilation')
   .option('--port [port]', 'set server port')
-  .option('--rsync-msg [message]', 'set message for this compilation')
-  .option('--public-path [url]', 'the public URL of the output directory')
-  .option('--private-repo [path]', 'the private component repository')
-  .option('--up-to-date', 'run without update components')
-  .option('--use-uglifyjs', 'minify your javascript file')
-  .option('--use-cleancss', 'minify your css file')
-  .option('--use-imagemin', 'minify your image(png) file')
-  .option('--use-base64', 'inline your image in base64 way')
-  .option('--use-sourcemap', 'generate sourcemap file for js/css file')
-  .option('--display-chunks', 'display the separation of the modules into chunks')
+  .option('--up-to-date', 'build without updating components')
+  //.option('--display-chunks', 'display the separation of the modules into chunks')
   .parse(process.argv);
 
 program._media = program.media;
@@ -74,7 +64,6 @@ function compilerCallback(err, stats) {
   if (!config.watch || err) {
     this.webpackCompiler.purgeInputFileSystem();
   }
-  //spinner.stop();
 
   if (err) {
     console.log(err);

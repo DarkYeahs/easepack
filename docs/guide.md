@@ -19,34 +19,36 @@ npm install git+ssh://git@git-cc.nie.netease.com:32200/frontend/easepack.git -g
 在正式介绍 easepack 功能之前，请确保你有安装 [Git](https://git-scm.com/)。
 
 ```bash
-# 初始化项目
+# 远程下载项目的模板
 easepack init ep-project
 
-# 构建项目
-cd ep-project && easepack build
+# 构建项目，并输出到 ep-project-dist 中
+cd ep-project && easepack build -o ../ep-project-dist
+```
+
+你也可以构建发布项到其它的目录下
+
+```bash
+#发布到项目根目录的 beta 目录下
+easepack build -o ./beta
+
+#发布到项目父级目录的 dist 子目录下
+easepack build -o ../dist
+
+#发布到其他盘的目录下 （Windows）
+easepack build -o E:\\htdocs\\m\\daily\\ep_dome
+```
+
+easepack 内置了一个 Web Server 提供给构建后的代码进行调试。
+
+```bash
+easepack build
 ```
 
 <p class="tip">
-  easepack 内置了一个 Web Server 提供给构建后的代码进行调试。访问 `http://127.0.0.1:8080` URL 即可查看到页面渲染结果。easepack 在构建发布到具体的目录时，是不会开启内置的 Web Server。
+访问 `http://127.0.0.1:8080` URL 即可查看到页面渲染结果。easepack 内置的 Server 不是常驻的，如果结束构建服务将会关闭的。
 </p>
 
-构建发布到项目目录的 beta 目录下
-
-```bash
-easepack build -o ./beta
-```
-
-构建发布到项目父级目录的 dist 子目录下
-
-```bash
-easepack build -o ../dist
-```
-
-发布到其他盘 （Windows）
-
-```bash
-easepack build -o D:\\hosted\\activeiy\\dome
-```
 
 ## 配置文件
 
@@ -71,31 +73,106 @@ easepack.set(key, value);
 easepack.set('useUglifyjs', true);
 ```
 
-#### 更多全局属性
+#### 全局属性
 
-**output**
+##### output
+
+`string`
 
 指定构建输出文件的目录，默认为 false 。若 output 为 false 时，则会开启内置的 Web Server。
 
-**useUglifyjs**
+##### publicPath
+
+`string`
+
+此选项指定在浏览器中引用时输出目录的公共URL。当加载外部资源（如图像，文件等）时，这是一个重要的选项。如果指定的值不正确，则在加载这些资源时会收到404错误。
+
+简单规则：从HTML页面的视图中输出的路径的URL。
+
+```js
+easepack.set('publicPath', '//cdn.example.com/'); // CDN (same protocol)
+```
+
+对于文件的配置：
+
+```js
+easepack.match('assets/spinner.gif', {
+  url: '[name].[hash].[png]'
+});
+```
+
+输出的文件URL就会是：
+
+```css
+background-image: url(//cdn.example.com/assets/spinner.a53582.gif);
+```
+
+##### autoRsync
+
+`boolean`
+
+当我们开发项目后，需要同步代码到测试机上（`192.168.229.171`），将 autoRsync 设成 true 即可。
+
+##### rsyncMsg
+
+`string`
+
+指定 autoRsync 的日志消息。
+
+##### spriteUrl
+
+`string`
+
+指定 CssSprite 合并生成的图片的URL
+
+##### useUglifyjs
+
+`boolean`
 
 设置是否需要压缩 javascript 文件。当 output 为 false 时，默认为 false，反之。
 
-**useCleancss**
+##### useCleancss
+
+ `boolean`
 
 设置是否需要压缩 css 文件。当 output 为 false 时，默认为 false，反之。
 
-**useImagemin**
+##### useImagemin
+
+ `boolean`
 
 设置是否需要压缩 png 文件。当 output 为 false 时，默认为 false，反之。
 
-**useSourcemap**
+##### useSourcemap
+
+`boolean`
 
 设置是否生成 source-map 文件，默认为 false。
 
-**useBase64**
+##### useBase64
 
-设置是否生成 source-map 文件，默认为 false。
+`boolean/string`
+
+默认地，easepack 在构建过程会将小于 2KB 的图片文件以 base64 嵌入其它对其依赖的文件中。
+
+```js
+easepack.set('useBase64', '5kb'); //嵌入小于 5kb 的图片文件
+easepack.set('useBase64', '2mb'); //嵌入小于 2mb 的图片文件
+easepack.set('useBase64', true); //嵌入所有的图片文件
+easepack.set('useBase64', false); //不对图片文件进行嵌入
+```
+
+除了上面的全局配置属性，也可以给资源加 `?__inline` 参数来标记资源嵌入需求（可无视 useBase64 的设定）。
+
+```css
+.logo {
+  background-image: url('./image/logo.png?__inline');
+}
+```
+
+<p class="warning">
+  easepack 不会对合成的 CssSprite 图进行 base64 的嵌入的。
+</p>
 
 ---
 
@@ -108,45 +185,96 @@ easepack.set('useUglifyjs', true);
 * `props` Object 编译规则属性，包括文件属性和插件属性
 
 <p class="danger">
-  `easepack` 会根据文件的后缀来选择不同的处理方法，如 `.js` 文件则会作为 `webpack` 的入口处理。
+  easepack 会根据文件的后缀来选择不同的处理方法，如 `.js` 文件则会作为 `webpack` 的入口处理。
 </p>
 
 我们修改例子的配置文件 `easepack.config.js`，添加以下内容
 
-若 src 目录下有 entry1.js 文件
-
-```javascript
-easepack.match('src/*.js', {
+```js
+easepack.match('entries/*.js', {
   url: '[name].[ext]?[hash]'
 });
 ```
 
-等同于 webpack 的 webpack.config.js
+#### 文件属性
 
-```
-module.exports = {
-  entry: {
-    'src/entry1': './src/entry1.js'
-  },
-  output: {
-    filename: '[name].js?[chunkhash]'
-  }
-};
-```
+##### name
 
-不同于 webpack，easepack 也会处理 .html 文件
+`string`
 
-```
-easepack.match('*.html');
+文件模块名称，默认为文件的不带后缀的路径。
+
+entries/dome.js 文件的 name 默认为 `entries/dome`，修改为 `domeName`。
+
+```js
+easepack.set('output', 'E:\\htdocs\\m\\daily\\ep_dome');
+easepack.match('entries/dome.js', {
+  name: 'domeName'
+});
 ```
 
-#### 更多文件属性
+<p class="danger">
+  默认的，目录构建后，entries/dome.js 会输出到 E:\\htdocs\\m\\daily\\ep_dome\\entries\\dome.js，修改后则会输出到 E:\\htdocs\\m\\daily\\ep_dome\\domeName.js
+</p>
 
-* `url` String 指定文件的资源定位路径，如 `[name].[ext]?[hash]`
+##### url
 
-* `name` String `url`中的 `name`, 默认为文件的相对根目录的路径（不带后缀）
+`string`
 
-* `emit` Boolean 设置是否输出文件。
+指定文件的资源定位路径。如文件：entries/dome.js
+
+```js
+easepack.set('output', 'E:\\htdocs\\m\\daily\\ep_dome');
+easepack.set('publicPath', '//cdn.example.com/');
+
+// 输出路径为到 E:\\htdocs\\m\\daily\\ep_dome\\entries\\dome.6802ae.js
+// URL: //cdn.example.com/entries/dome.6802ae.js
+easepack.match('entries/dome.js', {
+  url: '[name].[hash].[ext]'
+});
+
+// 输出路径为到 E:\\htdocs\\m\\daily\\ep_dome\\entries\\dome.js
+// URL: //cdn.example.com/entries/dome.js?6802ae
+easepack.match('entries/dome.js', {
+  url: '[name].[ext]?[hash]'
+});
+```
+
+| template    | value   | description |
+|-------|-------|-------|
+| [name] | entries/dome | 文件模块名称，默认为文件的不带后缀的路径 |
+| [ext] |  js | 文件的后缀，不带"."的 |
+| [hash] | 6802ae | 文件模块6位数的hash值 |
+
+##### emit
+
+`boolean`
+
+设置是否输出文件。
+
+| file prefix    | default   | description |
+|-------|-------|-------|
+| .js | true | .js 后缀的文件 emit 的默认值为 true，不可设置 |
+| .html |  true | .html 后缀的文件 emit 的默认值为 true，不可设置 |
+| 其它 | false | 其它后缀的文件 emit 的默认值为 false |
+
+<p class="warning">
+  easepack 在处理文件过程中只输出 emit 属性 true 的文件，和被 emit 为 true 的文件所依赖的文件。
+</p>
+
+默认的，如果 entries/dome.js 对 image/icon.png 没有依赖时， easepack 不会输出 image/icon.png 文件。当前 image/icon.png 文件的 emit 设置成 true，将会输出到目录中。
+
+```js
+easepack.match('entries/dome.js', {
+  url: '[name].[ext]?[hash]'
+});
+easepack.match('image/icon.png', {
+  emit: true,
+  url: '[name].[ext]?[hash]'
+});
+```
+
+---
 
 ### easepack.media
 
@@ -328,3 +456,7 @@ $names: sprite-names($icons); // output ['i1', 'i2']
   height: 20px;
   background-position: 0 -20px; }
 ```
+
+---
+
+### 自动同步到远端机器
