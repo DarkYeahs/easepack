@@ -125,6 +125,20 @@ background-image: url(//cdn.example.com/assets/spinner.a53582.gif);
 
 指定 CssSprite 合并生成的图片的URL
 
+##### useAutoprefixer
+
+`boolean/string`
+
+设置是否需要启用 [autoprefixer](https://github.com/postcss/autoprefixer) 。
+
+```js
+// ['iOS >= 7', 'Android >= 4.1']
+easepack.set('useAutoprefixer', true);
+
+// 自定义 browserslist
+easepack.set('useAutoprefixer', {browserslist: ['> 1%', 'last 2 versions']});
+```
+
 ##### useUglifyjs
 
 `boolean`
@@ -153,13 +167,17 @@ background-image: url(//cdn.example.com/assets/spinner.a53582.gif);
 
 `boolean/string`
 
-默认地，easepack 在构建过程会将小于 2KB 的图片文件以 base64 嵌入其它对其依赖的文件中。
+默认地，easepack 在构建过程会将小于 2kb 的图片文件以 base64 嵌入其它对其依赖的文件中。
 
 ```js
-easepack.set('useBase64', '5kb'); //嵌入小于 5kb 的图片文件
-easepack.set('useBase64', '2mb'); //嵌入小于 2mb 的图片文件
-easepack.set('useBase64', true); //嵌入所有的图片文件
-easepack.set('useBase64', false); //不对图片文件进行嵌入
+//嵌入小于 5kb 的图片文件
+easepack.set('useBase64', '5kb');
+
+ //嵌入所有的图片文件
+easepack.set('useBase64', true);
+
+//不对图片文件进行嵌入
+easepack.set('useBase64', false);
 ```
 
 除了上面的全局配置属性，也可以给资源加 `?__inline` 参数来标记资源嵌入需求（可无视 useBase64 的设定）。
@@ -273,6 +291,10 @@ easepack.match('image/icon.png', {
   url: '[name].[ext]?[hash]'
 });
 ```
+
+#### 规则覆盖
+
+
 
 ---
 
