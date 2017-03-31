@@ -19,7 +19,7 @@ npm install git+ssh://git@git-cc.nie.netease.com:32200/frontend/easepack.git -g
 在正式介绍 easepack 功能之前，请确保你有安装 [Git](https://git-scm.com/)。
 
 ```bash
-# 远程下载项目的模板
+# 下载远程项目的模板
 easepack init ep-project
 
 # 构建项目，并输出到 ep-project-dist 中
@@ -39,15 +39,48 @@ easepack build -o ../dist
 easepack build -o E:\\htdocs\\m\\daily\\ep_dome
 ```
 
-easepack 内置了一个 Web Server 提供给构建后的代码进行调试。
+当没有明确指定 output 输出目录时，easepack 会开启内置了一个 Web Server 提供给构建后的代码进行调试。
 
 ```bash
+# 浏览器访问 http://127.0.0.1:8080/dome.html 查看。
 easepack build
 ```
 
 <p class="tip">
-访问 `http://127.0.0.1:8080` URL 即可查看到页面渲染结果。easepack 内置的 Server 不是常驻的，如果结束构建服务将会关闭的。
+为了方便开发，easepack 支持文件监听，当启动文件监听时，修改文件会构建发布。easepack 内置的 Server 不是常驻的，如果结束构建服务将会关闭的。
 </p>
+
+
+## 命令行
+
+你可以通过 `easepack -h` 命令查看 easepack 的用法及提供了哪些命令。
+
+**easepack init**
+
+```bash
+easepack init <project-name> [template-name]
+```
+
+例子：
+
+```bash
+vue init ep-project
+```
+
+上面的命令表示从 [ep_dome](https://git-cc.nie.netease.com/frontend/ep_dome/tree/master) 里复制代码到 `./ep-project/` 里。
+
+---
+
+**easepack build**
+
+`easepack build` 命令给你一个近乎于零配置的开发步骤, install once and build everywhere.
+
+查看 easepack build 的所有命令。
+
+```bash
+easepack build --help
+easepack build -h
+```
 
 
 ## 配置文件
@@ -317,15 +350,6 @@ easepack
   });
 ```
 
-## easeapck命令
-
-通过以下 `easepack -h` 命令查看 `easepack` 提供了哪些命令。
-
-### easepack init
-
-
-
-### easepack build
 
 ## 初级使用
 

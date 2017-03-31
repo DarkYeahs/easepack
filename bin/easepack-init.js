@@ -15,7 +15,7 @@ var fileSystem = new NodeOutputFileSystem();
 
 program
   .usage('<project-name> [template-name]')
-  .option('--offline', 'use cached template')
+  //.option('--offline', 'use cached template')
   .parse(process.argv);
 
 var template = program.args[1];

@@ -163,7 +163,7 @@ domUtils.contains(container, contained)
 
 * `contained` [Element] The DOM element that may be contained by (a descendant of) the other element
 
-```javascript
+```js 
 domUtils.contains( document.documentElement, document.body ); // true
 domUtils.contains( document.body, document.documentElement ); // false
 ```
