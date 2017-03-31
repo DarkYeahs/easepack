@@ -65,7 +65,7 @@ classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1
 
 解析的 URL 查询字符串
 
-querystring.parse(str[, sep[, eq[, options]]])
+**querystring.parse(str[, sep[, eq[, options]]])**
 
 * `str` [String] 要解析的 URL 查询字符串。 
 
@@ -168,8 +168,6 @@ domUtils.contains( document.documentElement, document.body ); // true
 domUtils.contains( document.body, document.documentElement ); // false
 ```
 
----
-
 ## JS组件库
 
 ### lotteryround(抽奖)
@@ -195,3 +193,16 @@ var obj = lotteryround({
   total_num: 8 //
 });
 ```
+
+<span class="vux-props-title">Options</span>
+
+| name   | type | default | description   |
+|-------|-------|-------|-------|
+| contentId | String |  | 容器节点的id |
+| width | Integer | 0 | 抽奖组件的宽度 |
+| height | Integer | 0 | 抽奖组件的高度 |
+| bg | String |  | 背景奖盘的图片 |
+| btn | String |  | 开始按钮的图片 |
+| pointer | String |  | 指针的图片 |
+| total_num | Integer |  | 奖品的总个数 |
+
