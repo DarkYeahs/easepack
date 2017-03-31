@@ -497,6 +497,56 @@ var vuxToast = require('vuxToast');
 
 ---
 
+### vuxXDialog
+
+<a class="trigger" @click="handleXDialog">点击查看DOME</a>
+
+``` js
+var vuxXDialog = require('vuxXDialog');
+```
+
+<vux-x-dialog v-model="xDialog" :hide-on-blur="true">
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+  <div>vux-x-dialog的内容</div>
+</vux-x-dialog>
+
+<span class="vux-props-title">Props</span>
+
+| name   | type | default  |  version | description   |
+|-------|-------|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">value</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗是否可见，使用`v-model`绑定 |
+| <span class="prop-key" style="white-space:nowrap;">mask-transition</span> | <span class="type type-string">String</span> | vux-mask | <span style="font-size:12px;white-space:nowrap;"></span> | 遮罩层动画 |
+| <span class="prop-key" style="white-space:nowrap;">dialog-transition</span> | <span class="type type-string">String</span> | vux-dialog | <span style="font-size:12px;white-space:nowrap;"></span> | 弹窗动画 |
+| <span class="prop-key" style="white-space:nowrap;">hide-on-blur</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否在点击遮罩时自动关闭弹窗 |
+| <span class="prop-key" style="white-space:nowrap;">scroll</span> | <span class="type type-boolean">Boolean</span> | true | <span style="font-size:12px;white-space:nowrap;"></span> | 是否在弱窗上滚动时 body 内容也滚动 |
+
+<span class="vux-props-title">Slots</span>
+
+| name    | description   |  version |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">default</span> | 弹窗的主体内容 | <span style="font-size:12px;white-space:nowrap;"></span> |
+
+<span class="vux-props-title">Events</span>
+
+| name    | params   | description |
+|-------|-------|-------|
+| <span class="prop-key" style="white-space:nowrap;">on-show</span> |   &nbsp; | 弹窗可见时触发 |
+| <span class="prop-key" style="white-space:nowrap;">on-hide</span> |   &nbsp; | 弹窖关闭时触发 |
+
+
+
+
+---
 
 ### vuxXSwitch
 
@@ -524,8 +574,6 @@ var vuxXSwitch = require('vuxXSwitch');
 | name    | params   | description |
 |-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">on-change</span> |   `(value)` | 值变化时触发，参数为 (currentValue) |
-
-
 
 
 

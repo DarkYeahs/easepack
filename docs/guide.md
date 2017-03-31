@@ -196,6 +196,11 @@ easepack.set('useAutoprefixer', {browserslist: ['> 1%', 'last 2 versions']});
 
 设置是否生成 source-map 文件，默认为 false。
 
+##### useEs2015
+
+`boolean`
+
+
 ##### useBase64
 
 `boolean/string`
@@ -350,6 +355,13 @@ easepack
   });
 ```
 
+## 组件系统
+
+组件系统是 easepack 最核心的功能，使用时你可以无须关心组件代码内部逻辑，文件的位置，包含什么文件。而你只需在了解组件对外提供的接口方法后，在自己代码中只需添加一句 `require('组件名')` 即可。 
+ 
+<p class="warning">
+  一个组件内部可以包含JS文件，CSS文件，图片文件，字体文件，swf文件等等，easepack 在构建过程中已经替用户解决所有文件间的依赖关系。
+</p>
 
 ## 初级使用
 
@@ -506,3 +518,8 @@ $names: sprite-names($icons); // output ['i1', 'i2']
 ---
 
 ### 自动同步到远端机器
+
+
+## 中级使用
+
+## 高级使用

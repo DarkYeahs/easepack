@@ -168,5 +168,30 @@ domUtils.contains( document.documentElement, document.body ); // true
 domUtils.contains( document.body, document.documentElement ); // false
 ```
 
+---
 
-### 抽奖组件
+## JS组件库
+
+### lotteryround(抽奖)
+
+flash实现的抽奖组件，应该兼容所有的主流浏览器的。
+
+<a class="trigger" @click="handleLottery">点击查看DOME</a>
+
+<vux-x-dialog v-model="lotteryRound" :hide-on-blur="true" class="lottery-round">
+  <div id="swfcontent"></div>
+</vux-x-dialog>
+
+```js
+var lotteryround = require('lotteryround');
+
+var obj = lotteryround({
+  width: 488,//flash宽度
+  height: 488,//flash高度
+  contentId: 'swfcontent', //初始化的DOM节点
+  bg: bg ,// 背景奖盘的图片
+  btn: btn , // 开始按钮的图片
+  pointer: pointer, // 指针的图片
+  total_num: 8 //
+});
+```

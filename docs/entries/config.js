@@ -1,5 +1,8 @@
-var style = require('./config.scss');
+var vuxXDialog = require('vuxXDialog');
+var lotteryround = require('lotteryround');
 var uiVueTicktock = require('vuxActionsheet');
+
+var style = require('./config.scss');
 var pickerData = require('../pickerData');
 
 docute.init({
@@ -9,19 +12,52 @@ docute.init({
     markdown: require('!raw-loader!../guide.md')
       .replace('__title__', require('../assets/title.png?__inline'))
   }, {
-    title: '组件',
+    title: '组件库',
     type: 'dropdown',
     items: [{
       title: '样式库',
       path: '/style',
       markdown: require('!raw-loader!../components/style.md')
     }, {
-      title: 'JS工具库',
+      title: 'JS组件库',
       path: '/script',
       markdown: require('!raw-loader!../components/script.md'),
       component: {
+        data: function () {
+          return {
+            lotteryRound: false
+          };
+        },
+        mounted: function () {
+          var obj = lotteryround({
+            width: 488,//flash宽度
+            height: 488,//flash高度
+            contentId: 'swfcontent',
+            bg: require('../assets/pan.png'),
+            btn: require('../assets/btn.png'),
+            pointer: require('../assets/pointer.png'),
+            total_num: 8
+          }).getFlashInstance();
+
+          window.start_lottery = function () {
+            if (obj.start_lottery()) {
+              obj.show_lottery();
+              setTimeout(function () {
+                obj.stop_lottery(5);
+              }, 5000);
+            }
+          }
+
+          window.lottery_result = function () {
+          }
+        },
         components: {
-          //vueLottery: require('../components/vueLottery.vue')
+          vuxXDialog: vuxXDialog
+        },
+        methods: {
+          handleLottery: function () {
+            this.lotteryRound = true;
+          }
         }
       }
     }, {
@@ -40,7 +76,8 @@ docute.init({
             popup: false,
             picker: [],
             pickerData: pickerData,
-            popupPicker: false
+            popupPicker: false,
+            xDialog: false
           }
         },
         components: {
@@ -56,7 +93,8 @@ docute.init({
           uiVueTicktock: require('uiVueTicktock'),
           vuxPicker: require('vuxPicker'),
           vuxPopupPicker: require('vuxPopupPicker'),
-          vuxLoadMore: require('vuxLoadMore')
+          vuxLoadMore: require('vuxLoadMore'),
+          vuxXDialog: vuxXDialog
         },
         methods: {
           handleActionsheet: function () {
@@ -85,6 +123,9 @@ docute.init({
           },
           handelOnHide: function () {
             this.popupPicker = false;
+          },
+          handleXDialog: function () {
+            this.xDialog = true;
           }
         }
       }
