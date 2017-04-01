@@ -75,6 +75,23 @@ var vuxActionsheet = require('vuxActionsheet');
 var vuxAlert = require('vuxAlert');
 ```
 
+该组件支持以 `plugin` 形式调用：
+ 
+```js
+var vuxAlertPlugin = require('vuxAlert/plugin');
+Vue.use(vuxAlertPlugin);
+```
+
+```js
+// 显示
+this.$vuxAlert.show({
+  title: 'Vux is Cool',
+  content: 'Do you agree?'
+})
+// 隐藏
+this.$vuxAlert.hide()
+```
+
 <span class="vux-props-title">Props</span>
 
 | name   | type | default  |  version | description   |
@@ -209,6 +226,22 @@ var vuxInlineCalendar = require('vuxInlineCalendar');
 
 ``` js
 var vuxLoading = require('vuxLoading');
+```
+
+该组件支持以 `plugin` 形式调用：
+
+```js
+var vuxLoadingPlugin = require('vuxLoading/plugin');
+Vue.use(vuxLoadingPlugin);
+```
+
+```js
+// 显示
+this.$vuxLoading.show({
+ text: 'Loading'
+})
+// 隐藏
+this.$vuxLoading.hide()
 ```
 
 <span class="vux-props-title">Props</span>
