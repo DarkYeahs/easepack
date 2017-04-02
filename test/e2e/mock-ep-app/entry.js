@@ -1,6 +1,10 @@
+import s from './style.scss';
+
 let b = require('./App.vue');
-import a from './style.scss';
-console.log(`this is test entry, and output ${a} ${b}?`);
+let p = require('./package.json?__inline');
+
+console.log(p);
+console.log(`this is test entry, and output ${s} ${b}?`);
 
 var [c, ,d] = [1,2,3];
 c === 1;

@@ -158,8 +158,9 @@ var vuxConfirm = require('vuxConfirm');
 
 ### vuxDivider
 
-<vux-divider>我是有底线的</vux-divider>
-
+<div class="bs-docs-example">
+  <vux-divider>我是有底线的</vux-divider>
+</div>
 
 ``` js
 var vuxDivider = require('vuxDivider');
@@ -185,7 +186,9 @@ var vuxDivider = require('vuxDivider');
 
 ### vuxInlineCalendar
 
-<vux-inline-calendar></vux-inline-calendar>
+<div class="bs-docs-example">
+  <vux-inline-calendar></vux-inline-calendar>
+</div>
 
 ``` js
 var vuxInlineCalendar = require('vuxInlineCalendar');
@@ -266,7 +269,9 @@ this.$vuxLoading.hide()
 
 ### vuxLoadMore
 
-<vux-load-more tip="数据加载中"></vux-load-more>
+<div class="bs-docs-example">
+  <vux-load-more tip="数据加载中"></vux-load-more>
+</div>
 
 ``` js
 var vuxLoadMore = require('vuxLoadMore');
@@ -583,7 +588,9 @@ var vuxXDialog = require('vuxXDialog');
 
 ### vuxXSwitch
 
-<vux-x-switch v-model="switchValue"></vux-x-switch>&nbsp;&nbsp;<vux-x-switch :disabled="true"></vux-x-switch>
+<div class="bs-docs-example">
+  <vux-x-switch v-model="switchValue"></vux-x-switch>
+</div>
 
 ``` js
 var vuxXSwitch = require('vuxXSwitch');
@@ -616,7 +623,9 @@ var vuxXSwitch = require('vuxXSwitch');
 
 一个VUE的倒计时组件
 
-<ui-vue-ticktock :seconds="10000"></ui-vue-ticktock>
+<div class="bs-docs-example">
+  <ui-vue-ticktock :seconds="10000"></ui-vue-ticktock>
+</div>
 
 ```js
 <ui-vue-ticktock :seconds="100" @ended="handleEnded"/> //输出：<span>00:01:30</span>

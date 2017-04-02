@@ -130,6 +130,13 @@ describe('command:build', function () {
       done();
     });
 
+    it('build with inline file', function (done) {
+      var file = files.filter(file => (file.endsWith('.js')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain('{"name": "easepack"}');
+      done();
+    });
+
   });
 
   describe('build with media', function () {
@@ -149,6 +156,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
+      console.log(files)
       expect(files.length).to.equal(11);
       expect(result.code).to.equal(0);
       done();
