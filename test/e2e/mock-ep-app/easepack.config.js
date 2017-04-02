@@ -23,6 +23,9 @@ easepack
   .match('*.md', {
     emit: true
   })
+  .match('*.sac', {
+    url: '[name][hash].[ext]'
+  })
   .media('willnotmatch', {
     url: '[name].[ext]'
   });

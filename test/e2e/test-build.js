@@ -38,7 +38,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(8);
+      expect(files.length).to.equal(9);
       expect(result.code).to.equal(0);
       done();
     })
@@ -137,6 +137,15 @@ describe('command:build', function () {
       done();
     });
 
+    it('build with random file url', function (done) {
+      var file = files.filter(file => (file.endsWith('.js')))[0];
+      var fileSac = files.filter(file => (file.endsWith('.sac')))[0];
+      var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(fileSac).to.equal('fileUrl89f15e.sac');
+      expect(content).to.contain('fileUrl89f15e.sac');
+      done();
+    });
+
   });
 
   describe('build with media', function () {
@@ -156,8 +165,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      console.log(files)
-      expect(files.length).to.equal(11);
+      expect(files.length).to.equal(12);
       expect(result.code).to.equal(0);
       done();
     })
