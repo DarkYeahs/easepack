@@ -9,7 +9,7 @@ docute.init({
   nav: [{
     title: '首页',
     path: '/',
-    markdown: require('!raw-loader!../guide.md')
+    markdown: require('../guide.md?__inline')
       .replace('__title__', require('../assets/title.png?__inline'))
   }, {
     title: '组件库',
@@ -17,11 +17,11 @@ docute.init({
     items: [{
       title: '样式库',
       path: '/style',
-      markdown: require('!raw-loader!../components/style.md')
+      markdown: require('../components/style.md?__inline')
     }, {
       title: 'JS组件库',
       path: '/script',
-      markdown: require('!raw-loader!../components/script.md'),
+      markdown: require('../components/script.md?__inline'),
       component: {
         data: function () {
           return {
@@ -63,7 +63,7 @@ docute.init({
     }, {
       title: 'VUE组件库',
       path: '/vue',
-      markdown: require('!raw-loader!../components/vue.md'),
+      markdown: require('../components/vue.md?__inline'),
       component: {
         data: function () {
           return {
