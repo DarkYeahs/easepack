@@ -4,7 +4,7 @@
 
 ## 简介
 
-easepack 是面向前端的工程构建工具。解决前端工程中性能优化、资源加载（异步、同步、按需、预加载、依赖管理、合并、内嵌）、模块化开发、自动化工具、开发规范、代码部署等问题。
+easepack 是面向前端的工程构建工具。解决前端工程中性能优化、资源加载（异步、同步、按需、预加载、依赖管理、合并、内嵌）、模块化开发、组件化开发、自动化工具、开发规范、代码部署等问题。
 
 ## 安装
 
@@ -42,12 +42,13 @@ easepack build -o E:\\htdocs\\m\\daily\\ep_dome
 当没有明确指定 output 输出目录时，easepack 会开启内置了一个 Web Server 提供给构建后的代码进行调试。
 
 ```bash
-# 浏览器访问 http://127.0.0.1:8080/dome.html 查看。
 easepack build
 ```
 
+然后在浏览器中输入 http://127.0.0.1:8080/dome.html 查看编译后的结果。
+
 <p class="tip">
-为了方便开发，easepack 支持文件监听，当启动文件监听时，修改文件会构建发布。easepack 内置的 Server 不是常驻的，如果结束构建服务将会关闭的。
+为了方便开发，easepack 支持文件监听，当启动文件监听时，修改文件会重新构建发布。easepack 内置的 Server 不是常驻的，如果结束构建服务将会关闭的。
 </p>
 
 
@@ -55,7 +56,7 @@ easepack build
 
 你可以通过 `easepack -h` 命令查看 easepack 的用法及提供了哪些命令。
 
-**easepack init**
+### easepack init
 
 ```bash
 easepack init <project-name> [template-name]
@@ -69,19 +70,27 @@ vue init ep-project
 
 上面的命令表示从 [ep_dome](https://git-cc.nie.netease.com/frontend/ep_dome/tree/master) 里复制代码到 `./ep-project/` 里。
 
----
+<br>
 
-**easepack build**
+### easepack build
 
-`easepack build` 命令给你一个近乎于零配置的开发步骤, install once and build everywhere.
+`easepack build` 命令给你一个近乎于零配置的开发步骤, 构建你的项目。
 
-查看 easepack build 的所有命令。
+可以通过 easepack build 的查看命令的所有选项。
 
 ```bash
 easepack build --help
 easepack build -h
 ```
 
+***Build source using a config file***
+
+Specifies a different configuration file to pick up. Use this if you want to specify something different than webpack.config.js, which is the default.
+
+```bash
+easepack -c example.config.js
+easepack --config example.config.js
+```
 
 ## 配置文件
 
