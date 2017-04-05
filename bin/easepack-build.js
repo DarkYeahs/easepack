@@ -61,6 +61,8 @@ if (config.watch) {
 }
 
 function compilerCallback(err, stats) {
+  var self = this;
+
   if (!config.watch || err) {
     this.webpackCompiler.purgeInputFileSystem();
   }
@@ -84,6 +86,11 @@ function compilerCallback(err, stats) {
       this.errors
     )
   }
+
+  stats.compilation.fileDependencies =
+    stats.compilation.fileDependencies.filter((file) => {
+      return !~file.indexOf(self.options.tempComponents)
+    });
 
   process.stdout.write(stats.toString({
       colors: true,
