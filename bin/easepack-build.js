@@ -61,12 +61,9 @@ if (config.watch) {
 }
 
 function compilerCallback(err, stats) {
-  var self = this;
-
   if (!config.watch || err) {
     this.webpackCompiler.purgeInputFileSystem();
   }
-
   if (err) {
     console.log(err);
     if (err.details) console.error(err.details);
@@ -77,25 +74,10 @@ function compilerCallback(err, stats) {
     }
     return;
   }
-  if (this.options.dev) {
-    this.server.refresh();
-  }
-  if (this.errors.length) {
-    stats.compilation.errors.push.apply(
-      stats.compilation.errors,
-      this.errors
-    )
-  }
-
-  stats.compilation.fileDependencies =
-    stats.compilation.fileDependencies.filter((file) => {
-      return !~file.indexOf(self.options.tempComponents)
-    });
-
-  process.stdout.write(stats.toString({
-      colors: true,
-      version: false,
-      chunkOrigins: false,
-      chunkModules: false
-    }) + '\n\n');
+  process.stdout.write(`\n${stats.toString({
+    colors: true,
+    version: false,
+    chunkOrigins: false,
+    chunkModules: false
+  })}\n`);
 }
