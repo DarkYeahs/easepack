@@ -5,7 +5,7 @@
   "preferGlobal": true,
   "main": "index.js",
   "scripts": {
-    "test": "test:unit && npm run e2e:build",
+    "test": "npm run test:unit && npm run e2e:build",
     "e2e:build": "mocha test/e2e/test-build.js --timeout 60000",
     "test:unit": "mocha test/e2e/test.js --compilers js:babel-core/register"
   },
