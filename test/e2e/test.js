@@ -17,8 +17,9 @@ describe('test html loader', () => {
     })
   });
 
-  it('parse', (done) => {
-    console.log(hl.call({}, content))
+  it('contain css inject', (done) => {
+    let output = hl.call({}, content);
+    expect(output).to.contain('\\r\\n  <!--@css_inject@@-->');
     expect(typeof content).to.equal('string');
     done();
   })
