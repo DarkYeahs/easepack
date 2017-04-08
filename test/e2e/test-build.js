@@ -38,7 +38,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(9);
+      expect(files.length).to.equal(10);
       expect(result.code).to.equal(0);
       done();
     })
@@ -50,34 +50,50 @@ describe('command:build', function () {
       done();
     })
 
-    it('build with minify js/css, contain username, dir', function (done) {
-      var anchor = JSON.stringify(
-        exec('git config --get user.name').toString().trim()).slice(1, -1);
+    it('build js&css with banner info', (done) => {
+      var anchor = JSON.stringify(exec('git config --get user.name').toString().trim()).slice(1, -1);
+      var cssContent = fs.readFileSync('dist/entry.css', 'utf8');
+      var jsContent = fs.readFileSync('dist/entry.js', 'utf8');
       expect(typeof anchor).to.contain('string');
-      files
-        .filter(file => (file.endsWith('.js') || file.endsWith('.css')))
-        .forEach(file => {
-          expect(typeof file).to.equal('string');
-          var content = fs.readFileSync(path.join('dist', file), 'utf8');
-          expect(content.split('\n').length).to.equal(2);
-          expect(content).to.contain(anchor);
-          expect(content).to.contain('e2e/mock-ep-app');
-          if (file.endsWith('.css')) {
-            expect(content).to.contain('background:url(//cc.cdn.com/image.spr.png?a83eaf)');
-            expect(content).to.contain('body{display:flex;');
-          }
-        });
+      expect(cssContent).to.contain('e2e/mock-ep-app');
+      expect(jsContent).to.contain('e2e/mock-ep-app');
+      expect(cssContent).to.contain(anchor);
+      expect(jsContent).to.contain(anchor);
+      done();
+    });
+
+    it('build css with correct url', (done) => {
+      var cssContent = fs.readFileSync('dist/entry.css', 'utf8');
+      expect(cssContent).to.contain('background:url(//cc.cdn.com/image.spr.png?a83eaf)');
+      expect(cssContent).to.contain('body{display:flex;');
+      done();
+    });
+
+    it('build js/css with minify files', function (done) {
+      var cssContent = fs.readFileSync('dist/entry.css', 'utf8');
+      var jsContent = fs.readFileSync('dist/entry.js', 'utf8');
+      expect(cssContent.split('\n').length).to.equal(2);
+      expect(jsContent.split('\n').length).to.equal(2);
       done();
     })
 
-    it('build with html contain correct css/js url', function (done) {
-      var htmlFile = files.filter(file => (file.endsWith('.html')))[0];
-      expect(typeof htmlFile).to.equal('string');
-      var htmlContent = fs.readFileSync(path.join('dist', htmlFile), 'utf8');
-      expect(htmlContent).to.not.contain('<!-- inject_css -->');
-      expect(htmlContent).to.contain('//cc.cdn.com/image1.png');
-      expect(htmlContent).to.contain('//cc.cdn.com/entry.css');
-      expect(htmlContent).to.contain('//cc.cdn.com/entry.js');
+    it('build index.html with correct url', function (done) {
+      var content = fs.readFileSync('dist/index.html', 'utf8');
+      expect(typeof content).to.equal('string');
+      expect(content).to.contain('<img src="//cc.cdn.com/image1.png">');
+      expect(content).to.contain('<!-- <script src="entry.js"></script> -->');
+      expect(content).to.contain('href="//cc.cdn.com/entry.css" rel="stylesheet">\r\n</head>');
+      expect(content).to.contain('<!--[if IE 7]><script src="//cc.cdn.com/entry.js"');
+      expect(content).to.contain('</div>\r\n<script src="//cc.cdn.com/entry.js">');
+      expect(content).to.contain('<script src="entry_not_exist.js">');
+      done();
+    });
+
+    it('build list.html with correct url', function (done) {
+      var content = fs.readFileSync('dist/list.html', 'utf8');
+      expect(typeof content).to.equal('string');
+      expect(content).to.contain('<meta charset="utf-8">\r\n</head>');
+      expect(content).to.contain('{% block css %}\r\n  <link href="//cc.cdn.com/entry.css"');
       done();
     });
 
@@ -165,7 +181,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(12);
+      expect(files.length).to.equal(13);
       expect(result.code).to.equal(0);
       done();
     })

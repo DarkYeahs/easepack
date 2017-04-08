@@ -19,8 +19,7 @@ describe('test html loader', () => {
 
   it('contain css inject', (done) => {
     let output = hl.call({}, content);
-    console.log(output);
-    expect(output).to.contain('\\r\\n  <!--@css_inject@  @-->');
+    expect(output).to.contain('\\r\\n  <!--@css_inject_h@  @-->');
     expect(output).to.contain('<!--@script@entry.js@-->');
     expect(output).to.contain('require("./image1.png")');
     expect(typeof content).to.equal('string');
