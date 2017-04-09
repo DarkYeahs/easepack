@@ -32,7 +32,7 @@ describe('test spritePlugin', () => {
   var expr = sap.patternExpr;
 
   it('correct pattern expr', (done) => {
-    expect(expr.test('')).to.equal(true);
+    expect(expr.test('images/*.png')).to.equal(true);
     done();
   })
 });
