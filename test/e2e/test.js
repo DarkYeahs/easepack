@@ -2,9 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import { expect } from 'chai'
 
-import hl from '../../lib/plugins/htmlLoader';
+import hl from '../../lib/plugins/htmlLoader'
+import sap from '../../lib/plugins/SassOptionsPlugin'
 
-describe('test html loader', () => {
+describe('test htmlLoader', () => {
   let content;
 
   before((done) => {
@@ -23,6 +24,15 @@ describe('test html loader', () => {
     expect(output).to.contain('<!--@script@entry.js@-->');
     expect(output).to.contain('require("./image1.png")');
     expect(typeof content).to.equal('string');
+    done();
+  })
+});
+
+describe('test spritePlugin', () => {
+  var expr = sap.patternExpr;
+
+  it('correct pattern expr', (done) => {
+    expect(expr.test('')).to.equal(true);
     done();
   })
 });
