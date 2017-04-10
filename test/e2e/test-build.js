@@ -38,7 +38,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(10);
+      expect(files.length).to.equal(12);
       expect(result.code).to.equal(0);
       done();
     })
@@ -46,7 +46,7 @@ describe('command:build', function () {
     it('build with extract css file', function (done) {
       expect(files.filter(function (file) {
         return file.endsWith('.css');
-      })).to.deep.equal(['entry.css']);
+      })).to.deep.equal(['entry.css', 'entry2.css']);
       done();
     })
 
@@ -80,13 +80,15 @@ describe('command:build', function () {
     it('build index.html with correct url', function (done) {
       var content = fs.readFileSync('dist/index.html', 'utf8');
       expect(typeof content).to.equal('string');
+      expect(content.split('\n').length).to.equal(20);
+      expect(content.indexOf('<!DOCTYPE html>')).to.equal(0);
       expect(content).to.contain('<img src="//cc.cdn.com/image1.png">');
       expect(content).to.contain('<!-- <script src="entry.js"></script> -->');
-      expect(content).to.contain('href="//cc.cdn.com/entry.css" rel="stylesheet">\r\n</head>');
       expect(content).to.contain('<!--[if IE 7]><script src="//cc.cdn.com/entry.js"');
       expect(content).to.contain('</div>\r\n<script src="//cc.cdn.com/entry.js">');
       expect(content).to.contain('<script src="entry_not_exist.js">');
       expect(content).to.contain('/__easepack_dev_server__/livereload.js?snipver=1"');
+      expect(content).to.contain('href="//cc.cdn.com/entry.css" rel="stylesheet">\r\n</head>');
       done();
     });
 
@@ -95,6 +97,7 @@ describe('command:build', function () {
       expect(typeof content).to.equal('string');
       expect(content).to.contain('<meta charset="utf-8">\r\n</head>');
       expect(content).to.contain('{% block css %}\r\n  <link href="//cc.cdn.com/entry.css"');
+      expect(content).to.contain('//cc.cdn.com/entry2.css" rel="stylesheet">\r\n{% endblock %}');
       done();
     });
 
@@ -182,14 +185,14 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(13);
+      expect(files.length).to.equal(17);
       expect(result.code).to.equal(0);
       done();
     })
 
     it('build with source map', function (done) {
       var mapFiles = files.filter(file => (file.endsWith('.map')));
-      expect(mapFiles.length).to.equal(2);
+      expect(mapFiles.length).to.equal(4);
       done();
     })
 
