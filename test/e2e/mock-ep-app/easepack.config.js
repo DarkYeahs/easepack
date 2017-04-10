@@ -1,5 +1,6 @@
 easepack
   .set('useEs2015', true)
+  .set('testModel', true)
   .set('output', './dist')
   .set('useBase64', '15kb')
   .set('publicPath', '//cc.cdn.com/')

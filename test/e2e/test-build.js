@@ -86,6 +86,7 @@ describe('command:build', function () {
       expect(content).to.contain('<!--[if IE 7]><script src="//cc.cdn.com/entry.js"');
       expect(content).to.contain('</div>\r\n<script src="//cc.cdn.com/entry.js">');
       expect(content).to.contain('<script src="entry_not_exist.js">');
+      expect(content).to.contain('/__easepack_dev_server__/livereload.js?snipver=1"');
       done();
     });
 
