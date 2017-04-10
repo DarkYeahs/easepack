@@ -6,12 +6,12 @@ WEB活动项目中用于判断CC环境
 
 ```js
 //判断当前环境是否为正式服
-exports.isRelease = (window.location.hostname === 'cc.163.com');
+exports.isRelease
 
 //判断是否在PC客户端的房间的浏览器
-exports.isInGameRoom4PC = !!(typeof external !== 'undefined' && external.ICC_WebkitVersion);
-exports.isInMicRoom4PC = !!(typeof external !== 'undefined' && external.ICC_WebkitVersion);
-exports.isInMobileRoom4PC = !!(typeof external !== 'undefined' && external.ICC_ShowMobileUserInfoTip);
+exports.isInMicRoom4PC
+exports.isInGameRoom4PC
+exports.isInMobileRoom4PC
 
 //判断是否在手机客户端中打开的页面
 exports.isInIOS
@@ -19,7 +19,7 @@ exports.isInAndroid
 ```
 
 <p class="tip">
-  注意：从客户端打开的页面会加上 'm_from=android/m_from=ios' 参数，但在页面自已内跳转到其它的页面时没有
+  注意：从手机客户端打开的页面会加上 'm_from=android/ios' 参数，所以 `isInIOS`, `isInAndroid` 是根据这个信息来判断的。
 </p>
 
 

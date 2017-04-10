@@ -10,7 +10,7 @@ docute.init({
     title: '首页',
     path: '/',
     markdown: require('../guide.md?__inline')
-      .replace('__title__', require('../assets/title.png?__inline'))
+      .replace('__title__', require('../assets/title.png'))
   }, {
     title: '组件库',
     type: 'dropdown',

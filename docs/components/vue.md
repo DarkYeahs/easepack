@@ -293,7 +293,9 @@ var vuxLoadMore = require('vuxLoadMore');
 
 ### vuxPicker
 
-<vux-picker v-model="picker" :data="pickerData" :fixed-columns="3" class="vux-my-picker"></vux-picker>
+<div class="bs-docs-example">
+  <vux-picker v-model="picker" :data="pickerData" :fixed-columns="3" class="vux-my-picker"></vux-picker>
+</div>
 
 ``` js
 var vuxPicker = require('vuxPicker');
@@ -491,9 +493,6 @@ var vuxPopupPicker = require('vuxPopupPicker');
 | <span class="prop-key" style="white-space:nowrap;">on-hide</span> |   `(closeType)` true表示confirm(选择确认), false表示其他情况的关闭 | 弹窗关闭时触发 |
 
 
-
-
-
 ---
 
 ### vuxToast
@@ -506,6 +505,21 @@ var vuxPopupPicker = require('vuxPopupPicker');
 var vuxToast = require('vuxToast');
 ```
 
+该组件支持以 `plugin` 形式调用：
+
+```js
+var vuxToastPlugin = require('vuxToast/plugin');
+Vue.use(vuxToastPlugin)
+```
+
+```js
+// 显示
+this.$vuxToast.show({
+ text: 'Loading'
+})
+// 隐藏
+this.$vuxToast.hide()
+```
 
 <span class="vux-props-title">Props</span>
 
@@ -641,8 +655,7 @@ var vuxXSwitch = require('vuxXSwitch');
 
 | name    | params   | description |
 |-------|-------|-------|
-| <span class="prop-key" style="white-space:nowrap;">on-ended</span> |  | 倒计结束时触发 |
-
+| <span class="prop-key" style="white-space:nowrap;">ended</span> |  | 倒计结束时触发 |
 
 
 ---

@@ -413,7 +413,7 @@ easepack.match('a.png', {
 
 ### CssSprite图片合并
 
-These helpers make it easier to build and to work with css sprites.
+easepack 编译 sass 时已经注入一系列的 Functions，可以使你更简单的在你的项目中使用 css sprites。
 
 While it is allowed to use these directly, to do so is considered "advanced usage". It is recommended that you instead use the css sprite mixins that are designed to work with these functions.
 
