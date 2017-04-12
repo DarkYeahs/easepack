@@ -1,12 +1,8 @@
 ## 基础样式 
 
-<!--
-基本用法
-```sass
-//引用时前面加 “~”
-@import "~mixins";
+```css
+@import "~mixins"; //引用时前面加 “~模块名”
 ```
--->
 
 ### reset 
 
@@ -24,7 +20,7 @@ sass的mixins工具类，[详见源码](https://git-cc.nie.netease.com/frontend/
 
 水平渐变，从左往右
 
-```sass
+```css
 @include gradient-horizontal
 ```
 
@@ -32,7 +28,7 @@ sass的mixins工具类，[详见源码](https://git-cc.nie.netease.com/frontend/
 
 水平渐变，从左往右，平铺
 
-```sass
+```css
 @include gradient-horizontal-repeating(#333 5%, #ccc 10%);
 ```
 
@@ -40,7 +36,7 @@ sass的mixins工具类，[详见源码](https://git-cc.nie.netease.com/frontend/
 
 垂直渐变，从上往下
 
-```sass
+```css
 @include gradient-vertical(#333 30%, #ccc);
 ```
 
@@ -48,6 +44,19 @@ sass的mixins工具类，[详见源码](https://git-cc.nie.netease.com/frontend/
 
 垂直渐变，从上往下，平铺
 
-```sass
+```css
 @include gradient-vertical-repeating(#333 30%, #ccc 50%);
 ```
+
+## 矢量图标
+
+```css
+@import "~fontello"; //或者：require('fontello');
+```
+
+### Fontelico
+
+<div title="Code: 0xe832" class="the-icons span3">
+  <i class="demo-icon icon-spin3 animate-spin"></i>
+  <span class="i-name">icon-spin3</span>
+</div>

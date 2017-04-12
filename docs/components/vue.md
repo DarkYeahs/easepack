@@ -499,7 +499,7 @@ var vuxPopupPicker = require('vuxPopupPicker');
 
 <a class="trigger" @click="handleToast">点击查看DOME</a>
 
-<vux-toast v-model="toast">hello world</vux-toast>
+<vux-toast v-model="toast" type="success">hello world</vux-toast>
 
 ``` js
 var vuxToast = require('vuxToast');
@@ -527,7 +527,7 @@ this.$vuxToast.hide()
 |-------|-------|-------|-------|-------|
 | <span class="prop-key" style="white-space:nowrap;">value</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否显示, 使用 v-model 绑定 |
 | <span class="prop-key" style="white-space:nowrap;">time</span> | <span class="type type-number">Number</span> | 2000 | <span style="font-size:12px;white-space:nowrap;"></span> | 显示时间 |
-| <span class="prop-key" style="white-space:nowrap;">type</span> | <span class="type type-string">String</span> | success | <span style="font-size:12px;white-space:nowrap;"></span> | 类型，可选值 success, warn, cancel, text |
+| <span class="prop-key" style="white-space:nowrap;">type</span> | <span class="type type-string">String</span> | text | <span style="font-size:12px;white-space:nowrap;"></span> | 类型，可选值 success, warn, cancel, text |
 | <span class="prop-key" style="white-space:nowrap;">width</span> | <span class="type type-string">String</span> | 7.6em | <span style="font-size:12px;white-space:nowrap;"></span> | 宽度 |
 | <span class="prop-key" style="white-space:nowrap;">is-show-mask</span> | <span class="type type-boolean">Boolean</span> | false | <span style="font-size:12px;white-space:nowrap;"></span> | 是否显示遮罩，如果显示，用户将不能点击页面上其他元素 |
 | <span class="prop-key" style="white-space:nowrap;">text</span> | <span class="type type-string">String</span> |  | <span style="font-size:12px;white-space:nowrap;"></span> | 提示内容，支持 html，和默认slot同样功能 |
