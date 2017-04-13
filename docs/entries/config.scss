@@ -1,22 +1,55 @@
 @import "~mixins";
-@import "~fontello";
+// @import "~fontello";
 
 .markdown-body hr {
   margin: 35px 0 !important;
 }
 
-// #app {
-//  .page,
-//  .header.is-fixed {
-//    left: 440px;
-//  }
+#app {
+  .main {
+    font-size: 90%;
+    max-width: 860px;
+  }
+  
+  .header {
+    padding: 0;
+  }
 
-//  .sidebar,
-//  .sidebar-toggle {
-//    left: 220px;
-//    width: 220px;
-//  }
-// }
+  .header-container {
+    max-width: 860px;
+  }
+
+  .sidebar {
+    width: 300px;
+    background: #343131;
+  }
+
+  .search-form {
+    height: auto;
+    padding: 12px;
+    background: #2980B9;
+
+    .svg-icon {
+      top: 6px;
+    }
+  }
+
+  .search-box {
+    font-size: 80%;
+    padding: 6px 12px;
+    border-radius: 50px;
+    border-color: #2472a4;
+  }
+
+  .sidebar-headings .sidebar-heading[data-level="2"] .sidebar-heading-anchor {
+    font-size: 90%;
+    color: #b3b3b3;
+
+    &.active, &:hover {
+      color: #42b983;
+    }
+  }
+}
 
 // #sidebar {
 //   display: block;
