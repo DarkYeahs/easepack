@@ -3,7 +3,9 @@ import path from 'path'
 import { expect } from 'chai'
 
 import hl from '../../lib/plugins/htmlLoader'
+import ul from '../../lib/plugins/urlLoader'
 import sap from '../../lib/plugins/SassOptionsPlugin'
+
 
 describe('test htmlLoader', () => {
   let content;
@@ -33,6 +35,24 @@ describe('test spritePlugin', () => {
 
   it('correct pattern expr', (done) => {
     expect(expr.test('images/*.png')).to.equal(true);
+    done();
+  })
+});
+
+describe('test urlLoader', () => {
+  var mimeTypes = ul.mimeTypes;
+
+  it('correct mimeTypes', (done) => {
+    expect(mimeTypes('image.png')).to.equal('image/png');
+    expect(mimeTypes('image.jpeg')).to.equal('image/jpeg');
+    expect(mimeTypes('image.jpg')).to.equal('image/jpeg');
+    expect(mimeTypes('image.gif')).to.equal('image/gif');
+    expect(mimeTypes('image.svg')).to.equal('image/svg+xml');
+    expect(mimeTypes('font.eot')).to.equal('application/octet-stream');
+    expect(mimeTypes('font.ttf')).to.equal('application/octet-stream');
+    expect(mimeTypes('font.ttf')).to.equal('application/octet-stream');
+    expect(mimeTypes('font.woff')).to.equal('application/octet-stream');
+    expect(mimeTypes('font.woff2')).to.equal('application/octet-stream');
     done();
   })
 });
