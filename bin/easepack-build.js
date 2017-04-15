@@ -72,10 +72,10 @@ function compilerCallback(err, stats) {
       process.on("exit", () => process.exit(1));
     return;
   }
-  process.stdout.write(`\n${stats.toString({
+  process.stdout.write(`${stats.toString({
     colors: true,
     version: false,
     chunkOrigins: false,
     chunkModules: false
-  })}\n`);
+  })}\n\n`);
 }
