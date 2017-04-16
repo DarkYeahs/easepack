@@ -6,6 +6,7 @@ easepack
   .set('publicPath', '//cc.cdn.com/')
   .set('spriteUrl', '[name].spr.[ext]?[hash]')
   .media('m1', {
+    upToDate: true,
     useSourceMap: true,
     useAutoprefixer: true,
     banner: 'custom a banner',
@@ -14,7 +15,7 @@ easepack
   .media('m2', {
     output: false,
     publicPath: '/',
-    useSourceMap: true
+    useSourceMap: true,
   });
 
 easepack

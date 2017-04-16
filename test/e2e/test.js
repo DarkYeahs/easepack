@@ -56,3 +56,12 @@ describe('test urlLoader', () => {
     done();
   })
 });
+
+describe('test EntryMatchPlugin', () => {
+  var expr = sap.patternExpr;
+
+  it('correct pattern expr', (done) => {
+    expect(expr.test('images/*.png')).to.equal(true);
+    done();
+  })
+});

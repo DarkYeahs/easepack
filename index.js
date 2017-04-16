@@ -1,5 +1,6 @@
 var Complier = require('./lib/Compiler');
 
+var AddBannerPlugin = require('./lib/plugins/AddBannerPlugin');
 var EntryMatchPlugin = require('./lib/plugins/EntryMatchPlugin');
 var NetworkInfoPlugin = require('./lib/plugins/NetworkInfoPlugin');
 var ResolveAliasPlugin = require('./lib/plugins/ResolveAliasPlugin');
@@ -11,5 +12,6 @@ module.exports = function (options) {
   complier.apply(new ResolveAliasPlugin());
   complier.apply(new NetworkInfoPlugin());
   complier.apply(new EntryMatchPlugin());
+  complier.apply(new AddBannerPlugin());
   return complier;
 };
