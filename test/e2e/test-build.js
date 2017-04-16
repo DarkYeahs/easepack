@@ -171,7 +171,7 @@ describe('command:build', function () {
       var htmlContent = fs.readFileSync('dist/index.html', 'utf8');
       var components = files.filter(file => (file.endsWith('_c_')))[0];
       expect(htmlContent).to.not.contain('<div>NODE_ENV为m1</div>');
-      expect(content).to.not.equal('vuxDivider@1\\index.vue');
+      expect(content).to.not.contain('vuxDivider@1');
       expect(components).to.equal(undefined);
       done();
     });
@@ -240,7 +240,7 @@ describe('command:build', function () {
 
     it('build with node_env', function (done) {
       var content = fs.readFileSync('dist/entry.js', 'utf8');
-      expect(content).to.not.equal('vuxDivider@1\\index.vue');
+      expect(content).to.contain('vuxDivider@1');
       done();
     });
 
