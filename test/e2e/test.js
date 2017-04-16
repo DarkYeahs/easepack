@@ -1,11 +1,81 @@
 import fs from 'fs'
+import os from 'os'
 import path from 'path'
 import { expect } from 'chai'
 
 import hl from '../../lib/plugins/htmlLoader'
 import ul from '../../lib/plugins/urlLoader'
 import sap from '../../lib/plugins/SassOptionsPlugin'
+import Rtdp from '../../lib/plugins/ResolveTempDirPlugin'
+import Rap from '../../lib/plugins/ResolveAliasPlugin'
+import Rip from '../../lib/plugins/NetworkInfoPlugin'
 
+
+describe('test configuration plugins', () => {
+  let context = path.join(__dirname, 'mock-ep-app');
+  let compiler = {
+    assets: {},
+    config: {
+      entry: {},
+      output: {
+        path: './dist'
+      },
+      resolve: {
+        alias: {}
+      },
+    },
+    options: {
+      upToDate: true,
+      config: 'easepack.config.js',
+      privateRepo: '../mock-components',
+      matches: [
+        {pattern: '*.js'}
+      ]
+    },
+    context: context
+  };
+
+  it('correct resolve tempDir', (done) => {
+    compiler.plugin = (name, callback) => {
+      callback(() => {
+        let config = compiler.config;
+        let options = compiler.options;
+        expect(config.output.path).to.equal(path.join(context, 'dist'));
+        expect(options.tempPath).to.equal(path.join(os.tmpdir(), '../.easepack-temp'));
+        expect(options.tempWebPath).to.equal(path.join(options.tempPath, 'web0dc90a'));
+        expect(options.tempComponents).to.equal(path.join(options.tempPath, 'componentsceddd7'));
+        expect(options.privateRepo).to.contain(path.join(compiler.context, '../mock-components'));
+        done();
+      });
+    }
+    new Rtdp().apply(compiler);
+  })
+
+  it('correct resolve alias', (done) => {
+    compiler.plugin = (name, callback) => {
+      callback(() => {
+        let config = compiler.config;
+        let options = compiler.options;
+        expect(config.resolve.alias).to.deep.equal({
+          mixin: path.join(options.privateRepo, 'mixin.scss'),
+          vuxDivider: path.join(options.privateRepo, 'vuxDivider@1')
+        });
+        done();
+      });
+    }
+    new Rap().apply(compiler);
+  })
+
+  it('correct resolve alias', (done) => {
+    compiler.plugin = (name, callback) => {
+      callback(() => {
+        expect(typeof compiler.options.ipv4).to.equal('string');
+        done();
+      });
+    }
+    new Rip().apply(compiler);
+  })
+})
 
 describe('test htmlLoader', () => {
   let content;
@@ -53,15 +123,6 @@ describe('test urlLoader', () => {
     expect(mimeTypes('font.ttf')).to.equal('application/octet-stream');
     expect(mimeTypes('font.woff')).to.equal('application/octet-stream');
     expect(mimeTypes('font.woff2')).to.equal('application/octet-stream');
-    done();
-  })
-});
-
-describe('test EntryMatchPlugin', () => {
-  var expr = sap.patternExpr;
-
-  it('correct pattern expr', (done) => {
-    expect(expr.test('images/*.png')).to.equal(true);
     done();
   })
 });
