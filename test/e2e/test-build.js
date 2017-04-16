@@ -246,7 +246,7 @@ describe('command:build', function () {
 
     it('build html with ejs', function (done) {
       var htmlContent = fs.readFileSync('dist/index.html', 'utf8');
-      expect(htmlContent).to.contain('<div>NODE_ENV为m1</div>');
+      expect(htmlContent).to.contain('<div>NODE_ENV为\'m1\'</div>');
       done();
     });
   });
