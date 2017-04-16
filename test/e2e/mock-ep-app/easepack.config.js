@@ -6,6 +6,7 @@ easepack
   .set('publicPath', '//cc.cdn.com/')
   .set('spriteUrl', '[name].spr.[ext]?[hash]')
   .media('m1', {
+    nodeEnv: '"m1"',
     upToDate: true,
     useSourceMap: true,
     useAutoprefixer: true,

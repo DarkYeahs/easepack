@@ -80,7 +80,7 @@ describe('command:build', function () {
     it('build index.html with correct url', function (done) {
       var content = fs.readFileSync('dist/index.html', 'utf8');
       expect(typeof content).to.equal('string');
-      expect(content.split('\n').length).to.equal(20);
+      expect(content.split('\n').length).to.equal(21);
       expect(content.indexOf('<!DOCTYPE html>')).to.equal(0);
       expect(content).to.contain('<img src="//cc.cdn.com/image1.png">');
       expect(content).to.contain('<!-- <script src="entry.js"></script> -->');
@@ -166,6 +166,16 @@ describe('command:build', function () {
       done();
     });
 
+    it('build with node_env', function (done) {
+      var content = fs.readFileSync('dist/entry.js', 'utf8');
+      var htmlContent = fs.readFileSync('dist/index.html', 'utf8');
+      var components = files.filter(file => (file.endsWith('_c_')))[0];
+      expect(htmlContent).to.not.contain('<div>NODE_ENV为m1</div>');
+      expect(content).to.not.equal('vuxDivider@1\\index.vue');
+      expect(components).to.equal(undefined);
+      done();
+    });
+
   });
 
   describe('build with media', function () {
@@ -227,6 +237,18 @@ describe('command:build', function () {
       expect(typeof components).to.equal('string');
       done();
     })
+
+    it('build with node_env', function (done) {
+      var content = fs.readFileSync('dist/entry.js', 'utf8');
+      expect(content).to.not.equal('vuxDivider@1\\index.vue');
+      done();
+    });
+
+    it('build html with ejs', function (done) {
+      var htmlContent = fs.readFileSync('dist/index.html', 'utf8');
+      expect(htmlContent).to.contain('<div>NODE_ENV为m1</div>');
+      done();
+    });
   });
 
 });

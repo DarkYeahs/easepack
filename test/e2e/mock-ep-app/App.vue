@@ -3,8 +3,15 @@
 </template>
 
 <script>
-  var vuxDivider = require('vuxDivider');
-  module.exports = {};
+  var vuxDivider = {};
+  if (process.env.NODE_ENV == 'm1') {
+    vuxDivider = require('vuxDivider');
+  }
+  module.exports = {
+    components: {
+      vuxDivider: vuxDivider
+    }
+  };
 </script>
 
 <style>

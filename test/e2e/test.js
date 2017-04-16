@@ -42,7 +42,7 @@ describe('test configuration plugins', () => {
         let options = compiler.options;
         expect(config.output.path).to.equal(path.join(context, 'dist'));
         expect(options.tempPath).to.equal(path.join(os.tmpdir(), '../.easepack-temp'));
-        expect(options.tempWebPath).to.equal(path.join(options.tempPath, 'web0dc90a'));
+        expect(options.tempWebPath).to.contain(path.join(options.tempPath, 'web'));
         expect(options.tempComponents).to.equal(path.join(options.tempPath, 'componentsceddd7'));
         expect(options.privateRepo).to.contain(path.join(compiler.context, '../mock-components'));
         done();
