@@ -38,7 +38,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(12);
+      expect(files.length).to.equal(13);
       expect(result.code).to.equal(0);
       done();
     })
@@ -167,13 +167,21 @@ describe('command:build', function () {
       done();
     });
 
-    it('build with node_env', function (done) {
+    it('build with correct node_env', function (done) {
       var content = fs.readFileSync('dist/entry.js', 'utf8');
       var htmlContent = fs.readFileSync('dist/index.html', 'utf8');
       var components = files.filter(file => (file.endsWith('_c_')))[0];
       expect(htmlContent).to.not.contain('<div>NODE_ENV为m1</div>');
       expect(content).to.not.contain('vuxDivider@1');
       expect(components).to.equal(undefined);
+      done();
+    });
+
+    it('build with correct file-path', function (done) {
+      var content = fs.readFileSync('dist/entry.css', 'utf8');
+      expect(content).to.contain('//cc.cdn.com/filepath/images.spr.png?740037');
+      expect(fs.existsSync('dist/filepath/filePath.sac')).to.equal(true);
+      expect(fs.existsSync('dist/filepath/images.spr.png')).to.equal(true);
       done();
     });
 
@@ -196,7 +204,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(17);
+      expect(files.length).to.equal(19);
       expect(result.code).to.equal(0);
       done();
     })
@@ -248,6 +256,11 @@ describe('command:build', function () {
     it('build html with ejs', function (done) {
       var htmlContent = fs.readFileSync('dist/index.html', 'utf8');
       expect(htmlContent).to.contain('<div>NODE_ENV为\'m1\'</div>');
+      done();
+    });
+
+    it('build with correct file-path', function (done) {
+      expect(fs.existsSync('dist/filePath89f15e.sac')).to.equal(true);
       done();
     });
   });

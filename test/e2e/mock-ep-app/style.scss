@@ -6,6 +6,9 @@ $names: sprite-names($sprite);
 $leftright: sprite-map("leftright/*.png", "left-right");
 $name2: sprite-names($leftright);
 
+$filepath: sprite-map("filepath/images/*.png");
+$names3: sprite-names($filepath);
+
 .bg4 {
   font-size: 12px;
   transition: all 1s ease;
@@ -26,6 +29,16 @@ $name2: sprite-names($leftright);
   @each $name2 in $name2 {
     .#{$name2} {
       background: sprite($leftright, $name2) no-repeat;
+    }
+  }
+}
+
+.filepath {
+  background-image: sprite-url($filepath);
+
+  @each $name3 in $names3 {
+    .#{$name3} {
+      background: sprite($filepath, $name3) no-repeat;
     }
   }
 }

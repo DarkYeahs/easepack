@@ -8,6 +8,7 @@ easepack
   .media('m1', {
     nodeEnv: '"m1"',
     upToDate: true,
+    spriteUrl: false,
     useSourceMap: true,
     useAutoprefixer: true,
     banner: 'custom a banner',
@@ -28,6 +29,10 @@ easepack
   })
   .match('*.sac', {
     url: '[path][name][hash].[ext]'
+  })
+  .match('filepath/*.sac')
+  .media('m1', {
+    url: '[name][hash].[ext]'
   })
   .media('willnotmatch', {
     url: '[path][name].[ext]'
