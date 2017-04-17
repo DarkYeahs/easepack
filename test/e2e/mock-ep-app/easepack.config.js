@@ -4,7 +4,7 @@ easepack
   .set('output', './dist')
   .set('useBase64', '15kb')
   .set('publicPath', '//cc.cdn.com/')
-  .set('spriteUrl', '[name].spr.[ext]?[hash]')
+  .set('spriteUrl', '[path][name].spr.[ext]?[hash]')
   .media('m1', {
     nodeEnv: '"m1"',
     upToDate: true,
@@ -21,22 +21,22 @@ easepack
 
 easepack
   .match('base64/*.png', {
-    url: '[name].str.[ext]?[hash]'
+    url: '[path][name].str.[ext]?[hash]'
   })
   .match('*.md', {
     emit: true
   })
   .match('*.sac', {
-    url: '[name][hash].[ext]'
+    url: '[path][name][hash].[ext]'
   })
   .media('willnotmatch', {
-    url: '[name].[ext]'
+    url: '[path][name].[ext]'
   });
 
 easepack
   .match('*.md')
   .media('m1', {
-    url: '[name].[hash].[ext]'
+    url: '[path][name].[hash].[ext]'
   });
 
 easepack
