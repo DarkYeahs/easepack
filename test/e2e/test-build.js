@@ -80,9 +80,10 @@ describe('command:build', function () {
     it('build index.html with correct url', function (done) {
       var content = fs.readFileSync('dist/index.html', 'utf8');
       expect(typeof content).to.equal('string');
-      expect(content.split('\n').length).to.equal(21);
+      expect(content.split('\n').length).to.equal(25);
       expect(content.indexOf('<!DOCTYPE html>')).to.equal(0);
       expect(content).to.contain('<img src="//cc.cdn.com/image1.png">');
+      expect(content).to.contain('<img src="data:image/png;base64,iVBOR');
       expect(content).to.contain('<!-- <script src="entry.js"></script> -->');
       expect(content).to.contain('<!--[if IE 7]><script src="//cc.cdn.com/entry.js"');
       expect(content).to.contain('</div>\r\n<script src="//cc.cdn.com/entry.js">');

@@ -10,12 +10,16 @@
 <body>
 <div id="slide">
   <img src="./image1.png">
+  <img src="./image1.png?__inline">
+  <img src="<%= require('./image1.png') %>">
 </div>
 <div id="app"></div>
 <script src="entry.js"></script>
 <script src="entry_not_exist.js"></script>
+
 <% if(process.env.NODE_ENV == 'm1') { %>
-<div>NODE_ENV为'm1'</div>
+  <div>NODE_ENV为'm1'</div>
 <% } %>
+
 </body>
 </html>
