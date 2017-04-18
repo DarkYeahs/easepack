@@ -40,7 +40,7 @@ easepack
 
 easepack
   .media('m1')
-  .match('filepath/*.html', {
+  .match('filepath/file.html', {
     url: '[name][hash].[ext]'
   })
   .match('filepath/*.js', {

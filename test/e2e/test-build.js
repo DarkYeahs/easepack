@@ -262,14 +262,22 @@ describe('command:build', function () {
     it('build with correct file-path', function (done) {
       var content = fs.readFileSync('dist/list.html', 'utf8');
       var fileContent = fs.readFileSync('dist/file.html', 'utf8');
-      expect(fs.existsSync('dist/filepath/file8bbc8e.js')).to.equal(true);
+      expect(fs.existsSync('dist/filepath/filed512da.js')).to.equal(true);
       expect(fs.existsSync('dist/filePath89f15e.sac')).to.equal(true);
-      expect(fileContent).to.contain('//cc.cdn.com/filepath/file8bbc8e.js');
+      expect(fileContent).to.contain('//cc.cdn.com/filepath/filed512da.js');
       expect(fileContent).to.contain('src="//cc.cdn.com/filepath/image1.png"');
       expect(content).to.contain('//cc.cdn.com/filePath89f15e.sac');
       expect(typeof fileContent).to.equal('string');
       done();
     });
+
+    it('build width include template', (done) => {
+      var content = fs.readFileSync('dist/file.html', 'utf8');
+      expect(fs.existsSync('dist/filepath/meta.html')).to.equal(false);
+      expect(content).to.contain('                var clientWidth = do');
+      expect(content).to.contain('  <meta content="object');
+      done()
+    })
   });
 
 });

@@ -25,7 +25,7 @@ delete program.media;
 
 Object.assign(config, program);
 
-['match', 'media', 'set'].map(function (key) {
+['match', 'media', 'set', 'addPlugin'].map(function (key) {
   easepack[key] = function () {
     return config[key].apply(config, arguments);
   };
@@ -47,6 +47,7 @@ if (!config.output) {
 }
 
 config.setIfUndefined({
+  useExtract: true,
   useBase64: '2kb',
   publicPath: '/',
   port: 8080

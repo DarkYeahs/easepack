@@ -5,6 +5,7 @@ function Config() {
   this.context = path.resolve('.');
   this.alias = {};
   this.matches = [];
+  this.plugins = [];
 }
 
 Config.prototype.match = function (pattern, props) {
@@ -53,6 +54,11 @@ Config.prototype.media = function (media, value) {
     config.set(value);
   }
   return config;
+};
+
+Config.prototype.addPlugin = function (plugin) {
+  this.plugins.push(plugin);
+  return this;
 };
 
 //
