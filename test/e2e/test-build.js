@@ -204,7 +204,7 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(19);
+      expect(files.length).to.equal(20);
       expect(result.code).to.equal(0);
       done();
     })
@@ -260,7 +260,11 @@ describe('command:build', function () {
     });
 
     it('build with correct file-path', function (done) {
+      var content = fs.readFileSync('dist/list.html', 'utf8');
+      var fileContent = fs.readFileSync('dist/file.html', 'utf8');
       expect(fs.existsSync('dist/filePath89f15e.sac')).to.equal(true);
+      expect(content).to.contain('//cc.cdn.com/filePath89f15e.sac');
+      expect(typeof fileContent).to.equal('string');
       done();
     });
   });

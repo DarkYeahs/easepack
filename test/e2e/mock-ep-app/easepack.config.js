@@ -30,12 +30,18 @@ easepack
   .match('*.sac', {
     url: '[path][name][hash].[ext]'
   })
+  .media('willnotmatch', {
+    url: '[path][name].[ext]'
+  })
   .match('filepath/*.sac')
   .media('m1', {
     url: '[name][hash].[ext]'
-  })
-  .media('willnotmatch', {
-    url: '[path][name].[ext]'
+  });
+
+easepack
+  .media('m1')
+  .match('filepath/*.html', {
+    url: '[name][hash].[ext]'
   });
 
 easepack
