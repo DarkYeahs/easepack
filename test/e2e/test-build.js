@@ -242,7 +242,8 @@ describe('command:build', function () {
       var file = files.filter(file => (file.endsWith('.css')))[0];
       var components = files.filter(file => (file.endsWith('_c_')))[0];
       var content = fs.readFileSync(path.join('dist', file), 'utf8');
-      expect(content).to.contain('_c_/vuxDivider@1/divider.ea33fc.png');
+      expect(fs.existsSync('dist/_c_/vuxDivider@1/divider.png')).to.equal(true);
+      expect(content).to.contain('_c_/vuxDivider@1/divider.png?ea33fc');
       expect(typeof components).to.equal('string');
       done();
     })
