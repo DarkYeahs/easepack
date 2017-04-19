@@ -15,3 +15,5 @@ module.exports = function (options) {
   complier.apply(new AddBannerPlugin());
   return complier;
 };
+
+module.exports.webpack = require('webpack');

@@ -6,6 +6,32 @@ function Config() {
   this.alias = {};
   this.matches = [];
   this.plugins = [];
+  this.touched = {};
+
+  // default options
+  this.output = null;
+  this.publicPath = '/';
+  this.nodeEnv = '"production"';
+
+  this.autoRsync = false;
+  this.rsyncMsg = false;
+
+  this.useBase64 = '2kb';
+  this.spriteUrl = false
+  this.useCleancss = false;
+  this.useAutoprefixer = false;
+  this.useImagemin = false;
+  this.useUglifyjs = false;
+  this.useEs2015 = false;
+
+  this.useExtract = true;
+  this.useSourceMap = false;
+  this.mocha = false;
+  this.upToDate = false;
+  this.banner = '';
+  this.privateRepo = false;
+
+  this.port = 8080;
 }
 
 Config.prototype.match = function (pattern, props) {
@@ -19,26 +45,30 @@ Config.prototype.match = function (pattern, props) {
   return mps;
 };
 
-Config.prototype.set = function (key, value) {
+Config.prototype.setIfUndefined = function (key, value) {
   if (typeof key === 'string') {
-    this[key] = value;
+    if (!this.touched[key]) {
+      this.set(key, value);
+    }
   } else if (typeof key === 'object') {
     Object.keys(key).forEach(function (k) {
-      this.set.call(this, k, key[k]);
-    }, this)
+      this.setIfUndefined(k, key[k]);
+    }, this);
   }
   return this;
 };
 
-Config.prototype.setIfUndefined = function (key) {
+Config.prototype.set = function (key, value) {
   if (typeof key === 'string') {
-    if (this[key] === undefined) {
-      this.set.apply(this, arguments);
+    if (typeof this[key] === 'undefined') {
+      throw new Error(`Try to set a undefined config key '${key}'`);
     }
+    this[key] = value;
+    this.touched[key] = true;
   } else if (typeof key === 'object') {
     Object.keys(key).forEach(function (k) {
-      this.setIfUndefined.call(this, k, key[k]);
-    }, this);
+      this.set.call(this, k, key[k]);
+    }, this)
   }
   return this;
 };

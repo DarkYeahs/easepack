@@ -46,13 +46,6 @@ if (!config.output) {
   });
 }
 
-config.setIfUndefined({
-  useExtract: true,
-  useBase64: '2kb',
-  publicPath: '/',
-  port: 8080
-});
-
 var compiler = easepack(config);
 
 if (config.watch) {

@@ -10,7 +10,6 @@ import Rtdp from '../../lib/plugins/ResolveTempDirPlugin'
 import Rap from '../../lib/plugins/ResolveAliasPlugin'
 import Rip from '../../lib/plugins/NetworkInfoPlugin'
 
-
 describe('test configuration plugins', () => {
   let context = path.join(__dirname, 'mock-ep-app');
   let compiler = {
@@ -128,3 +127,26 @@ describe('test urlLoader', () => {
     done();
   })
 });
+
+
+describe('test easepack-config', () => {
+  var config = require('../../bin/easepack-config');
+
+  describe('#setIfUndefined', () => {
+    it('will set the value if user not modified it', (done) => {
+      var olduseEs2015 = config.useEs2015
+      config.setIfUndefined('useEs2015', !olduseEs2015)
+      expect(config.useEs2015).to.equal(!olduseEs2015);
+      done()
+    })
+
+    it('will ignore if user modified it', (done) => {
+      var useEs2015_1 = config.useEs2015
+      var useEs2015_2 = !config.useEs2015
+      config.set('useEs2015', useEs2015_2)
+      config.setIfUndefined('useEs2015', useEs2015_1)
+      expect(config.useEs2015).to.equal(useEs2015_2);
+      done()
+    })
+  })
+})
