@@ -149,4 +149,13 @@ describe('test easepack-config', () => {
       done()
     })
   })
+
+  describe('#matchProps.within', () => {
+    it('match files without within-method', (done) => {
+      config.match('*.css', {});
+      config.match('*.js').within('css', {url: '[name].css'});
+      expect(config.matches[1].props._css_.url).to.equal('[name].css');
+      done();
+    })
+  })
 })

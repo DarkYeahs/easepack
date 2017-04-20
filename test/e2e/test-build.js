@@ -204,14 +204,14 @@ describe('command:build', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(20);
+      expect(files.length).to.equal(19);
       expect(result.code).to.equal(0);
       done();
     })
 
     it('build with source map', function (done) {
       var mapFiles = files.filter(file => (file.endsWith('.map')));
-      expect(mapFiles.length).to.equal(4);
+      expect(mapFiles.length).to.equal(3);
       done();
     })
 
@@ -278,6 +278,14 @@ describe('command:build', function () {
       expect(content).to.contain('                var clientWidth = do');
       expect(content).to.contain('  <meta content="object');
       done()
+    })
+
+    it('build with within-method', (done) => {
+      var content = fs.readFileSync('dist/list.html', 'utf8');
+      expect(fs.existsSync('dist/css/entry2fa7c80.css')).to.equal(true);
+      expect(fs.existsSync('dist/css/entry2fa7c80.css.map')).to.equal(true);
+      expect(content).to.contain('//cc.cdn.com/css/entry2fa7c80.css');
+      done();
     })
   });
 

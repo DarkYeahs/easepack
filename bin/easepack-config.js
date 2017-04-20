@@ -104,6 +104,12 @@ MatchProps.prototype.media = function (media, props) {
   return this;
 };
 
+MatchProps.prototype.within = function (type, props) {
+  var key = `_${type}_`;
+  this.props[key] = Object.assign({}, this.props[key], props);
+  return this;
+};
+
 ['set', 'match'].forEach(function (key) {
   MatchProps.prototype[key] = function () {
     return this.config[key].apply(this.config, arguments);

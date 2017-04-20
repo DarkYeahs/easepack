@@ -46,6 +46,10 @@ easepack
   .match('filepath/*.js', {
     url: '[path][name][hash].[ext]'
   })
+  .match('entry2.js')
+  .within('css', {
+    url: 'css/[name][hash].[ext]'
+  })
 
 easepack
   .match('*.md')
