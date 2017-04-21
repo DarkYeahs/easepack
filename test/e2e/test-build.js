@@ -146,6 +146,7 @@ describe('command:build', function () {
     it('build with entry using es2015', function (done) {
       var file = files.filter(file => (file.endsWith('.js')))[0];
       var content = fs.readFileSync(path.join('dist', file), 'utf8');
+      expect(content).to.contain('nums.forEach(function(');
       expect(content).to.contain(', and output "+');
       expect(content).not.to.contain('let ');
       done();
@@ -263,9 +264,9 @@ describe('command:build', function () {
     it('build with correct file-path', function (done) {
       var content = fs.readFileSync('dist/list.html', 'utf8');
       var fileContent = fs.readFileSync('dist/file.html', 'utf8');
-      expect(fs.existsSync('dist/filepath/file7dfca8.js')).to.equal(true);
+      expect(fs.existsSync('dist/filepath/file8d1051.js')).to.equal(true);
       expect(fs.existsSync('dist/filePath89f15e.sac')).to.equal(true);
-      expect(fileContent).to.contain('//cc.cdn.com/filepath/file7dfca8.js');
+      expect(fileContent).to.contain('//cc.cdn.com/filepath/file8d1051.js');
       expect(fileContent).to.contain('src="//cc.cdn.com/filepath/image1.png"');
       expect(content).to.contain('//cc.cdn.com/filePath89f15e.sac');
       expect(typeof fileContent).to.equal('string');
@@ -289,4 +290,46 @@ describe('command:build', function () {
     })
   });
 
+});
+
+
+describe('command:build babelrc', function () {
+  var cli = path.join(__dirname, '../../bin/easepack-build.js');
+  var originalCwd = process.cwd();
+
+  function setup() {
+    process.chdir(path.join(__dirname, 'mock-ep-app-rc'))
+  }
+
+  function teardown(done) {
+    rm('dist');
+    process.chdir(originalCwd)
+    done()
+  }
+
+  describe('build an app', function () {
+    var result, files;
+
+    before(function (done) {
+      setup();
+      execa('node', [cli], {stdio: 'inherit'})
+        .then(function (res) {
+          result = res;
+          files = fs.readdirSync('dist');
+          done();
+        })
+        .catch(done);
+    });
+
+    after(teardown);
+
+    it('build with entry using es2015', function (done) {
+      var content = fs.readFileSync('dist/entry.js', 'utf8');
+      expect(content).to.contain('nums.forEach(function(');
+      expect(content).to.contain(', and output "+');
+      expect(content).not.to.contain('let ');
+      done();
+    });
+
+  });
 });

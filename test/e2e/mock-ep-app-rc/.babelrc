@@ -1,0 +1,6 @@
+{
+  "presets": [
+    ["../../../node_modules/babel-preset-es2015", { "modules": false }],
+    "../../../node_modules/babel-preset-stage-2"
+  ]
+}
