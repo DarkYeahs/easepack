@@ -1,6 +1,6 @@
 easepack
   .set('rsyncMsg', 'easepack文档提交')
-  .set('spriteUrl', '[name].sprite.[ext]?[hash]')
+  .set('spriteUrl', '[path][name].sprite.[ext]?[hash]')
   //.set('privateRepo', 'E:\\workplace\\ep_components')
   .media('dev', {
     autoRsync: true,
@@ -12,9 +12,9 @@ easepack
   .match('*.html')
 
   .match('entries/*.js', {
-    url: '[name].[ext]?[hash]'
+    url: '[path][name].[ext]?[hash]'
   })
 
   .match('**/*.png', {
-    url: '[name].[ext]?[hash]'
+    url: '[path][name].[ext]?[hash]'
   });

@@ -199,7 +199,7 @@ easepack.set('useAutoprefixer', {browserslist: ['> 1%', 'last 2 versions']});
 
 设置是否需要压缩 png 文件。当 output 为 false 时，默认为 false，反之。
 
-##### useSourcemap
+##### useSourceMap
 
 `boolean`
 
@@ -263,25 +263,6 @@ easepack.match('entries/*.js', {
 
 #### 文件属性
 
-##### name
-
-`string`
-
-文件模块名称，默认为文件的不带后缀的路径。
-
-entries/dome.js 文件的 name 默认为 `entries/dome`，修改为 `domeName`。
-
-```js
-easepack.set('output', 'E:\\htdocs\\m\\daily\\ep_dome');
-easepack.match('entries/dome.js', {
-  name: 'domeName'
-});
-```
-
-<p class="danger">
-  默认的，目录构建后，entries/dome.js 会输出到 E:\\htdocs\\m\\daily\\ep_dome\\entries\\dome.js，修改后则会输出到 E:\\htdocs\\m\\daily\\ep_dome\\domeName.js
-</p>
-
 ##### url
 
 `string`
@@ -295,11 +276,17 @@ easepack.set('publicPath', '//cdn.example.com/');
 // 输出路径为到 E:\\htdocs\\m\\daily\\ep_dome\\entries\\dome.6802ae.js
 // URL: //cdn.example.com/entries/dome.6802ae.js
 easepack.match('entries/dome.js', {
-  url: '[name].[hash].[ext]'
+  url: '[path][name].[hash].[ext]'
 });
 
 // 输出路径为到 E:\\htdocs\\m\\daily\\ep_dome\\entries\\dome.js
 // URL: //cdn.example.com/entries/dome.js?6802ae
+easepack.match('entries/dome.js', {
+  url: '[path][name].[ext]?[hash]'
+});
+
+// 输出路径为到 E:\\htdocs\\m\\daily\\ep_dome\\dome.js
+// URL: //cdn.example.com/dome.js?6802ae
 easepack.match('entries/dome.js', {
   url: '[name].[ext]?[hash]'
 });
@@ -307,7 +294,8 @@ easepack.match('entries/dome.js', {
 
 | template    | value   | description |
 |-------|-------|-------|
-| [name] | entries/dome | 文件模块名称，默认为文件的不带后缀的路径 |
+| [path] | entries/ | 文件模块路径 |
+| [name] | dome | 文件模块名称，默认为文件的不带后缀的文件名 |
 | [ext] |  js | 文件的后缀，不带"."的 |
 | [hash] | 6802ae | 文件模块6位数的hash值 |
 
@@ -342,6 +330,10 @@ easepack.match('image/icon.png', {
 #### 规则覆盖
 
 
+
+---
+
+### easepack.within
 
 ---
 

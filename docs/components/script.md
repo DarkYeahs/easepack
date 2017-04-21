@@ -61,11 +61,11 @@ classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1
 
 ---
 
-### querystring 
+### queryString 
 
 解析的 URL 查询字符串
 
-**querystring.parse(str[, sep[, eq[, options]]])**
+**queryString.parse(str[, sep[, eq[, options]]])**
 
 * `str` [String] 要解析的 URL 查询字符串。 
 
@@ -85,7 +85,7 @@ classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1
 
 ```javascript
 //也可以解析链接上的参数
-querystring.parse(location.search.substr(1))
+queryString.parse(location.search.substr(1))
 ```
 
 ---
