@@ -3,7 +3,9 @@
 </template>
 
 <script>
+  window.nums = [];
   var vuxDivider = {};
+  
   if (process.env.NODE_ENV == 'm1') {
     vuxDivider = require('vuxDivider');
   }

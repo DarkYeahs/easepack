@@ -323,11 +323,23 @@ describe('command:build babelrc', function () {
 
     after(teardown);
 
-    it('build with entry using es2015', function (done) {
+    it('build with expected files', function (done) {
+      expect(files.length).to.equal(4);
+      expect(result.code).to.equal(0);
+      done();
+    })
+
+    it('build with es2015 in both js&vue', function (done) {
       var content = fs.readFileSync('dist/entry.js', 'utf8');
       expect(content).to.contain('nums.forEach(function(');
       expect(content).to.contain(', and output "+');
       expect(content).not.to.contain('let ');
+      done();
+    });
+
+    it('build sprite width relative public path', function (done) {
+      var content = fs.readFileSync('dist/entry.css', 'utf8');
+      expect(content).to.contain('background:url(./images.png) -204px');
       done();
     });
 

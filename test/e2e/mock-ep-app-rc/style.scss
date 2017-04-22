@@ -1,3 +1,20 @@
+$sprite: sprite-map("images/*.png");
+$names: sprite-names($sprite);
+
 .inline {
   border-radius: 1px;
+}
+
+.bs {
+  font-size: 12px;
+  transition: all 1s ease;
+
+  @each $name in $names {
+    &.#{$name} {
+      width: #{sprite-width($sprite, $name)}px;
+      height: #{sprite-height($sprite, $name)}px;
+      background: sprite($sprite, $name) no-repeat;
+      background-position: -#{sprite-position-x($sprite, $name)}px -#{sprite-position-y($sprite, $name)}px;
+    }
+  }
 }
