@@ -324,7 +324,7 @@ describe('command:build babelrc', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(4);
+      expect(files.length).to.equal(6);
       expect(result.code).to.equal(0);
       done();
     })
@@ -340,6 +340,15 @@ describe('command:build babelrc', function () {
     it('build sprite width relative public path', function (done) {
       var content = fs.readFileSync('dist/entry.css', 'utf8');
       expect(content).to.contain('background:url(./images.png) -204px');
+      done();
+    });
+
+    it('build sprite width __sprite_map__', function (done) {
+      var content = fs.readFileSync('dist/entry.js', 'utf8');
+      var leftright = images(fs.readFileSync('dist/leftright.png'));
+      expect(content).to.contain('{url:"./leftright.png",width:816,height:129}');
+      expect(leftright.height()).to.equal(129);
+      expect(leftright.width()).to.equal(816);
       done();
     });
 

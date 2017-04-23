@@ -2,7 +2,8 @@ var path = require('path');
 var easeapck = require('../..');
 
 easeapck({
-  context: path.resolve('./mock-ep-app'),
+  plugins: [],
+  context: path.resolve('./mock-ep-app-rc'),
   matches: [
     {pattern: 'base64/*.png', props: {url: '[name].str.[ext]?[hash]'}},
     {pattern: '*.{js,html}', props: {}}

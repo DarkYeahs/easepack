@@ -5,6 +5,8 @@
 <script>
   window.nums = [];
   var vuxDivider = {};
+
+  var spriteUrl = __sprite_map__('leftright/*.png');
   
   if (process.env.NODE_ENV == 'm1') {
     vuxDivider = require('vuxDivider');
