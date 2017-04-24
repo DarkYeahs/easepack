@@ -405,6 +405,39 @@ easepack.match('a.png', {
 
 ### CssSprite图片合并
 
+#### Function for JS CODE
+
+easepack 已经在代码中注入 `__sprite_map__` 方法，为满足在js代码中生成sprite图的需求。
+
+```js
+//icons目录里有 icons/i1.png，icons/i2.png文件
+var sprite = __sprite_map__('icons/*.png');
+```
+
+<p class="tip">
+  `__sprite_map__` 方法目前只支持 left-right 的合并方式
+</p>
+
+编译后可以得到一个含图片信息的JSON对像
+
+```js
+{
+  i1: {
+    
+  },
+  i2: {},
+  __sprite__: {
+    width:816,         //合成sprite图的宽（像素）
+    height:129,        //合成sprite图的高（像素）
+    url: "/icons.png", //合成sprite图的url地址
+  }
+}
+```
+
+
+
+#### Functions for SASS/SCSS
+
 easepack 编译 sass 时已经注入一系列的 Functions，可以使你更简单的在你的项目中使用 css sprites。
 
 While it is allowed to use these directly, to do so is considered "advanced usage". It is recommended that you instead use the css sprite mixins that are designed to work with these functions.
@@ -485,16 +518,19 @@ background-position: 0 -20px;
 ```css
 $icons: sprite-map("icons/*.png");
 $names: sprite-names($icons); // output ['i1', 'i2']
+```
 
+```css
 .bg-sprite-icon {
   background-image: sprite-url($icons);
   background-repeat: no-repeat;
 
   @each $name in $names {
     &.#{$name} {
-      width: -#{sprite-width($icons, $name)}px;
-      height: -#{sprite-height($icons, $name)}px;
-      background-position: -#{sprite-position-x($icons, $name)}px, -#{sprite-position-y($icons, $name)}px;
+      width: #{sprite-width($icons, $name)}px;
+      height: #{sprite-height($icons, $name)}px;
+      background-position: -#{sprite-position-x($icons, $name)}px 
+        -#{sprite-position-y($icons, $name)}px;
     }
   }
 }
