@@ -411,25 +411,33 @@ easepack 已经在代码中注入 `__sprite_map__` 方法，为满足在js代码
 
 ```js
 //icons目录里有 icons/i1.png，icons/i2.png文件
-var sprite = __sprite_map__('icons/*.png');
+var spriteObject = __sprite_map__('icons/*.png');
 ```
 
 <p class="tip">
   `__sprite_map__` 方法目前只支持 left-right 的合并方式
 </p>
 
-编译后可以得到一个含图片信息的JSON对像
+编译后可以得到一个含图片信息的JSON对像（下面例子），赋值给 `spriteObject` 变量。
 
 ```js
 {
   i1: {
-    
+    x:0,               //图片i1的x轴位置（像素）
+    y:0,               //图片i1的y轴位置（像素）
+    width:202,         //图片i1的宽（像素）
+    height:127         //图片i1的高（像素）
   },
-  i2: {},
+  i2: {
+    x:202,             //图片i2的x轴位置（像素）
+    y:0,               //图片i2的y轴位置（像素）
+    width:202,         //图片i2的宽（像素）
+    height:127         //图片i2的高（像素）
+  },
   __sprite__: {
-    width:816,         //合成sprite图的宽（像素）
-    height:129,        //合成sprite图的高（像素）
-    url: "/icons.png", //合成sprite图的url地址
+    width:404,         //合成sprite图的宽（像素）
+    height:127,        //合成sprite图的高（像素）
+    url: "/icons.png"  //合成sprite图的url地址
   }
 }
 ```
