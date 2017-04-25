@@ -80,7 +80,7 @@ describe('command:build', function () {
     it('build index.html with correct url', function (done) {
       var content = fs.readFileSync('dist/index.html', 'utf8');
       expect(typeof content).to.equal('string');
-      expect(content.split('\n').length).to.equal(25);
+      expect(content.split('\n').length).to.equal(29);
       expect(content.indexOf('<!DOCTYPE html>')).to.equal(0);
       expect(content).to.contain('<img src="//cc.cdn.com/image1.png">');
       expect(content).to.contain('<img src="data:image/png;base64,iVBOR');
@@ -97,6 +97,7 @@ describe('command:build', function () {
       var content = fs.readFileSync('dist/list.html', 'utf8');
       expect(typeof content).to.equal('string');
       expect(content).to.contain('<meta charset="utf-8">\r\n</head>');
+      expect(content).to.contain('<script src="http://cc.cottage.netease.co');
       expect(content).to.contain('{% block css %}\r\n  <link href="//cc.cdn.com/entry.css"');
       expect(content).to.contain('//cc.cdn.com/entry2.css" rel="stylesheet">\r\n{% endblock %}');
       done();
@@ -264,9 +265,9 @@ describe('command:build', function () {
     it('build with correct file-path', function (done) {
       var content = fs.readFileSync('dist/list.html', 'utf8');
       var fileContent = fs.readFileSync('dist/file.html', 'utf8');
-      expect(fs.existsSync('dist/filepath/filecc804a.js')).to.equal(true);
+      expect(fs.existsSync('dist/filepath/file.js')).to.equal(true);
       expect(fs.existsSync('dist/filePath89f15e.sac')).to.equal(true);
-      expect(fileContent).to.contain('//cc.cdn.com/filepath/filecc804a.js');
+      expect(fileContent).to.contain('//cc.cdn.com/filepath/file.js?');
       expect(fileContent).to.contain('src="//cc.cdn.com/filepath/image1.png"');
       expect(content).to.contain('//cc.cdn.com/filePath89f15e.sac');
       expect(typeof fileContent).to.equal('string');
@@ -354,7 +355,8 @@ describe('command:build babelrc', function () {
 
     it('build app width commons chunk plugin', function (done) {
       var content = fs.readFileSync('dist/index.html', 'utf8');
-      expect(content).to.contain('./vendor.js?c41c0d"></script>\r\n<script src="./en');
+      expect(content).to.contain('<script src="./entry.js"></script>');
+      expect(content).to.contain('<script src="./vendor.js?');
       expect(fs.existsSync('dist/vendor.js')).to.equal(true);
       done();
     });

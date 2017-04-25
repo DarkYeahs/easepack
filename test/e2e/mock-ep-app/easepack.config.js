@@ -44,7 +44,7 @@ easepack
     url: '[name][hash].[ext]'
   })
   .match('filepath/*.js', {
-    url: '[path][name][hash].[ext]'
+    url: '[path][name].[ext]?[hash]'
   })
   .match('entry2.js')
   .within('css', {
