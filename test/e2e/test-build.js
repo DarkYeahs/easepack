@@ -264,9 +264,9 @@ describe('command:build', function () {
     it('build with correct file-path', function (done) {
       var content = fs.readFileSync('dist/list.html', 'utf8');
       var fileContent = fs.readFileSync('dist/file.html', 'utf8');
-      expect(fs.existsSync('dist/filepath/file8d1051.js')).to.equal(true);
+      expect(fs.existsSync('dist/filepath/filecc804a.js')).to.equal(true);
       expect(fs.existsSync('dist/filePath89f15e.sac')).to.equal(true);
-      expect(fileContent).to.contain('//cc.cdn.com/filepath/file8d1051.js');
+      expect(fileContent).to.contain('//cc.cdn.com/filepath/filecc804a.js');
       expect(fileContent).to.contain('src="//cc.cdn.com/filepath/image1.png"');
       expect(content).to.contain('//cc.cdn.com/filePath89f15e.sac');
       expect(typeof fileContent).to.equal('string');
@@ -324,7 +324,7 @@ describe('command:build babelrc', function () {
     after(teardown);
 
     it('build with expected files', function (done) {
-      expect(files.length).to.equal(6);
+      expect(files.length).to.equal(8);
       expect(result.code).to.equal(0);
       done();
     })
@@ -332,7 +332,7 @@ describe('command:build babelrc', function () {
     it('build with es2015 in both js&vue', function (done) {
       var content = fs.readFileSync('dist/entry.js', 'utf8');
       expect(content).to.contain('nums.forEach(function(');
-      expect(content).to.contain(', and output "+');
+      // expect(content).to.contain(', and output "+');
       expect(content).not.to.contain('let ');
       done();
     });
@@ -346,9 +346,23 @@ describe('command:build babelrc', function () {
     it('build sprite width __sprite_map__', function (done) {
       var content = fs.readFileSync('dist/entry.js', 'utf8');
       var leftright = images(fs.readFileSync('dist/leftright.png'));
-      expect(content).to.contain('{url:"./leftright.png",width:816,height:129}');
-      expect(leftright.height()).to.equal(129);
-      expect(leftright.width()).to.equal(816);
+      expect(content).to.contain('{url:"./leftright.png",width:808,height:127}');
+      expect(leftright.height()).to.equal(127);
+      expect(leftright.width()).to.equal(808);
+      done();
+    });
+
+    it('build app width commons chunk plugin', function (done) {
+      var content = fs.readFileSync('dist/index.html', 'utf8');
+      expect(content).to.contain('./vendor.js?c41c0d"></script>\r\n<script src="./en');
+      expect(fs.existsSync('dist/vendor.js')).to.equal(true);
+      done();
+    });
+
+    it('build app width split code', function (done) {
+      var content = fs.readFileSync('dist/index.html', 'utf8');
+      expect(fs.existsSync('dist/_c_/0.chunk.js')).to.equal(true);
+      expect(content).to.not.contain('0.chunk.js?7f5f84');
       done();
     });
 
