@@ -15,7 +15,11 @@ easepack
   .set('mocha', true)
   .set('useEs2015', true)
   .set('output', './dist')
+  // .set('useUglifyjs', false)
   .set('publicPath', './')
+  .set('useAutoprefixer', {
+    browsers: ['last 4 versions']
+  })
   .addPlugin(vendorChunk)
 
 easepack

@@ -368,5 +368,11 @@ describe('command:build babelrc', function () {
       done();
     });
 
+    it('build app width custom prefixer', function (done) {
+      var content = fs.readFileSync('dist/entry.css', 'utf8');
+      expect(content).to.contain('display:-ms-flexbox;display:flex');
+      done();
+    });
+
   });
 });
