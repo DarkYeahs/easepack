@@ -7,9 +7,10 @@ var loaderUtils = require("loader-utils");
 var NodeOutputFileSystem = require('webpack/lib/node/NodeOutputFileSystem');
 
 var config = require('./easepack-config');
+var ResolveTempDir = require('../lib/plugins/ResolveTempDirPlugin')
 
 var tempDirName = '.easepack-temp';
-var tempPath = Path.join(os.tmpdir(), '..', tempDirName);
+var tempPath = ResolveTempDir.tempPath();
 var repo = 'ssh://git@git-cc.nie.netease.com:32200/frontend/';
 var fileSystem = new NodeOutputFileSystem();
 
