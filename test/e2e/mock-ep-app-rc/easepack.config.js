@@ -12,7 +12,6 @@ var vendorChunk =
     });
 
 easepack
-  .set('mocha', true)
   .set('useEs2015', true)
   .set('output', './dist')
   // .set('useUglifyjs', false)

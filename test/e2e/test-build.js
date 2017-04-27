@@ -368,9 +368,15 @@ describe('command:build babelrc', function () {
       done();
     });
 
-    it('build app width custom prefixer', function (done) {
+    it('build app with custom prefixer', function (done) {
       var content = fs.readFileSync('dist/entry.css', 'utf8');
       expect(content).to.contain('display:-ms-flexbox;display:flex');
+      done();
+    });
+
+    it('build and output app without livereload', function (done) {
+      var content = fs.readFileSync('dist/index.html', 'utf8');
+      expect(content).to.not.contain('__easepack_dev_server__/livereload.js');
       done();
     });
 
