@@ -12,6 +12,9 @@ function Config() {
   this.output = null;
   this.publicPath = '/';
   this.nodeEnv = '"production"';
+  this.proxyTable = {};
+  this.dev = false;
+  this.webpackDevServer = false;
 
   this.autoRsync = false;
   this.rsyncMsg = false;

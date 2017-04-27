@@ -48,11 +48,15 @@ if (!config.output) {
 
 var compiler = easepack(config);
 
-if (config.watch) {
-  compiler.watch(compilerCallback);
-} else {
-  compiler.run(compilerCallback);
-}
+ if (config.webpackDevServer) {
+   compiler.run();
+ } else {
+   if (config.watch) {
+     compiler.watch(compilerCallback);
+   } else {
+     compiler.run(compilerCallback);
+   }
+ }
 
 function compilerCallback(err, stats) {
   if (!config.watch || err) {
