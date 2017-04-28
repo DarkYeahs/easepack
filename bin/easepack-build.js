@@ -35,14 +35,14 @@ config.config = program.config || 'easepack.config.js';
 require(path.join(config.context, config.config));
 
 if (!config.output) {
-  config.watch = true;
   config.dev = true;
+  config.watch = true;
 } else {
   config.setIfUndefined({
     useUglifyjs: true,
     useCleancss: true,
     useImagemin: true,
-    publicPath: '/'
+    nodeEnv: '"production"'
   });
 }
 
