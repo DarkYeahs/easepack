@@ -65,7 +65,7 @@ easepack init <project-name> [template-name]
 例子：
 
 ```bash
-vue init ep-project
+easepack init ep-project
 ```
 
 上面的命令表示从 [ep_dome](https://git-cc.nie.netease.com/frontend/ep_dome/tree/master) 里复制代码到 `./ep-project/` 里。
@@ -238,6 +238,14 @@ easepack.set('useBase64', false);
 <p class="warning">
   easepack 不会对合成的 CssSprite 图进行 base64 的嵌入的。
 </p>
+
+##### useExtract
+
+设置是否提取文件中的CSS样式，默认为 true。
+
+##### webpackDevServer
+
+
 
 ---
 
