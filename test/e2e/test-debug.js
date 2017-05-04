@@ -3,7 +3,7 @@ var easeapck = require('../..');
 
 easeapck({
   plugins: [],
-  context: path.resolve('./mock-ep-app-rc'),
+  context: path.resolve('./mock-ep-app'),
   matches: [
     {pattern: 'base64/*.png', props: {url: '[name].str.[ext]?[hash]'}},
     {pattern: '*.{js,html}', props: {}}
@@ -11,6 +11,7 @@ easeapck({
   dev: true,
   port: 8080,
   useEs2015: true,
+  useExtract: true,
   useBase64: '15kb',
   publicPath: '//cc.cdn.com/',
   config: 'easepack.config.js',
