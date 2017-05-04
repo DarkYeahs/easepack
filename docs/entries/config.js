@@ -3,7 +3,7 @@ var lotteryround = require('lotteryround');
 var uiVueTicktock = require('vuxActionsheet');
 
 var style = require('./config.scss');
-var pickerData = require('../pickerData');
+var pickerData = require('./pickerData');
 
 docute.init({
   nav: [{

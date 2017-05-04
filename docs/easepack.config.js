@@ -11,7 +11,7 @@ easepack
 easepack
   .match('*.html')
 
-  .match('entries/*.js', {
+  .match('entries/config.js', {
     url: '[path][name].[ext]?[hash]'
   })
 
