@@ -65,7 +65,7 @@ easepack init <project-name> [template-name]
 例子：
 
 ```bash
-vue init ep-project
+easepack init ep-project
 ```
 
 上面的命令表示从 [ep_dome](https://git-cc.nie.netease.com/frontend/ep_dome/tree/master) 里复制代码到 `./ep-project/` 里。
@@ -209,6 +209,20 @@ easepack.set('useAutoprefixer', {browserslist: ['> 1%', 'last 2 versions']});
 
 `boolean`
 
+设置是否允许在 JS/Vue 文件中使用 ES2015，默认为 false。easepack 内部使用 `babel` 编译ES2015语法，默认的配置如下：
+
+```js
+{
+  presets: [
+    ['es2015', {modules: false}], 
+    'stage-2'
+  ]
+}
+```
+
+<p class="warning">
+  easepack 遵守 `.babelrc`，因此这是配置 Babel presets 和插件推荐的方法。
+</p>
 
 ##### useBase64
 
@@ -238,6 +252,12 @@ easepack.set('useBase64', false);
 <p class="warning">
   easepack 不会对合成的 CssSprite 图进行 base64 的嵌入的。
 </p>
+
+##### useExtract
+
+`boolean`
+
+
 
 ---
 
@@ -364,7 +384,34 @@ easepack
   一个组件内部可以包含JS文件，CSS文件，图片文件，字体文件，swf文件等等，easepack 在构建过程中已经替用户解决所有文件间的依赖关系。
 </p>
 
+
 ## 初级使用
+
+### HTML模板语法
+
+用户可以的 easepack 所处理的HTML文件中使用类似 `ejs` 语法。
+
+* 通过 `include` 包含其它的html文件
+
+```html
+<!DOCTYPE html>
+<head>
+<%= include('./file.html') %>
+</head>
+```
+
+* 通过 `process.env.NODE_ENV` 判断当前环境而加载不同的文件
+
+```html
+<!DOCTYPE html>
+<body>
+<% if (process.env.NODE_ENV == 'production') { %>
+<script src="//cc.res.netease.com/统计的代码"></script>
+<% } %>
+</body>
+```
+
+---
 
 ### 压缩资源
 
