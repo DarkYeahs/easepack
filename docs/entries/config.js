@@ -9,7 +9,7 @@ docute.init({
   nav: [{
     title: '首页',
     path: '/',
-    markdown: require('../guide.md?__inline')
+    markdown: require('../zh-CN/guide.md?__inline')
       .replace('__title__', require('../assets/title.png'))
   }, {
     title: '组件库',
@@ -133,7 +133,7 @@ docute.init({
   }, {
     title: '版本更新',
     path: '/changelog',
-    source: 'https://raw.githubusercontent.com/dante1977/easepack/master/docs/release.md'
+    markdown: require('../zh-CN/release.md?__inline')
   }],
   icons: [{
     icon: 'github',

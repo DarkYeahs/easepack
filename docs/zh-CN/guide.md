@@ -387,32 +387,6 @@ easepack
 
 ## 初级使用
 
-### HTML模板语法
-
-用户可以的 easepack 所处理的HTML文件中使用类似 `ejs` 语法。
-
-* 通过 `include` 包含其它的html文件
-
-```html
-<!DOCTYPE html>
-<head>
-<%= include('./file.html') %>
-</head>
-```
-
-* 通过 `process.env.NODE_ENV` 判断当前环境而加载不同的文件
-
-```html
-<!DOCTYPE html>
-<body>
-<% if (process.env.NODE_ENV == 'production') { %>
-<script src="//cc.res.netease.com/统计的代码"></script>
-<% } %>
-</body>
-```
-
----
-
 ### 压缩资源
 
 默认的，`easepack` 对输出的 js，css, png 文件是进行压缩的，但也可以通过给文件自定义配置。
@@ -427,6 +401,44 @@ easepack.set('useCleancss', false);
 //配置对PNG文件是否压缩
 easepack.set('useImagemin', false);
 ```
+
+---
+
+### HTML模板语法
+
+easepack 所处理的HTML文件中可以使用类似 `ejs` 语法。
+
+* 通过 `include` 包含其它的html文件（不一定需要是 .html 后缀）
+
+```html
+<!DOCTYPE html>
+<head>
+  <title>include其它文件</title>
+  <%= include('./file.html') %>
+</head>
+```
+
+* 通过 `process.env.NODE_ENV` 判断当前环境而加载不同的文件
+
+```html
+<!DOCTYPE html>
+<body>
+<% if (process.env.NODE_ENV == 'production') { %>
+<!-- 当发布到正式服时才会有这段代码 -->
+<script src="//cc.res.netease.com/统计代码的URL"></script>
+<% } %>
+</body>
+```
+
+* 通过 `require` 加载其它模块的文件
+
+```html
+<!DOCTYPE html>
+<body>
+  <img data-base64="<%= require('./img/logo.png?__inline') %>">
+</body>
+```
+
 
 ---
 

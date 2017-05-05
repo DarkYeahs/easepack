@@ -1,5 +1,5 @@
 @import "~mixins";
-@import "~fontello";
+// @import "~fontello";
 
 .markdown-body hr {
   margin: 35px 0 !important;
@@ -51,6 +51,16 @@
     }
   }
 }
+
+.nav-item {
+  margin-right: 25px;
+
+  .router-link {
+    width: 58px;
+    text-align: center;
+  }
+}
+
 
 // #sidebar {
 //   display: block;
