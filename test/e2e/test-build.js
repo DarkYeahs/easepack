@@ -277,8 +277,8 @@ describe('command:build', function () {
     it('build width include template', (done) => {
       var content = fs.readFileSync('dist/file.html', 'utf8');
       expect(fs.existsSync('dist/filepath/meta.html')).to.equal(false);
-      expect(content).to.contain('                var clientWidth = do');
-      expect(content).to.contain('  <meta content="object');
+      expect(content).to.contain('              var clientWidth = do');
+      expect(content).to.contain('<meta content="object');
       done()
     })
 
