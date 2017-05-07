@@ -55,18 +55,20 @@ describe('test configuration plugins', () => {
       callback(() => {
         let config = compiler.config;
         let options = compiler.options;
-        expect(config.resolve.alias).to.deep.equal({
-          mixin: path.join(options.privateRepo, 'mixin.scss'),
-          vuxDivider: path.join(options.privateRepo, 'vuxDivider@1'),
-          sprite: require.resolve('../../lib/client/placehold.sprite')
-        });
+        let alias = config.resolve.alias;
+        //make sure read files repo dir 
+        expect(Object.keys(alias).length > 3).to.equal(true);
+
+        expect(alias.mixin).to.equal(path.join(options.privateRepo, 'mixin.scss'));
+        expect(alias.vuxDivider).to.equal(path.join(options.privateRepo, 'vuxDivider@1'));
+        expect(alias.sprite).to.equal(require.resolve('../../lib/client/placehold.sprite'));
         done();
       });
     }
     new Rap().apply(compiler);
   })
 
-  it('correct resolve alias', (done) => {
+  it('correct network info', (done) => {
     compiler.plugin = (name, callback) => {
       callback(() => {
         expect(typeof compiler.options.ipv4).to.equal('string');
