@@ -2,7 +2,7 @@
 
 ### New Features
 
-
+* `livereload`  CSS 或 Image 改动时，浏览器自动更新时无需重新加载页面
 
 ### Fixbug
 
