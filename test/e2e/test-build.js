@@ -279,6 +279,7 @@ describe('command:build', function () {
       expect(fs.existsSync('dist/filepath/meta.html')).to.equal(false);
       expect(content).to.contain('              var clientWidth = do');
       expect(content).to.contain('<meta content="object');
+      expect(content).to.not.contain('[object Object]');
       done()
     })
 

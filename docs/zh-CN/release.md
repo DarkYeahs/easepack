@@ -2,8 +2,10 @@
 
 ### New Features
 
-* `livereload`  CSS 或 Image 改动时，浏览器自动更新时无需重新加载页面
+* `livereload`  CSS 或 Image 改动时，浏览器更新内容时无需重新加载页面
 
 ### Fixbug
 
 * 设置 `upToDate` 为 true 后没有加载组件
+
+* 修改 `include` 空文件时，出现 `[object Object]` 问题
