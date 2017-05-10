@@ -257,7 +257,19 @@ easepack.set('useBase64', false);
 
 `boolean`
 
+是否提取 CSS 到单独文件。
 
+##### webpackDevServer
+
+`boolean`
+
+启动 webpackDevServer[](https://webpack.js.org/configuration/dev-server/)
+
+```js
+easepack
+  .set('useExtract', false)
+  .set('webpackDevServer', true)
+```
 
 ---
 
