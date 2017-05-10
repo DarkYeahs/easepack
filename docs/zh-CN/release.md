@@ -1,12 +1,12 @@
-## v1.9.2
+## ~v1.9.2
 
 ### New Features
 
-* `livereload`  CSS 或 Image 改动时，浏览器更新内容时无需重新加载页面
+* `livereload`：当 CSS 或 Image 文件修改时，浏览器无需重新加载页面
+
+* `webpackDevServer`：支持使用 webpackDevServer[](https://webpack.js.org/configuration/dev-server/) 模式开发项目
 
 * 支持 ejs 语法编译 HTML 文件，包括 `require` `include` 等功能
-
-* `webpackDevServer` 支持使用 webpackDevServer[](https://webpack.js.org/configuration/dev-server/) 模式开发项目
 
 ### Fixbug
 
