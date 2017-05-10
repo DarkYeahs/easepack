@@ -1,5 +1,7 @@
 import s from './style.scss';
 
+require('./duplicate.scss');
+
 let b = require('./App.vue');
 let f = require('./fileUrl.sac');
 let pf = require('./filepath/filePath.sac');

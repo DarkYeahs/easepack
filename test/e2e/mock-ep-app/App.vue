@@ -21,6 +21,7 @@
 </script>
 
 <style>
+  @import "./duplicate";
   body {
     display: flex;
     background-image: url("./image1.png");

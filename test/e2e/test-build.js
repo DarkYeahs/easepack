@@ -74,6 +74,12 @@ describe('command:build', function () {
       var jsContent = fs.readFileSync('dist/entry.js', 'utf8');
       expect(cssContent.split('\n').length).to.equal(2);
       expect(jsContent.split('\n').length).to.equal(2);
+
+      // 判断是否去掉重复的内容
+      var count = 0, expr = /\.duplicate\{/g;
+      while(expr.exec(cssContent)) count++;
+      expect(count).to.equal(1);
+
       done();
     })
 
@@ -285,9 +291,9 @@ describe('command:build', function () {
 
     it('build with within-method', (done) => {
       var content = fs.readFileSync('dist/list.html', 'utf8');
-      expect(fs.existsSync('dist/css/entry2fa7c80.css')).to.equal(true);
-      expect(fs.existsSync('dist/css/entry2fa7c80.css.map')).to.equal(true);
-      expect(content).to.contain('//cc.cdn.com/css/entry2fa7c80.css');
+      expect(fs.existsSync('dist/css/entry2b07079.css')).to.equal(true);
+      expect(fs.existsSync('dist/css/entry2b07079.css.map')).to.equal(true);
+      expect(content).to.contain('//cc.cdn.com/css/entry2b07079.css');
       done();
     })
   });
@@ -341,7 +347,7 @@ describe('command:build babelrc', function () {
 
     it('build sprite width relative public path', function (done) {
       var content = fs.readFileSync('dist/entry.css', 'utf8');
-      expect(content).to.contain('background:url(./images.png) -204px');
+      expect(content).to.contain('background:url(images.png) -204px');
       done();
     });
 

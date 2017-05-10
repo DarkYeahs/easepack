@@ -8,4 +8,6 @@
 
 * 设置 `upToDate` 为 true 后没有加载组件
 
-* 修改 `include` 空文件时，出现 `[object Object]` 问题
+* 修复 `include` 空文件时，出现 `[object Object]` 问题
+
+* 修复 `extract-text-webpack-plugin` CSS重复提取合并的问题
