@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test:unit && npm run e2e:build",
+    "e2e:init": "mocha test/e2e/test-init.js --timeout 60000",
     "e2e:build": "mocha test/e2e/test-build.js --timeout 60000",
     "test:unit": "mocha test/e2e/test.js --compilers js:babel-core/register"
   },

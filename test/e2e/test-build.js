@@ -77,7 +77,7 @@ describe('command:build', function () {
 
       // 判断是否去掉重复的内容
       var count = 0, expr = /\.duplicate\{/g;
-      while(expr.exec(cssContent)) count++;
+      while (expr.exec(cssContent)) count++;
       expect(count).to.equal(1);
 
       done();
