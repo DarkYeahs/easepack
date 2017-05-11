@@ -263,13 +263,18 @@ easepack.set('useBase64', false);
 
 `boolean`
 
-启动 webpackDevServer[](https://webpack.js.org/configuration/dev-server/)
+新增的全局属性，允许使用 [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) 模式开发项目，
+支持 [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) [热更新]。
 
 ```js
 easepack
   .set('useExtract', false)
   .set('webpackDevServer', true)
 ```
+
+<p class="tip">
+  因为开启 webpackDevServer 需要使用到部分 ES2015 的新特性，导致不能在低版本浏览器预览。
+</p>
 
 ---
 
@@ -418,39 +423,41 @@ easepack.set('useImagemin', false);
 
 ### HTML模板语法
 
-easepack 所处理的HTML文件中可以使用类似 `ejs` 语法。
+easepack 所处理的 HTML 文件支持 `EJS` 语法。
 
-* 通过 `include` 包含其它的html文件（不一定需要是 .html 后缀）
-
-```html
-<!DOCTYPE html>
-<head>
-  <title>include其它文件</title>
-  <%= include('./file.html') %>
-</head>
-```
-
-* 通过 `process.env.NODE_ENV` 判断当前环境而加载不同的文件
+* 使用 `<% code %>` 在 HTML 中加入 Javascript 逻辑
 
 ```html
-<!DOCTYPE html>
-<body>
-<% if (process.env.NODE_ENV == 'production') { %>
 <!-- 当发布到正式服时才会有这段代码 -->
-<script src="//cc.res.netease.com/统计代码的URL"></script>
+<% if (process.env.NODE_ENV == 'production') { %>
+  <script src="//cc.res.netease.com/统计代码的URL"></script>
 <% } %>
-</body>
 ```
 
-* 通过 `require` 加载其它模块的文件
+* 使用 `<%= code %>` 输出内容到 HTML 中
 
 ```html
-<!DOCTYPE html>
-<body>
-  <img data-base64="<%= require('./img/logo.png?__inline') %>">
-</body>
+<script>
+// 输出当前环境到页面中
+var env = '<%= process.env.NODE_ENV %>';
+</script>
 ```
 
+* 使用 `include` 包含其它 HTML 文件
+
+```html
+<%= include('head.html') %>
+<h1>Title</h1>
+<p>My page</p>
+<%= include('foot.html') %>
+```
+
+* 使用 `require` 加载其它的模块
+
+```html
+<!-- logo.png 以 base64 格式添加到文件中 -->
+<img data-base64="<%= require('./img/logo.png?__inline') %>">
+```
 
 ---
 
