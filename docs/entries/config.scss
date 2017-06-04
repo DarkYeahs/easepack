@@ -1,4 +1,5 @@
 @import "~mixins";
+
 // @import "~fontello";
 
 .markdown-body hr {
@@ -8,9 +9,14 @@
 #app {
   .main {
     font-size: 90%;
-    max-width: 860px;
+    max-width: none;
   }
-  
+
+  .page {
+    border: none;
+    max-width: none;
+  }
+
   .header {
     padding: 0;
   }
@@ -50,6 +56,15 @@
       color: #42b983;
     }
   }
+
+  .content {
+    margin: 0 auto;
+    max-width: 860px;
+  }
+
+  .sidebar-toggle {
+    width: 278px;
+  }
 }
 
 .nav-item {
@@ -60,7 +75,6 @@
     text-align: center;
   }
 }
-
 
 // #sidebar {
 //   display: block;
