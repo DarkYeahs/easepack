@@ -131,6 +131,10 @@ docute.init({
       }
     }]
   }, {
+    title: 'vue-ie8',
+    path: '/vuesie8',
+    markdown: require('../zh-CN/vuesie8.md?__inline')
+  }, {
     title: '版本更新',
     path: '/changelog',
     markdown: require('../zh-CN/release.md?__inline')
