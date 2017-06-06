@@ -6,6 +6,11 @@
   window.nums = [];
   var vuxDivider = {};
 
+  window.testDefault = {
+    class: 'TEST'
+  }
+  window.testDefault.default = 1
+
   // var spriteUrl = __sprite_map__('leftright/*.png');
   /* var spriteUrl = __sprite_map__('leftright/*.png'); */
   var spriteStr = "__sprite_map__('leftright/*.png')";

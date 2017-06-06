@@ -387,5 +387,12 @@ describe('command:build babelrc', function () {
       done();
     });
 
+    it('build with uglifyJs options supports ie8', () => {
+      var content = fs.readFileSync('dist/entry.js', 'utf8')
+      expect(content).to.not.contain('testDefault.default')
+      expect(content).to.contain('testDefault={"class":"TEST"}')
+      expect(content).to.contain('testDefault["default"]')
+    })
+
   });
 });

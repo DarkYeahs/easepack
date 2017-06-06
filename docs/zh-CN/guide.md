@@ -183,9 +183,9 @@ easepack.set('useAutoprefixer', {browserslist: ['> 1%', 'last 2 versions']});
 
 ##### useUglifyjs
 
-`boolean`
+`boolean/object`
 
-设置是否需要压缩 javascript 文件。当 output 为 false 时，默认为 false，反之。
+设置是否需要压缩 javascript 文件，同时可接受 Object 对象。当 output 为 false 时，默认为 false，反之。
 
 ##### useCleancss
 
