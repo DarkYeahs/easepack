@@ -6,6 +6,10 @@
 
 `useUglifyjs` 可接受一个 Object 对象，用于设置压缩的参数。
 
+### Fixbug
+
+`Livereload` 修复无刷新问题。
+
 ## ~v1.9.3
 
 ### New Features
