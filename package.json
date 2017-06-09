@@ -5,7 +5,8 @@
   "preferGlobal": true,
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:unit && npm run e2e:build",
+    "lint": "eslint lib bin",
+    "test": "npm run lint && npm run test:unit && npm run e2e:build",
     "e2e:init": "mocha test/e2e/test-init.js --timeout 60000",
     "e2e:build": "mocha test/e2e/test-build.js --timeout 60000",
     "test:unit": "mocha test/e2e/test.js --compilers js:babel-core/register"
@@ -65,7 +66,9 @@
     "ws": "^1.1.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "chai": "^3.5.0",
+    "eslint": "^3.19.0",
     "execa": "^0.6.0",
     "mocha": "^2.4.5",
     "rimraf": "^2.5.0"
