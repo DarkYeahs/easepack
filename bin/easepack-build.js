@@ -64,10 +64,12 @@ function compilerCallback(err, stats) {
   }
   if (err) {
     console.log(err);
-    if (err.details)
+    if (err.details) {
       console.error(err.details);
-    if (!this.options.watch)
+    }
+    if (!this.options.watch) {
       process.on("exit", () => process.exit(1));
+    }
     return;
   }
   process.stdout.write(`${stats.toString({
