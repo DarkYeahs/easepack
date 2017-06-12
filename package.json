@@ -5,7 +5,7 @@
   "preferGlobal": true,
   "main": "index.js",
   "scripts": {
-    "lint": "eslint lib/plugins bin",
+    "lint": "eslint lib bin",
     "test": "npm run lint && npm run test:unit && npm run e2e:build",
     "e2e:init": "mocha test/e2e/test-init.js --timeout 60000",
     "e2e:build": "mocha test/e2e/test-build.js --timeout 60000",
@@ -69,6 +69,11 @@
     "babel-eslint": "^7.2.3",
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "execa": "^0.6.0",
     "mocha": "^2.4.5",
     "rimraf": "^2.5.0"

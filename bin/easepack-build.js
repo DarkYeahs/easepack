@@ -48,15 +48,15 @@ if (!config.output) {
 
 var compiler = easepack(config);
 
- if (config.webpackDevServer) {
-   compiler.run();
- } else {
-   if (config.watch) {
-     compiler.watch(compilerCallback);
-   } else {
-     compiler.run(compilerCallback);
-   }
- }
+if (config.webpackDevServer) {
+  compiler.run();
+} else {
+  if (config.watch) {
+    compiler.watch(compilerCallback);
+  } else {
+    compiler.run(compilerCallback);
+  }
+}
 
 function compilerCallback(err, stats) {
   if (!config.watch || err) {
@@ -68,7 +68,7 @@ function compilerCallback(err, stats) {
       console.error(err.details);
     }
     if (!this.options.watch) {
-      process.on("exit", () => process.exit(1));
+      process.on('exit', () => process.exit(1));
     }
     return;
   }

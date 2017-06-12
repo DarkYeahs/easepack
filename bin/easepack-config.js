@@ -70,16 +70,16 @@ Config.prototype.set = function (key, value) {
     this.touched[key] = true;
   } else if (typeof key === 'object') {
     Object.keys(key).forEach(function (k) {
-      this.set.call(this, k, key[k]);
+      this.set(k, key[k]);
     }, this)
   }
   return this;
 };
 
 Config.prototype.media = function (media, value) {
-  var config = media !== _config._media ?
-    new Config() :
-    _config;
+  var config = media !== _config._media
+    ? new Config()
+    : _config
   if (~media.indexOf(',')) {
     throw new Error('media key contains an invalid character `,`');
   }
