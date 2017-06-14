@@ -10,6 +10,15 @@ import Rtdp from '../../lib/plugins/ResolveTempDirPlugin'
 import Rap from '../../lib/plugins/ResolveAliasPlugin'
 import Rip from '../../lib/plugins/NetworkInfoPlugin'
 
+import easepack from '../..'
+import webpack from 'webpack'
+
+describe('test export plugins', () => {
+  it('should export webpack object', () => {
+    expect(easepack.webpack).to.equal(webpack)
+  })
+})
+
 describe('test configuration plugins', () => {
   let context = path.join(__dirname, 'mock-ep-app');
   let compiler = {
