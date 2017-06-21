@@ -1,5 +1,25 @@
 ## v1.9.4
 
+### New Features
+
+##### 提供karma的preprocessor插件
+
+`karma.conf.js` 配置如下：
+
+```js
+// karma.conf.js
+module.exports = function (config) {
+  config.set({
+    preprocessors: {
+      './test/index.js': ['easepack']
+    },
+    plugins: [
+      require('easepack').karma.preprocessor
+    ]
+  })
+}
+```
+
 ### Improvement
 
 ##### Use Uglifyjs
