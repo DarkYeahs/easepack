@@ -1,3 +1,11 @@
+## v1.9.5
+
+### Fixbug
+
+* 修复多项目同时运行BUG
+
+* 修复sprite图的间距问题
+
 ## v1.9.4
 
 ### New Features
