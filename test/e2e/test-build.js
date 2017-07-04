@@ -64,7 +64,7 @@ describe('command:build', function () {
 
     it('build css with correct url', (done) => {
       var cssContent = fs.readFileSync('dist/entry.css', 'utf8');
-      expect(cssContent).to.contain('background:url(//cc.cdn.com/image.spr.png?a83eaf)');
+      expect(cssContent).to.contain('background:url(//cc.cdn.com/image.spr.png?');
       expect(cssContent).to.contain('body{display:flex;');
       done();
     });
@@ -116,9 +116,9 @@ describe('command:build', function () {
       expect(typeof pngFile).to.equal('string');
       var spriteContent = fs.readFileSync(path.join('dist', spriteFile));
       var pngImage = images(spriteContent);
-      expect(spriteContent.length < 3620).to.equal(true);
-      expect(pngImage.height()).to.equal(44);
-      expect(pngImage.width()).to.equal(78);
+      expect(spriteContent.length < 4000).to.equal(true);
+      expect(pngImage.height()).to.equal(46);
+      expect(pngImage.width()).to.equal(82);
       done();
     });
 
@@ -127,8 +127,8 @@ describe('command:build', function () {
       expect(typeof spriteFile).to.equal('string');
       var spriteContent = fs.readFileSync(path.join('dist', spriteFile));
       var pngImage = images(spriteContent);
-      expect(pngImage.height()).to.equal(129);
-      expect(pngImage.width()).to.equal(816);
+      expect(pngImage.height()).to.equal(131);
+      expect(pngImage.width()).to.equal(824);
       done();
     });
 
@@ -145,8 +145,8 @@ describe('command:build', function () {
     it('build with image/sprite using url', function (done) {
       var file = files.filter(file => (file.endsWith('.css')))[0];
       var content = fs.readFileSync(path.join('dist', file), 'utf8');
-      expect(content).to.contain('gt15kb.str.png?ea33fc');
-      expect(content).to.contain('image.spr.png?a83eaf');
+      expect(content).to.contain('gt15kb.str.png?');
+      expect(content).to.contain('image.spr.png?');
       done();
     });
 
@@ -187,7 +187,7 @@ describe('command:build', function () {
 
     it('build with correct file-path', function (done) {
       var content = fs.readFileSync('dist/entry.css', 'utf8');
-      expect(content).to.contain('//cc.cdn.com/filepath/images.spr.png?740037');
+      expect(content).to.contain('//cc.cdn.com/filepath/images.spr.png?');
       expect(fs.existsSync('dist/filepath/filePath.sac')).to.equal(true);
       expect(fs.existsSync('dist/filepath/images.spr.png')).to.equal(true);
       done();
@@ -291,9 +291,9 @@ describe('command:build', function () {
 
     it('build with within-method', (done) => {
       var content = fs.readFileSync('dist/list.html', 'utf8');
-      expect(fs.existsSync('dist/css/entry2b07079.css')).to.equal(true);
-      expect(fs.existsSync('dist/css/entry2b07079.css.map')).to.equal(true);
-      expect(content).to.contain('//cc.cdn.com/css/entry2b07079.css');
+      expect(fs.existsSync('dist/css/entry22fa87c.css')).to.equal(true);
+      expect(fs.existsSync('dist/css/entry22fa87c.css.map')).to.equal(true);
+      expect(content).to.contain('//cc.cdn.com/css/entry22fa87c.css');
       done();
     })
   });
@@ -347,7 +347,7 @@ describe('command:build babelrc', function () {
 
     it('build sprite width relative public path', function (done) {
       var content = fs.readFileSync('dist/entry.css', 'utf8');
-      expect(content).to.contain('background:url(images.png) -204px');
+      expect(content).to.contain('background:url(images.png) -208px');
       done();
     });
 
