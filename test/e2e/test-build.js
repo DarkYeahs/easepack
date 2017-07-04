@@ -2,6 +2,7 @@ var path = require('path');
 var execa = require('execa');
 var fs = require('fs');
 var images = require('images');
+var getStream = require('get-stream');
 
 var expect = require('chai').expect;
 var rm = require('rimraf').sync;
@@ -196,12 +197,18 @@ describe('command:build', function () {
   });
 
   describe('build with media', function () {
-    var result, files;
+    var result, files, stdout;
 
     before(function (done) {
       setup();
-      execa('node', [cli, '-m', 'm1'], {stdio: 'inherit'})
-        .then(function (res) {
+      const ex = execa('node', [cli, '-m', 'm1'])
+      const stream = ex.stdout
+
+      getStream(stream).then(value => {
+        stdout = value
+      });
+
+      ex.then(function (res) {
           result = res;
           files = fs.readdirSync('dist');
           done();
@@ -214,6 +221,11 @@ describe('command:build', function () {
     it('build with expected files', function (done) {
       expect(files.length).to.equal(19);
       expect(result.code).to.equal(0);
+      done();
+    })
+
+    it('build with expected warned', function (done) {
+      expect(stdout).to.contain(`Can't use [hash] as name in development (use ?[hash] instead)`);
       done();
     })
 
@@ -316,12 +328,19 @@ describe('command:build babelrc', function () {
   }
 
   describe('build an app', function () {
-    var result, files;
+    var result, files, stdout;
 
     before(function (done) {
       setup();
-      execa('node', [cli], {stdio: 'inherit'})
-        .then(function (res) {
+
+      const ex = execa('node', [cli])
+      const stream = ex.stdout
+
+      getStream(stream).then(value => {
+        stdout = value
+      });
+
+      ex.then(function (res) {
           result = res;
           files = fs.readdirSync('dist');
           done();
@@ -334,6 +353,11 @@ describe('command:build babelrc', function () {
     it('build with expected files', function (done) {
       expect(files.length).to.equal(9);
       expect(result.code).to.equal(0);
+      done();
+    })
+
+    it('build with expected warned', function (done) {
+      expect(stdout).to.contain(`can't evaluate empty html file : empty.html`);
       done();
     })
 
