@@ -361,18 +361,22 @@ describe('command:build babelrc', function () {
       done();
     })
 
-    it('build with es2015 in both js&vue', function (done) {
+    it('build with es2015 in both js&vue', function () {
       var content = fs.readFileSync('dist/entry.js', 'utf8');
       expect(content).to.contain('nums.forEach(function(');
-      // expect(content).to.contain(', and output "+');
       expect(content).not.to.contain('let ');
-      done();
     });
 
-    it('build sprite width relative public path', function (done) {
-      var content = fs.readFileSync('dist/entry.css', 'utf8');
-      expect(content).to.contain('background:url(images.png) -208px');
-      done();
+    it('build sprite correct publicpath and position', () => {
+      let css = ''
+      const regexp = /\.bs\.loading\d\{(.*?)\}/g
+      const content = fs.readFileSync('dist/entry.css', 'utf8')
+      expect(content).to.contain(';width:412px;height:131px}')
+      expect(content).to.contain(';background-position:-2px -2px}')
+      expect(content).to.contain(';background-position:-208px -2px}')
+      while ((css = regexp.exec(content))) {
+        expect(css[1]).to.contain('width:202px;height:127px;background:url(images.png)')
+      }
     });
 
     it('build sprite width __sprite_map__', function (done) {
