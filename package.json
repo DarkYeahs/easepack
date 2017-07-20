@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint lib bin",
-    "test": "npm run lint && npm run test:unit && npm run e2e:build",
+    "test": "npm run lint && npm run test:unit && npm run e2e:build && npm run test:karma",
     "e2e:init": "mocha test/e2e/test-init.js --timeout 60000",
     "e2e:build": "mocha test/e2e/test-build.js --timeout 60000",
     "test:unit": "mocha test/e2e/test.js --compilers js:babel-core/register",
@@ -52,6 +52,7 @@
     "imagemin": "^5.2.2",
     "imagemin-pngquant": "^5.0.0",
     "images": "^3.0.0",
+    "karma-webpack": "^2.0.4",
     "layout": "^2.2.0",
     "loader-utils": "^0.2.16",
     "lodash": "^4.17.4",

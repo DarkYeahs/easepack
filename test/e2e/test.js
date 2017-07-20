@@ -170,4 +170,11 @@ describe('test easepack-config', () => {
       done();
     })
   })
+
+  it('should set resolve context path', () => {
+    config.set('context', 'E:/')
+    expect(config.context).to.equal('E:/')
+    config.set('context', '../')
+    expect(config.context).to.equal(path.resolve('../'))
+  })
 })
