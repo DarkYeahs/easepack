@@ -2,6 +2,10 @@
 
 ### Improvement
 
+##### Use SourceMap
+
+`useSourceMap` 可接受一个 Object 对象，用于设置SourceMap的参数。
+
 ##### context
 
 提供 context 对当前环境进行设置
