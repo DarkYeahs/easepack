@@ -4,7 +4,7 @@
 
 ##### Use SourceMap
 
-`useSourceMap` 可接受一个 Object 对象，用于设置SourceMap的参数。
+`useSourceMap` 可接受一个`String`对象，用于设置Webpack的devtool参数。
 
 ##### context
 
