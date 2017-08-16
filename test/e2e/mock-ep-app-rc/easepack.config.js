@@ -30,6 +30,11 @@ easepack
   .set('useAutoprefixer', {
     browsers: ['last 4 versions']
   })
+  .set('alias', {
+    utilities: './utilities',
+    vuxDivider: './utilities/vuxDivider'
+  })
+  .set('privateRepo','../mock-components')
   .addPlugin(vendorChunk)
 
 easepack

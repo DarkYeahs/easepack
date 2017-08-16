@@ -117,6 +117,12 @@ easepack.set('useUglifyjs', true);
 
 #### 全局属性
 
+##### context
+
+`string`
+
+基础目录，绝对路径，用于从配置中解析入口
+
 ##### output
 
 `string`
@@ -223,6 +229,22 @@ easepack.set('useAutoprefixer', {browserslist: ['> 1%', 'last 2 versions']});
 <p class="warning">
   easepack 遵守 `.babelrc`，因此这是配置 Babel presets 和插件推荐的方法。
 </p>
+
+##### alias
+
+`object`
+
+创建 import 或 require 的别名，来确保模块引入变得更简单
+
+```js
+// 设置
+easepack.set('alias', {
+  Utilities: 'src/utilities/' //相对于 context 的目录
+})
+
+// 引入
+import Utility from 'Utilities/utility'
+```
 
 ##### useBase64
 

@@ -38,7 +38,11 @@ describe('test configuration plugins', () => {
       privateRepo: '../mock-components',
       matches: [
         {pattern: '*.js'}
-      ]
+      ],
+      alias: {
+        root: './',
+        abs: '/foo/bar'
+      }
     },
     context: context
   };
@@ -66,8 +70,9 @@ describe('test configuration plugins', () => {
         let options = compiler.options;
         let alias = config.resolve.alias;
         //make sure read files repo dir 
-        expect(Object.keys(alias).length > 3).to.equal(true);
-
+        expect(Object.keys(alias).length > 5).to.equal(true);
+        expect(alias.root).to.equal(context)
+        expect(alias.abs).to.equal(options.alias.abs)
         expect(alias.mixin).to.equal(path.join(options.privateRepo, 'mixin.scss'));
         expect(alias.vuxDivider).to.equal(path.join(options.privateRepo, 'vuxDivider@1'));
         expect(alias.sprite).to.equal(require.resolve('../../lib/client/placehold.sprite'));
@@ -176,5 +181,12 @@ describe('test easepack-config', () => {
     expect(config.context).to.equal('E:/')
     config.set('context', '../')
     expect(config.context).to.equal(path.resolve('../'))
+  })
+
+  it('should set alias correctly', () => {
+    config.set('alias', {a: 1})
+    expect(config.alias).to.deep.equal({a: 1})
+    config.set('alias', {b: 2})
+    expect(config.alias).to.deep.equal({a: 1, b: 2})
   })
 })

@@ -3,6 +3,9 @@
 </template>
 
 <script>
+  import vd from 'vuxDivider'
+  import u from 'utilities/utility'
+
   window.nums = [];
   var vuxDivider = {};
 
@@ -31,6 +34,9 @@
       vuxDivider: vuxDivider
     }
   };
+
+  console.log(u)
+  console.log(vd)
 </script>
 
 <style>

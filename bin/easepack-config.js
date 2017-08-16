@@ -66,6 +66,9 @@ Config.prototype.set = function (key, value) {
     if (typeof this[key] === 'undefined') {
       throw new Error(`Try to set a undefined config key '${key}'`);
     }
+    if (key === 'alias') {
+      value = Object.assign(this.alias, value)
+    }
     if (key === 'context' && !path.isAbsolute(value)) {
       value = path.resolve(value)
     }

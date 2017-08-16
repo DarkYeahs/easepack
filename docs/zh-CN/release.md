@@ -2,6 +2,10 @@
 
 ### Improvement
 
+##### alias
+
+创建 import 或 require 的别名，来确保模块引入变得更简单
+
 ##### Use SourceMap
 
 `useSourceMap` 可接受一个`String`对象，用于设置Webpack的devtool参数。

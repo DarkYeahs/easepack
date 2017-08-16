@@ -350,15 +350,14 @@ describe('command:build babelrc', function () {
 
     after(teardown);
 
-    it('build with expected files', function (done) {
+    it('build with expected files', function () {
       expect(files.length).to.equal(9);
       expect(result.code).to.equal(0);
-      done();
     })
 
-    it('build with expected warned', function (done) {
-      expect(stdout).to.contain(`can't evaluate empty html file : empty.html`);
-      done();
+    it('build with expected warned', function () {
+      expect(stdout).to.contain(`ERROR in duplicate alias key: vuxDivider`)
+      expect(stdout).to.contain(`can't evaluate empty html file: empty.html`)
     })
 
     it('build with es2015 in both js&vue', function () {
@@ -420,6 +419,12 @@ describe('command:build babelrc', function () {
       expect(content).to.not.contain('testDefault.default')
       expect(content).to.contain('testDefault={"class":"TEST"}')
       expect(content).to.contain('testDefault["default"]')
+    })
+
+    it('build correct with setting alias', () => {
+      var content = fs.readFileSync('dist/vendor.js', 'utf8')
+      expect(content).to.contain('this is alias file')
+      expect(content).to.not.contain('this is vux divider file')
     })
 
   });
