@@ -2,9 +2,15 @@
 
 ### Improvement
 
-##### alias
+##### Alias
 
 创建 import 或 require 的别名，来确保模块引入变得更简单
+
+```js
+easepack.set('alias', {
+  utilities: './utilities'
+})
+```
 
 ##### Use SourceMap
 
@@ -16,27 +22,6 @@
 
 ```js
 easepack.set('context', './feature')
-```
-
-##### karma的preprocessor插件添加easepack配置
-
-`karma.conf.js` 配置如下：
-
-```js
-// karma.conf.js
-module.exports = function (config) {
-  config.set({
-    preprocessors: {
-      './test/index.js': ['easepack']
-    },
-    easepack: {
-      context: './feature'
-    },
-    plugins: [
-      require('easepack').karma.preprocessor
-    ]
-  })
-}
 ```
 
 ## v1.9.5
