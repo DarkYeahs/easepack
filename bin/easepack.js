@@ -1,8 +1,7 @@
 #!/usr/bin/env node
-var easepack = require('..');
 var program = require('commander');
 
-process.title = "easepack";
+process.title = 'easepack';
 
 program
   .version(require('../package').version)

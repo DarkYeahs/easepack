@@ -2,6 +2,7 @@ var path = require('path');
 var execa = require('execa');
 var fs = require('fs');
 var images = require('images');
+var getStream = require('get-stream');
 
 var expect = require('chai').expect;
 var rm = require('rimraf').sync;
@@ -64,7 +65,7 @@ describe('command:build', function () {
 
     it('build css with correct url', (done) => {
       var cssContent = fs.readFileSync('dist/entry.css', 'utf8');
-      expect(cssContent).to.contain('background:url(//cc.cdn.com/image.spr.png?a83eaf)');
+      expect(cssContent).to.contain('background:url(//cc.cdn.com/image.spr.png?');
       expect(cssContent).to.contain('body{display:flex;');
       done();
     });
@@ -74,6 +75,12 @@ describe('command:build', function () {
       var jsContent = fs.readFileSync('dist/entry.js', 'utf8');
       expect(cssContent.split('\n').length).to.equal(2);
       expect(jsContent.split('\n').length).to.equal(2);
+
+      // 判断是否去掉重复的内容
+      var count = 0, expr = /\.duplicate\{/g;
+      while (expr.exec(cssContent)) count++;
+      expect(count).to.equal(1);
+
       done();
     })
 
@@ -110,9 +117,9 @@ describe('command:build', function () {
       expect(typeof pngFile).to.equal('string');
       var spriteContent = fs.readFileSync(path.join('dist', spriteFile));
       var pngImage = images(spriteContent);
-      expect(spriteContent.length < 3620).to.equal(true);
-      expect(pngImage.height()).to.equal(44);
-      expect(pngImage.width()).to.equal(78);
+      expect(spriteContent.length < 4000).to.equal(true);
+      expect(pngImage.height()).to.equal(46);
+      expect(pngImage.width()).to.equal(82);
       done();
     });
 
@@ -121,8 +128,8 @@ describe('command:build', function () {
       expect(typeof spriteFile).to.equal('string');
       var spriteContent = fs.readFileSync(path.join('dist', spriteFile));
       var pngImage = images(spriteContent);
-      expect(pngImage.height()).to.equal(129);
-      expect(pngImage.width()).to.equal(816);
+      expect(pngImage.height()).to.equal(131);
+      expect(pngImage.width()).to.equal(824);
       done();
     });
 
@@ -139,8 +146,8 @@ describe('command:build', function () {
     it('build with image/sprite using url', function (done) {
       var file = files.filter(file => (file.endsWith('.css')))[0];
       var content = fs.readFileSync(path.join('dist', file), 'utf8');
-      expect(content).to.contain('gt15kb.str.png?ea33fc');
-      expect(content).to.contain('image.spr.png?a83eaf');
+      expect(content).to.contain('gt15kb.str.png?');
+      expect(content).to.contain('image.spr.png?');
       done();
     });
 
@@ -181,7 +188,7 @@ describe('command:build', function () {
 
     it('build with correct file-path', function (done) {
       var content = fs.readFileSync('dist/entry.css', 'utf8');
-      expect(content).to.contain('//cc.cdn.com/filepath/images.spr.png?740037');
+      expect(content).to.contain('//cc.cdn.com/filepath/images.spr.png?');
       expect(fs.existsSync('dist/filepath/filePath.sac')).to.equal(true);
       expect(fs.existsSync('dist/filepath/images.spr.png')).to.equal(true);
       done();
@@ -190,12 +197,18 @@ describe('command:build', function () {
   });
 
   describe('build with media', function () {
-    var result, files;
+    var result, files, stdout;
 
     before(function (done) {
       setup();
-      execa('node', [cli, '-m', 'm1'], {stdio: 'inherit'})
-        .then(function (res) {
+      const ex = execa('node', [cli, '-m', 'm1'])
+      const stream = ex.stdout
+
+      getStream(stream).then(value => {
+        stdout = value
+      });
+
+      ex.then(function (res) {
           result = res;
           files = fs.readdirSync('dist');
           done();
@@ -208,6 +221,11 @@ describe('command:build', function () {
     it('build with expected files', function (done) {
       expect(files.length).to.equal(19);
       expect(result.code).to.equal(0);
+      done();
+    })
+
+    it('build with expected warned', function (done) {
+      expect(stdout).to.contain(`Can't use [hash] as name in development (use ?[hash] instead)`);
       done();
     })
 
@@ -277,16 +295,17 @@ describe('command:build', function () {
     it('build width include template', (done) => {
       var content = fs.readFileSync('dist/file.html', 'utf8');
       expect(fs.existsSync('dist/filepath/meta.html')).to.equal(false);
-      expect(content).to.contain('                var clientWidth = do');
-      expect(content).to.contain('  <meta content="object');
+      expect(content).to.contain('              var clientWidth = do');
+      expect(content).to.contain('<meta content="object');
+      expect(content).to.not.contain('[object Object]');
       done()
     })
 
     it('build with within-method', (done) => {
       var content = fs.readFileSync('dist/list.html', 'utf8');
-      expect(fs.existsSync('dist/css/entry2fa7c80.css')).to.equal(true);
-      expect(fs.existsSync('dist/css/entry2fa7c80.css.map')).to.equal(true);
-      expect(content).to.contain('//cc.cdn.com/css/entry2fa7c80.css');
+      expect(fs.existsSync('dist/css/entry22fa87c.css')).to.equal(true);
+      expect(fs.existsSync('dist/css/entry22fa87c.css.map')).to.equal(true);
+      expect(content).to.contain('//cc.cdn.com/css/entry22fa87c.css');
       done();
     })
   });
@@ -309,12 +328,19 @@ describe('command:build babelrc', function () {
   }
 
   describe('build an app', function () {
-    var result, files;
+    var result, files, stdout;
 
     before(function (done) {
       setup();
-      execa('node', [cli], {stdio: 'inherit'})
-        .then(function (res) {
+
+      const ex = execa('node', [cli])
+      const stream = ex.stdout
+
+      getStream(stream).then(value => {
+        stdout = value
+      });
+
+      ex.then(function (res) {
           result = res;
           files = fs.readdirSync('dist');
           done();
@@ -324,24 +350,32 @@ describe('command:build babelrc', function () {
 
     after(teardown);
 
-    it('build with expected files', function (done) {
+    it('build with expected files', function () {
       expect(files.length).to.equal(9);
       expect(result.code).to.equal(0);
-      done();
     })
 
-    it('build with es2015 in both js&vue', function (done) {
+    it('build with expected warned', function () {
+      expect(stdout).to.contain(`ERROR in duplicate alias key: vuxDivider`)
+      expect(stdout).to.contain(`can't evaluate empty html file: empty.html`)
+    })
+
+    it('build with es2015 in both js&vue', function () {
       var content = fs.readFileSync('dist/entry.js', 'utf8');
       expect(content).to.contain('nums.forEach(function(');
-      // expect(content).to.contain(', and output "+');
       expect(content).not.to.contain('let ');
-      done();
     });
 
-    it('build sprite width relative public path', function (done) {
-      var content = fs.readFileSync('dist/entry.css', 'utf8');
-      expect(content).to.contain('background:url(./images.png) -204px');
-      done();
+    it('build sprite correct publicpath and position', () => {
+      let css = ''
+      const regexp = /\.bs\.loading\d\{(.*?)\}/g
+      const content = fs.readFileSync('dist/entry.css', 'utf8')
+      expect(content).to.contain(';width:412px;height:131px}')
+      expect(content).to.contain(';background-position:-2px -2px}')
+      expect(content).to.contain(';background-position:-208px -2px}')
+      while ((css = regexp.exec(content))) {
+        expect(css[1]).to.contain('width:202px;height:127px;background:url(images.png)')
+      }
     });
 
     it('build sprite width __sprite_map__', function (done) {
@@ -379,6 +413,19 @@ describe('command:build babelrc', function () {
       expect(content).to.not.contain('__easepack_dev_server__/livereload.js');
       done();
     });
+
+    it('build with uglifyJs options supports ie8', () => {
+      var content = fs.readFileSync('dist/entry.js', 'utf8')
+      expect(content).to.not.contain('testDefault.default')
+      expect(content).to.contain('testDefault={"class":"TEST"}')
+      expect(content).to.contain('testDefault["default"]')
+    })
+
+    it('build correct with setting alias', () => {
+      var content = fs.readFileSync('dist/vendor.js', 'utf8')
+      expect(content).to.contain('this is alias file')
+      expect(content).to.not.contain('this is vux divider file')
+    })
 
   });
 });

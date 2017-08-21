@@ -132,9 +132,13 @@ docute.init({
     //   }
     // }]
   }, {
+    title: 'vue-ie8',
+    path: '/vuesie8',
+    markdown: require('../zh-CN/vuesie8.md?__inline')
+  }, {
     title: '版本更新',
     path: '/changelog',
-    source: 'https://raw.githubusercontent.com/dante1977/easepack/master/docs/release.md'
+    markdown: require('../zh-CN/release.md?__inline')
   }],
   icons: [{
     icon: 'github',

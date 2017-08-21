@@ -117,6 +117,12 @@ easepack.set('useUglifyjs', true);
 
 #### 全局属性
 
+##### context
+
+`string`
+
+基础目录，绝对路径，用于从配置中解析入口
+
 ##### output
 
 `string`
@@ -183,9 +189,9 @@ easepack.set('useAutoprefixer', {browserslist: ['> 1%', 'last 2 versions']});
 
 ##### useUglifyjs
 
-`boolean`
+`boolean/object`
 
-设置是否需要压缩 javascript 文件。当 output 为 false 时，默认为 false，反之。
+设置是否需要压缩 javascript 文件，同时可接受 Object 对象。当 output 为 false 时，默认为 false，反之。
 
 ##### useCleancss
 
@@ -209,6 +215,36 @@ easepack.set('useAutoprefixer', {browserslist: ['> 1%', 'last 2 versions']});
 
 `boolean`
 
+设置是否允许在 JS/Vue 文件中使用 ES2015，默认为 false。easepack 内部使用 `babel` 编译ES2015语法，默认的配置如下：
+
+```js
+{
+  presets: [
+    ['es2015', {modules: false}], 
+    'stage-2'
+  ]
+}
+```
+
+<p class="warning">
+  easepack 遵守 `.babelrc`，因此这是配置 Babel presets 和插件推荐的方法。
+</p>
+
+##### alias
+
+`object`
+
+创建 import 或 require 的别名，来确保模块引入变得更简单
+
+```js
+// 设置
+easepack.set('alias', {
+  Utilities: 'src/utilities/' //相对于 context 的目录
+})
+
+// 引入
+import Utility from 'Utilities/utility'
+```
 
 ##### useBase64
 
@@ -241,11 +277,26 @@ easepack.set('useBase64', false);
 
 ##### useExtract
 
-设置是否提取文件中的CSS样式，默认为 true。
+`boolean`
+
+是否提取 CSS 到单独文件。
 
 ##### webpackDevServer
 
+`boolean`
 
+新增的全局属性，允许使用 [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) 模式开发项目，
+支持 [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) [热更新]。
+
+```js
+easepack
+  .set('useExtract', false)
+  .set('webpackDevServer', true)
+```
+
+<p class="tip">
+  因为开启 webpackDevServer 需要使用到部分 ES2015 的新特性，导致不能在低版本浏览器预览。
+</p>
 
 ---
 
@@ -372,6 +423,7 @@ easepack
   一个组件内部可以包含JS文件，CSS文件，图片文件，字体文件，swf文件等等，easepack 在构建过程中已经替用户解决所有文件间的依赖关系。
 </p>
 
+
 ## 初级使用
 
 ### 压缩资源
@@ -387,6 +439,46 @@ easepack.set('useCleancss', false);
 
 //配置对PNG文件是否压缩
 easepack.set('useImagemin', false);
+```
+
+---
+
+### HTML模板语法
+
+easepack 所处理的 HTML 文件支持 `EJS` 语法。
+
+* 使用 `<% code %>` 在 HTML 中加入 Javascript 逻辑
+
+```html
+<!-- 当发布到正式服时才会有这段代码 -->
+<% if (process.env.NODE_ENV == 'production') { %>
+  <script src="//cc.res.netease.com/统计代码的URL"></script>
+<% } %>
+```
+
+* 使用 `<%= code %>` 输出内容到 HTML 中
+
+```html
+<script>
+// 输出当前环境到页面中
+var env = '<%= process.env.NODE_ENV %>';
+</script>
+```
+
+* 使用 `include` 包含其它 HTML 文件
+
+```html
+<%= include('head.html') %>
+<h1>Title</h1>
+<p>My page</p>
+<%= include('foot.html') %>
+```
+
+* 使用 `require` 加载其它的模块
+
+```html
+<!-- logo.png 以 base64 格式添加到文件中 -->
+<img data-base64="<%= require('./img/logo.png?__inline') %>">
 ```
 
 ---

@@ -9,6 +9,8 @@ $names: sprite-names($sprite);
 .bs {
   font-size: 12px;
   transition: all 1s ease;
+  width: #{sprite-width($sprite)}px;
+  height: #{sprite-height($sprite)}px;
 
   @each $name in $names {
     &.#{$name} {

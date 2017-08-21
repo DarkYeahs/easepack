@@ -6,7 +6,7 @@ var NetworkInfoPlugin = require('./lib/plugins/NetworkInfoPlugin');
 var ResolveAliasPlugin = require('./lib/plugins/ResolveAliasPlugin');
 var ResolveTempDirPlugin = require('./lib/plugins/ResolveTempDirPlugin');
 
-module.exports = function (options) {
+const easepack = module.exports = function (options) {
   var complier = new Complier(options);
   complier.apply(new ResolveTempDirPlugin());
   complier.apply(new ResolveAliasPlugin());
@@ -14,6 +14,17 @@ module.exports = function (options) {
   complier.apply(new EntryMatchPlugin());
   complier.apply(new AddBannerPlugin());
   return complier;
-};
+}
 
-module.exports.webpack = require('webpack');
+const karma = easepack.karma = {}
+
+exportPlugins(karma, 'preprocessor', './lib/plugins/karma/preprocessor')
+exportPlugins(easepack, 'webpack', 'webpack')
+
+function exportPlugins(obj, prop, name) {
+  Object.defineProperty(obj, prop, {
+    enumerable: true,
+    configurable: false,
+    get: () => require(name)
+  })
+}

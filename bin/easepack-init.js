@@ -1,15 +1,13 @@
-var os = require('os');
 var fs = require('fs');
 var Path = require('path');
 var program = require('commander');
 var exec = require('child_process').exec;
-var loaderUtils = require("loader-utils");
+var loaderUtils = require('loader-utils');
 var NodeOutputFileSystem = require('webpack/lib/node/NodeOutputFileSystem');
 
 var config = require('./easepack-config');
 var ResolveTempDir = require('../lib/plugins/ResolveTempDirPlugin')
 
-var tempDirName = '.easepack-temp';
 var tempPath = ResolveTempDir.tempPath();
 var repo = 'ssh://git@git-cc.nie.netease.com:32200/frontend/';
 var fileSystem = new NodeOutputFileSystem();
@@ -26,9 +24,9 @@ var templatePath = Path.join(tempPath, 'template' + hashUrl);
 var project = Path.join(config.context, program.args[0] || 'ep_dome');
 
 fs.access(templatePath, function (err) {
-  var commend = !err ?
-    ['git', 'pull', 'origin'] :
-    ['git', 'clone', repoUrl, templatePath];
+  var commend = !err
+    ? ['git', 'pull', 'origin']
+    : ['git', 'clone', repoUrl, templatePath];
   var options = err
     ? {stdio: 'inherit'}
     : {cwd: templatePath, stdio: 'inherit'};
