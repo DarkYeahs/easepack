@@ -1,7 +1,6 @@
 easepack
-  .set('useEs2015', true)
+  .set('publicPath', '/')
   .set('output', './dist')
-  .set('publicPath', './')
 
 easepack
   .match('*.{js,html}')

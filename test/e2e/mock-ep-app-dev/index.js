@@ -1,0 +1,1 @@
+new Vue(require('./App.vue')).$mount('#app');
