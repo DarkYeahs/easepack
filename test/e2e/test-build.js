@@ -397,8 +397,10 @@ describe('command:build babelrc', function () {
 
     it('build app width split code', function (done) {
       var content = fs.readFileSync('dist/index.html', 'utf8');
-      expect(fs.existsSync('dist/_c_/0.chunk.js')).to.equal(true);
+      expect(fs.existsSync('dist/_c_/gotaname.chunk.js')).to.equal(true);
+      expect(content).to.not.contain('1.chunk.js?7f5f84');
       expect(content).to.not.contain('0.chunk.js?7f5f84');
+      expect(content).to.not.contain('gotaname.chunk.js');
       done();
     });
 
@@ -422,7 +424,8 @@ describe('command:build babelrc', function () {
     })
 
     it('build correct with setting alias', () => {
-      var content = fs.readFileSync('dist/vendor.js', 'utf8')
+      var content = fs.readFileSync('dist/vendor.js', 'utf8') 
+        + fs.readFileSync('dist/entry.js', 'utf8')
       expect(content).to.contain('this is alias file')
       expect(content).to.not.contain('this is vux divider file')
     })

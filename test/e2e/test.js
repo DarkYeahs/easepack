@@ -183,10 +183,14 @@ describe('test easepack-config', () => {
     expect(config.context).to.equal(path.resolve('../'))
   })
 
-  it('should set alias correctly', () => {
+  it('should set plain object as value correctly', () => {
     config.set('alias', {a: 1})
+    config.set('filename', {chunk: '_c_'})
     expect(config.alias).to.deep.equal({a: 1})
+    expect(config.filename).to.deep.equal({chunk: '_c_'})
     config.set('alias', {b: 2})
+    config.set('filename', {b: 2})
     expect(config.alias).to.deep.equal({a: 1, b: 2})
+    expect(config.filename).to.deep.equal({chunk: '_c_', b: 2})
   })
 })

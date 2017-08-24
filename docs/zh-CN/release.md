@@ -1,3 +1,17 @@
+## v1.11.0
+
+### Improvement
+
+##### Chunk File Name
+
+支持修改 `chunkFilename`，默认为 `_c_/[name].chunk.js?[chunkhash:6]`
+
+```js
+easepack.set('filename', {
+  chunk: '_c_/[id].chunk.js?[chunkhash:6]'
+})
+```
+
 ## v1.10.0
 
 ### Improvement

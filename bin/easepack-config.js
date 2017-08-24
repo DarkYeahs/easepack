@@ -1,3 +1,4 @@
+var _ = require('lodash')
 var path = require('path');
 var _config = module.exports = new Config();
 
@@ -15,6 +16,9 @@ function Config() {
   this.proxyTable = {};
   this.dev = false;
   this.webpackDevServer = false;
+  this.filename = {
+    chunk: '_c_/[name].chunk.js?[chunkhash:6]'
+  }
 
   this.autoRsync = false;
   this.rsyncMsg = false;
@@ -66,8 +70,8 @@ Config.prototype.set = function (key, value) {
     if (typeof this[key] === 'undefined') {
       throw new Error(`Try to set a undefined config key '${key}'`);
     }
-    if (key === 'alias') {
-      value = Object.assign(this.alias, value)
+    if (_.isPlainObject(value)) {
+      value = Object.assign(this[key], value)
     }
     if (key === 'context' && !path.isAbsolute(value)) {
       value = path.resolve(value)
