@@ -43,11 +43,11 @@
       }
     },
     components: {
-      // vuxXDialog: function (resolve) {
-      //   require.ensure([], function () {
-      //     resolve(require('vuxXDialog'))
-      //   })
-      // },
+      vuxXDialog: function (resolve) {
+        require.ensure([], function () {
+          resolve(require('vuxXDialog'))
+        })
+      },
       vuxLoadMore: require('vuxLoadMore'),
       // vuxActionsheet: require('vuxActionsheet')
     },
@@ -76,8 +76,8 @@
   }
 </script>
 
-<style>
-  @import "~reset";
+<style lang="scss">
+  // @import "~reset";
   @import "~mixins";
   @import "./styles";
 </style>
