@@ -79,6 +79,7 @@
 <style lang="scss">
   // @import "~reset";
   @import "~mixins";
-  @import "./styles";
+  @import "icons/*.png";
+  // @import "./styles";
 </style>
 
