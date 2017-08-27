@@ -2,6 +2,19 @@
 
 ### Improvement
 
+##### remove deprecation warning
+
+remove follow deprecation warning 
+
+```
+(node:13551) DeprecationWarning: loaderUtils.parseQuery() received a non-string value...
+```
+
+##### update packages
+
+webpack@2.4.3 -> webpack@2.7.0
+babel-loader@6.4.1 -> babel-loader@7.1.0
+
 ##### Chunk File Name
 
 支持修改 `chunkFilename`，默认为 `_c_/[name].chunk.js?[chunkhash:6]`
