@@ -124,6 +124,7 @@ describe('test spritePlugin', () => {
   it('correct pattern expr', (done) => {
     expect(expr.test('images/*.png')).to.equal(true);
     expect(expr.test('./images/*.png')).to.equal(true);
+    expect(expr.test('~images/*.png')).to.equal(true);
     done();
   })
 });

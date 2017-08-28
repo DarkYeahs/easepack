@@ -351,7 +351,7 @@ describe('command:build babelrc', function () {
     after(teardown);
 
     it('build with expected files', function () {
-      expect(files.length).to.equal(9);
+      expect(files.length).to.equal(10);
       expect(result.code).to.equal(0);
     })
 
@@ -377,6 +377,14 @@ describe('command:build babelrc', function () {
         expect(css[1]).to.contain('width:202px;height:127px;background:url(images.png)')
       }
     });
+
+    it('build sprite with @import url', function () {
+      var content = fs.readFileSync('dist/entry.css', 'utf8')
+      expect(fs.existsSync('dist/utilities/aliassprite.png')).to.equal(true)
+      expect(fs.existsSync('dist/utilities/relativesprite.png')).to.equal(true)
+      expect(content).to.contain('.aliassprite.loading1,.aliassprite.loading3')
+      expect(content).to.contain('.relativesprite.loading1,.relativesprite.loading3')
+    })
 
     it('build sprite width __sprite_map__', function (done) {
       var content = fs.readFileSync('dist/entry.js', 'utf8');

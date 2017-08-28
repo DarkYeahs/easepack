@@ -32,6 +32,7 @@
 </template>
 
 <script>
+  var sprite = __sprite_map__('./icons/*.png')
   module.exports = {
     data: function () {
       return {
@@ -43,12 +44,12 @@
       }
     },
     components: {
-      vuxXDialog: function (resolve) {
-        require.ensure([], function () {
-          resolve(require('vuxXDialog'))
-        })
-      },
-      vuxLoadMore: require('vuxLoadMore'),
+      // vuxXDialog: function (resolve) {
+      //   require.ensure([], function () {
+      //     resolve(require('vuxXDialog'))
+      //   })
+      // },
+      // vuxLoadMore: require('vuxLoadMore'),
       // vuxActionsheet: require('vuxActionsheet')
     },
     mounted: function () {
@@ -79,7 +80,7 @@
 <style lang="scss">
   // @import "~reset";
   @import "~mixins";
-  @import "icons/*.png";
+  // @import "icons/*.png";
   // @import "./styles";
 </style>
 

@@ -542,6 +542,7 @@ var spriteObject = __sprite_map__('icons/*.png');
 }
 ```
 
+#### Import for SASS/SCSS
 
 
 #### Functions for SASS/SCSS
@@ -555,6 +556,10 @@ While it is allowed to use these directly, to do so is considered "advanced usag
 </p>
 
 **sprite-map($glob, $layout)**
+
+<p class="danger">
+  `sprite-map` 方法已过时，请使用 @import url
+</p>
 
 Generates a css sprite map from the files matching the glob pattern.
 

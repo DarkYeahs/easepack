@@ -1,5 +1,25 @@
 ## v1.11.0
 
+### Feature
+
+##### import sprite
+
+支持使用 `@import` 合成精灵图
+
+```scss
+// webpack alias 路径
+@import "~alias/icons1/*.png";
+// 相对路径
+@import "./icons2/*.png";
+
+// scss中会生成2个对应的变量可直接使用
+$icons1
+$icons1-names
+//
+$icons2
+$icons2-names
+```
+
 ### Improvement
 
 ##### remove deprecation warning
