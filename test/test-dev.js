@@ -17,10 +17,24 @@ const config = require('../bin/easepack-config')
 
 const context = path.join(__dirname, 'e2e/mock-ep-app-dev')
 
+const vendorChunk =
+  new easepack.webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    filename: '[name].js',
+    minChunks: function (module, count) {
+      return (
+        module.resource &&
+        /\.js$/.test(module.resource) &&
+        (module.resource.indexOf('node_modules') !== -1)
+      )
+    }
+  })
+
 config
   .set('publicPath', '/')
   .set('output', './dist')
   .set('context', context)
+  // .addPlugin(vendorChunk)
   .match('*.{js,html}')
 
 easepack(config).run(function (err, stats) {
@@ -28,5 +42,5 @@ easepack(config).run(function (err, stats) {
     this.webpackCompiler.purgeInputFileSystem();
   }
   process.stdout.write(stats.toString({colors: true}));
-  rm(path.join(context, 'dist'))
+  // rm(path.join(context, 'dist'))
 })
