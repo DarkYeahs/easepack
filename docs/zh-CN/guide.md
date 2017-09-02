@@ -167,9 +167,11 @@ background-image: url(//cdn.example.com/assets/spinner.a53582.gif);
 
 指定 autoRsync 的日志消息。
 
-##### spriteUrl
+##### ~~spriteUrl~~ `已废弃`
 
-`string`
+<p class="danger">
+  此属性已废弃，请使用 easepack.match 匹配文件并设置 `url` 属性
+</p>
 
 指定 CssSprite 合并生成的图片的URL
 

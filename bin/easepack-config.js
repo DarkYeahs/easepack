@@ -1,5 +1,7 @@
 var _ = require('lodash')
 var path = require('path');
+var Minimatch = require('minimatch').Minimatch;
+
 var _config = module.exports = new Config();
 
 function Config() {
@@ -44,13 +46,23 @@ function Config() {
 Config.prototype.match = function (pattern, props) {
   var mps = new MatchProps(this);
   Object.assign(mps.props, props || {});
-
   this.matches.push({
+    minimatch: new Minimatch(pattern, {}),
     pattern: pattern,
     props: mps.props
   });
   return mps;
 };
+
+Config.prototype.matchProps = function (file) {
+  const props = {}
+  this.matches.forEach(match => {
+    if (match.minimatch.match(file)) {
+      Object.assign(props, match.props)
+    }
+  })
+  return props
+}
 
 Config.prototype.setIfUndefined = function (key, value) {
   if (typeof key === 'string') {
