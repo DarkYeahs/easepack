@@ -38,4 +38,7 @@ easepack
   .addPlugin(vendorChunk)
 
 easepack
-  .match('*.{js,html}');
+  .match('*.{js,html}')
+  .match('images.{png,jpg}', {
+    url: 'matchspritename.[ext]?[hash]'
+  })

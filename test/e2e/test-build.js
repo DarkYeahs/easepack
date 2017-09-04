@@ -374,8 +374,12 @@ describe('command:build babelrc', function () {
       expect(content).to.contain(';background-position:-2px -2px}')
       expect(content).to.contain(';background-position:-208px -2px}')
       while ((css = regexp.exec(content))) {
-        expect(css[1]).to.contain('width:202px;height:127px;background:url(images.png)')
+        expect(css[1]).to.contain('width:202px;height:127px;background:url(matchspritename.png?')
       }
+    });
+
+    it('build sprite image matching url prop', () => {
+      expect(fs.existsSync('dist/matchspritename.png')).to.equal(true)
     });
 
     it('build sprite with @import url', function () {
