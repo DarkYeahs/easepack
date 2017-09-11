@@ -507,60 +507,49 @@ easepack.match('a.png', {
 
 ### CssSprite图片合并
 
-#### Function for JS CODE
+#### Import
 
-easepack 已经在代码中注入 `__sprite_map__` 方法，为满足在js代码中生成sprite图的需求。
+支持使用 `@import` 以相对路径引入图片，并合成相应的精灵图
 
-```js
-//icons目录里有 icons/i1.png，icons/i2.png文件
-var spriteObject = __sprite_map__('icons/*.png');
+```scss
+// 引入当前目录下 icons1 文件夹里的 png 图片
+@import "icons1/*.png";
+
+// 引入上级目录 icons2 文件夹里的 png 图片
+@import "../icons2/*.png";
+
+// 支持 webpack config 中设置的 alias 路径
+@import "~alias/icons3/*.png";
 ```
 
-<p class="tip">
-  `__sprite_map__` 方法目前只支持 left-right 的合并方式
-</p>
+引入图片后，scss文件中会生成2个对应的变量可直接使用
 
-编译后可以得到一个含图片信息的JSON对像（下面例子），赋值给 `spriteObject` 变量。
+```scss
+// 生成以文件夹命名的 $icons, $icons-names 两个变量
+@import "./icons/*.png";
 
-```js
-{
-  i1: {
-    x:0,               //图片i1的x轴位置（像素）
-    y:0,               //图片i1的y轴位置（像素）
-    width:202,         //图片i1的宽（像素）
-    height:127         //图片i1的高（像素）
-  },
-  i2: {
-    x:202,             //图片i2的x轴位置（像素）
-    y:0,               //图片i2的y轴位置（像素）
-    width:202,         //图片i2的宽（像素）
-    height:127         //图片i2的高（像素）
-  },
-  __sprite__: {
-    width:404,         //合成sprite图的宽（像素）
-    height:127,        //合成sprite图的高（像素）
-    url: "/icons.png"  //合成sprite图的url地址
+.bg-sprite-icon {
+  background-image: sprite-url($icons);
+  background-repeat: no-repeat;
+  @each $name in $icons-names {
+    &.#{$name} {
+      width: #{sprite-width($icons, $name)}px;
+      height: #{sprite-height($icons, $name)}px;
+    }
   }
 }
 ```
 
-#### Import for SASS/SCSS
+#### Functions
 
+easepack 中的 Sass/Scss loader 已添加了一系列的 Functions，你可以直接使用，让你更简单的在项目中合成精灵图。
 
-#### Functions for SASS/SCSS
+It is recommended that you instead use the css sprite mixins that are designed to work with these functions.
 
-easepack 编译 sass 时已经注入一系列的 Functions，可以使你更简单的在你的项目中使用 css sprites。
-
-While it is allowed to use these directly, to do so is considered "advanced usage". It is recommended that you instead use the css sprite mixins that are designed to work with these functions.
-
-<p class="danger">
- easepack 的 CssSprite 的实现主要参考compass（文档是从那边复制过来的）。
-</p>
-
-**sprite-map($glob, $layout)**
+##### ~~sprite-map($glob, $layout)~~ `已废弃`
 
 <p class="danger">
-  `sprite-map` 方法已过时，请使用 @import url
+  `sprite-map` 方法不支持相对路径已废弃，建议使用 @import 成合精灵图
 </p>
 
 Generates a css sprite map from the files matching the glob pattern.
@@ -580,7 +569,7 @@ background: url('/images/icons.png') 0px -24px no-repeat;
 ```
 
 
-**sprite($map, $sprite)**
+##### sprite($map, $sprite)
 
 Returns the image and background position for use in a single shorthand property:
 
@@ -595,27 +584,31 @@ Becomes:
 background: url('/images/icons.png') 0 -24px no-repeat;
 ```
 
-**sprite-names($map)**
+##### ~~sprite-names($map)~~ `已废弃`
+
+<p class="danger">
+  `sprite-names` 已废弃，建议使用 @import 成合精灵图
+</p>
 
 Returns a list of all sprite names within the supplied map
 
-**sprite-url($map)**
+##### sprite-url($map)
 
 Returns a url to the sprite image.
 
-**sprite-width($map, $sprite:?)**
+##### sprite-width($map, $sprite:?)
 
 Returns the width of the generated sprite
 
-**sprite-height($map, $sprite:?)**
+##### sprite-height($map, $sprite:?)
 
 Returns the height of the generated sprite
 
-**sprite-position-x($map, $sprite)**
+##### sprite-position-x($map, $sprite)
 
 Returns the position for the original image in the sprite. This is suitable for use as a value to background-position.
 
-**sprite-position-y($map, $sprite)**
+##### sprite-position-y($map, $sprite)
 
 Returns the position for the original image in the sprite. This is suitable for use as a value to background-position:
 
@@ -668,6 +661,46 @@ $names: sprite-names($icons); // output ['i1', 'i2']
 ```
 
 ---
+
+#### __sprite_map__
+
+easepack 已经在 Javascript 代码中注入 `__sprite_map__` 方法，为满足在js代码中生成sprite图的需求。
+
+```js
+// 引入当前目录下的 icons 文件夹里所有的 png 文件
+var sprite1 = __sprite_map__('./icons/*.png');
+
+// 引入以 webpack config alias 前缀路径的文件
+var sprite2 = __sprite_map__('icons/*.png');
+```
+
+<p class="tip">
+  `__sprite_map__` 方法目前只支持 left-right 的合并方式
+</p>
+
+编译后可以得到一个含图片信息的JSON对象（下面例子）
+
+```js
+{
+  i1: {
+    x:0,               //图片i1的x轴位置（像素）
+    y:0,               //图片i1的y轴位置（像素）
+    width:202,         //图片i1的宽（像素）
+    height:127         //图片i1的高（像素）
+  },
+  i2: {
+    x:202,             //图片i2的x轴位置（像素）
+    y:0,               //图片i2的y轴位置（像素）
+    width:202,         //图片i2的宽（像素）
+    height:127         //图片i2的高（像素）
+  },
+  __sprite__: {
+    width:404,         //合成sprite图的宽（像素）
+    height:127,        //合成sprite图的高（像素）
+    url: "/icons.png"  //合成sprite图的url地址
+  }
+}
+```
 
 ### 自动同步到远端机器
 
