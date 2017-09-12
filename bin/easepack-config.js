@@ -17,6 +17,7 @@ function Config() {
   this.nodeEnv = '"development"';
   this.proxyTable = {};
   this.dev = false;
+  this.screwIe8 = true;
   this.webpackDevServer = false;
   this.filename = {
     chunk: '_c_/[name].chunk.js?[chunkhash:6]'
