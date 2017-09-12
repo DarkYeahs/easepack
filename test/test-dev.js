@@ -34,6 +34,8 @@ config
   .set('publicPath', '/')
   .set('output', './dist')
   .set('context', context)
+  .set('screwIe8', false)
+  .set('useEs2015', true)
   // .addPlugin(vendorChunk)
   .match('*.{js,html}')
 

@@ -33,7 +33,7 @@
 
 <script>
   var sprite = __sprite_map__('./icons/*.png')
-  module.exports = {
+  export default {
     data: function () {
       return {
         list: [],
@@ -52,7 +52,7 @@
       // vuxLoadMore: require('vuxLoadMore'),
       // vuxActionsheet: require('vuxActionsheet')
     },
-    mounted: function () {
+    mounted () {
       var self = this;
       $.ajax({
         url: 'http://192.168.229.152:9038/business/help_title',
