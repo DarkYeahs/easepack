@@ -82,5 +82,8 @@
   @import "~mixins";
   // @import "icons/*.png";
   // @import "./styles";
+  body {
+    font-size: 12px;
+  }
 </style>
 

@@ -35,7 +35,10 @@ config
   .set('output', './dist')
   .set('context', context)
   .set('screwIe8', false)
-  .set('useEs2015', true)
+  .set('useUglifyjs', true)
+  .set('useAutoprefixer', true)
+  // .set('useExtract', false)
+  // .set('useEs2015', true)
   // .addPlugin(vendorChunk)
   .match('*.{js,html}')
 
