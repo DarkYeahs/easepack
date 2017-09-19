@@ -33,6 +33,7 @@ function Config() {
   this.useImagemin = false;
   this.useUglifyjs = false;
   this.useEs2015 = false;
+  this.useCommonsChunk = false;
 
   this.useExtract = true;
   this.useSourceMap = false;
@@ -83,7 +84,7 @@ Config.prototype.set = function (key, value) {
     if (typeof this[key] === 'undefined') {
       throw new Error(`Try to set a undefined config key '${key}'`);
     }
-    if (_.isPlainObject(value)) {
+    if (_.isPlainObject(this[key])) {
       value = Object.assign(this[key], value)
     }
     if (key === 'context' && !path.isAbsolute(value)) {
