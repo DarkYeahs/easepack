@@ -7,9 +7,11 @@ var NetworkInfoPlugin = require('./lib/plugins/NetworkInfoPlugin');
 var ResolveAliasPlugin = require('./lib/plugins/ResolveAliasPlugin');
 var ResolveTempDirPlugin = require('./lib/plugins/ResolveTempDirPlugin');
 
+const CheckVersionPlugin = require('./lib/plugins/CheckVersionPlugin')
 
 const easepack = module.exports = function (options) {
   var complier = new Complier(options);
+  complier.apply(new CheckVersionPlugin())
   complier.apply(new ResolveTempDirPlugin());
   complier.apply(new ResolveAliasPlugin());
   complier.apply(new NetworkInfoPlugin());

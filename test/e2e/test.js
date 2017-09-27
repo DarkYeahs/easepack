@@ -9,6 +9,8 @@ import sap from '../../lib/plugins/SassOptionsPlugin'
 import Rtdp from '../../lib/plugins/ResolveTempDirPlugin'
 import Rap from '../../lib/plugins/ResolveAliasPlugin'
 import Rip from '../../lib/plugins/NetworkInfoPlugin'
+import CheckVersion from '../../lib/plugins/CheckVersionPlugin'
+
 
 import easepack from '../..'
 import webpack from 'webpack'
@@ -42,6 +44,9 @@ describe('test configuration plugins', () => {
       alias: {
         root: './',
         abs: '/foo/bar'
+      },
+      setIfUndefined (key, value) {
+        this[key] = value
       }
     },
     context: context
@@ -90,6 +95,32 @@ describe('test configuration plugins', () => {
       });
     }
     new Rip().apply(compiler);
+  })
+
+  describe('correct check version', () => {
+    it('lastest version', (done) => {
+      compiler.options.upToDate = false
+      compiler.plugin = (name, callback) => {
+        callback(() => {
+          expect(compiler.options.upToDate).to.equal(false)
+          done()
+        })
+      }
+      new CheckVersion().apply(compiler)
+    })
+
+    it('earlier version', (done) => {
+      compiler.options.upToDate = true
+      compiler.plugin = (name, callback) => {
+        callback(() => {
+          expect(compiler.options.upToDate).to.equal(false)
+          done()
+        })
+      }
+      new CheckVersion().apply(compiler, {
+        version: '1.11.0'
+      })
+    })
   })
 })
 

@@ -38,7 +38,7 @@ function Config() {
   this.useExtract = true;
   this.useSourceMap = false;
   this.mocha = false;
-  this.upToDate = false;
+  this.upToDate = true;
   this.banner = '';
   this.privateRepo = false;
 
