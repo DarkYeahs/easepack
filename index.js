@@ -11,8 +11,8 @@ const CheckVersionPlugin = require('./lib/plugins/CheckVersionPlugin')
 
 const easepack = module.exports = function (options) {
   var complier = new Complier(options);
-  complier.apply(new CheckVersionPlugin())
   complier.apply(new ResolveTempDirPlugin());
+  complier.apply(new CheckVersionPlugin())
   complier.apply(new ResolveAliasPlugin());
   complier.apply(new NetworkInfoPlugin());
   complier.apply(new EntryMatchPlugin());
