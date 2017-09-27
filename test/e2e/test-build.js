@@ -351,7 +351,7 @@ describe('command:build babelrc', function () {
     after(teardown);
 
     it('build with expected files', function () {
-      expect(files.length).to.equal(10);
+      expect(files.length).to.equal(12);
       expect(result.code).to.equal(0);
     })
 
@@ -428,11 +428,13 @@ describe('command:build babelrc', function () {
       done();
     });
 
-    it('build with uglifyJs options supports ie8', () => {
+    it('build app that supports ie8', () => {
       var content = fs.readFileSync('dist/entry.js', 'utf8')
       expect(content).to.not.contain('testDefault.default')
-      expect(content).to.contain('testDefault={"class":"TEST"}')
       expect(content).to.contain('testDefault["default"]')
+      expect(content).to.contain('testDefault={"class":"TEST"}')
+      // n.__esModule=!0 webpack 原本会用 Object.defineProperty 方法
+      expect(content).to.match(/\w\.__esModule=!0/g)
     })
 
     it('build correct with setting alias', () => {
@@ -440,6 +442,14 @@ describe('command:build babelrc', function () {
         + fs.readFileSync('dist/entry.js', 'utf8')
       expect(content).to.contain('this is alias file')
       expect(content).to.not.contain('this is vux divider file')
+    })
+
+    it('build correct css files with cssVueLoader', () => {
+      const js = fs.readFileSync('dist/cssLoader.js', 'utf8')
+      const css = fs.readFileSync('dist/cssLoader.css', 'utf8')
+      // 不要将 vue-loader 的 component-normalizer 也打包进来了
+      expect(css).to.not.contain('.staticRenderFns')
+      expect(css).to.contain('-webkit-linear-gradient(left,#0a1176,#281059)')
     })
 
   });

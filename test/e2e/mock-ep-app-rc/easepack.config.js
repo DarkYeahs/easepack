@@ -12,23 +12,12 @@ var vendorChunk =
   });
 
 easepack
+  .set('screwIe8', false)
   .set('useEs2015', true)
   .set('output', './dist')
-  .set('useUglifyjs', {
-    output: {
-      screw_ie8: false
-    },
-    mangle: {
-      screw_ie8: false
-    },
-    compress: {
-      warnings: false,
-      screw_ie8: false
-    }
-  })
   .set('publicPath', './')
   .set('useAutoprefixer', {
-    browsers: ['last 4 versions']
+    browsers: ['last 4 versions', 'Android >= 4.1']
   })
   .set('alias', {
     utilities: './utilities',
