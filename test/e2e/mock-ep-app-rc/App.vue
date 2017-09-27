@@ -18,7 +18,7 @@
   /* var spriteUrl = __sprite_map__('leftright/*.png'); */
   var spriteStr = "__sprite_map__('leftright/*.png')";
 
-  var spriteUrl = __sprite_map__('leftright/*.png');
+  var spriteUrl = __sprite_map__('./leftright/*.png');
   
   if (process.env.NODE_ENV == 'm1') {
     vuxDivider = require('vuxDivider');
@@ -39,8 +39,10 @@
   console.log(vd)
 </script>
 
-<style>
-  body {
-    display: flex;
-  }
+<style lang="scss">
+@import "./utilities/importsprite";
+
+body {
+  display: flex;
+}
 </style>

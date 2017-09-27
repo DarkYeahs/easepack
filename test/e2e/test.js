@@ -9,6 +9,8 @@ import sap from '../../lib/plugins/SassOptionsPlugin'
 import Rtdp from '../../lib/plugins/ResolveTempDirPlugin'
 import Rap from '../../lib/plugins/ResolveAliasPlugin'
 import Rip from '../../lib/plugins/NetworkInfoPlugin'
+import CheckVersion from '../../lib/plugins/CheckVersionPlugin'
+
 
 import easepack from '../..'
 import webpack from 'webpack'
@@ -42,6 +44,9 @@ describe('test configuration plugins', () => {
       alias: {
         root: './',
         abs: '/foo/bar'
+      },
+      setIfUndefined (key, value) {
+        this[key] = value
       }
     },
     context: context
@@ -91,6 +96,32 @@ describe('test configuration plugins', () => {
     }
     new Rip().apply(compiler);
   })
+
+  describe('correct check version', () => {
+    it('lastest version', (done) => {
+      compiler.options.upToDate = false
+      compiler.plugin = (name, callback) => {
+        callback(() => {
+          expect(compiler.options.upToDate).to.equal(false)
+          done()
+        })
+      }
+      new CheckVersion().apply(compiler)
+    })
+
+    it('earlier version', (done) => {
+      compiler.options.upToDate = true
+      compiler.plugin = (name, callback) => {
+        callback(() => {
+          expect(compiler.options.upToDate).to.equal(false)
+          done()
+        })
+      }
+      new CheckVersion().apply(compiler, {
+        version: '1.11.0'
+      })
+    })
+  })
 })
 
 describe('test htmlLoader', () => {
@@ -123,6 +154,8 @@ describe('test spritePlugin', () => {
 
   it('correct pattern expr', (done) => {
     expect(expr.test('images/*.png')).to.equal(true);
+    expect(expr.test('./images/*.png')).to.equal(true);
+    expect(expr.test('~images/*.png')).to.equal(true);
     done();
   })
 });
@@ -183,10 +216,14 @@ describe('test easepack-config', () => {
     expect(config.context).to.equal(path.resolve('../'))
   })
 
-  it('should set alias correctly', () => {
+  it('should set plain object as value correctly', () => {
     config.set('alias', {a: 1})
+    config.set('filename', {chunk: '_c_'})
     expect(config.alias).to.deep.equal({a: 1})
+    expect(config.filename).to.deep.equal({chunk: '_c_'})
     config.set('alias', {b: 2})
+    config.set('filename', {b: 2})
     expect(config.alias).to.deep.equal({a: 1, b: 2})
+    expect(config.filename).to.deep.equal({chunk: '_c_', b: 2})
   })
 })

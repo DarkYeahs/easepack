@@ -1,4 +1,7 @@
+var _ = require('lodash')
 var path = require('path');
+var Minimatch = require('minimatch').Minimatch;
+
 var _config = module.exports = new Config();
 
 function Config() {
@@ -14,7 +17,11 @@ function Config() {
   this.nodeEnv = '"development"';
   this.proxyTable = {};
   this.dev = false;
+  this.screwIe8 = true;
   this.webpackDevServer = false;
+  this.filename = {
+    chunk: '_c_/[name].chunk.js?[chunkhash:6]'
+  }
 
   this.autoRsync = false;
   this.rsyncMsg = false;
@@ -26,11 +33,12 @@ function Config() {
   this.useImagemin = false;
   this.useUglifyjs = false;
   this.useEs2015 = false;
+  this.useCommonsChunk = false;
 
   this.useExtract = true;
   this.useSourceMap = false;
   this.mocha = false;
-  this.upToDate = false;
+  this.upToDate = true;
   this.banner = '';
   this.privateRepo = false;
 
@@ -40,13 +48,23 @@ function Config() {
 Config.prototype.match = function (pattern, props) {
   var mps = new MatchProps(this);
   Object.assign(mps.props, props || {});
-
   this.matches.push({
+    minimatch: new Minimatch(pattern, {}),
     pattern: pattern,
     props: mps.props
   });
   return mps;
 };
+
+Config.prototype.matchProps = function (file) {
+  const props = {}
+  this.matches.forEach(match => {
+    if (match.minimatch.match(file)) {
+      Object.assign(props, match.props)
+    }
+  })
+  return props
+}
 
 Config.prototype.setIfUndefined = function (key, value) {
   if (typeof key === 'string') {
@@ -66,8 +84,8 @@ Config.prototype.set = function (key, value) {
     if (typeof this[key] === 'undefined') {
       throw new Error(`Try to set a undefined config key '${key}'`);
     }
-    if (key === 'alias') {
-      value = Object.assign(this.alias, value)
+    if (_.isPlainObject(this[key])) {
+      value = Object.assign(this[key], value)
     }
     if (key === 'context' && !path.isAbsolute(value)) {
       value = path.resolve(value)

@@ -1,3 +1,73 @@
+## v1.12.0
+
+### Improvement
+
+* 添加版本更新的提示
+
+* 降低组件更新的频率（组件是存放在Gitlab上，构建时不再每次都pull代码）
+
+## v1.11.0
+
+### Feature
+
+##### import sprite
+
+支持使用 `@import` 以相对路径引入图片，并合成相应的精灵图
+
+```scss
+// 引入当前目录下 icons1 文件夹里的 png 图片
+@import "icons1/*.png";
+
+// 引入上级目录 icons2 文件夹里的 png 图片
+@import "../icons2/*.png";
+
+// 支持 webpack config 中设置的 alias 路径
+@import "~alias/icons3/*.png";
+```
+
+引入图片后，scss文件中会生成2个对应的变量可直接使用
+
+```scss
+// 生成以文件夹命名的 $icons, $icons-names 两个变量
+@import "./icons/*.png";
+
+.bg-sprite-icon {
+  background-image: sprite-url($icons);
+  background-repeat: no-repeat;
+  @each $name in $icons-names {
+    &.#{$name} {
+      width: #{sprite-width($icons, $name)}px;
+      height: #{sprite-height($icons, $name)}px;
+    }
+  }
+}
+```
+
+### Improvement
+
+##### remove deprecation warning
+
+删除以下 nodejs 抛出来的过期信息
+
+```
+(node:13551) DeprecationWarning: loaderUtils.parseQuery() received a non-string value...
+```
+
+##### update packages
+
+webpack@2.4.3 -> webpack@2.7.0
+babel-loader@6.4.1 -> babel-loader@7.1.0
+
+##### Chunk File Name
+
+支持修改 `chunkFilename`，默认为 `_c_/[name].chunk.js?[chunkhash:6]`
+
+```js
+easepack.set('filename', {
+  chunk: '_c_/[id].chunk.js?[chunkhash:6]'
+})
+```
+
 ## v1.10.0
 
 ### Improvement

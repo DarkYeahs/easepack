@@ -351,7 +351,7 @@ describe('command:build babelrc', function () {
     after(teardown);
 
     it('build with expected files', function () {
-      expect(files.length).to.equal(9);
+      expect(files.length).to.equal(12);
       expect(result.code).to.equal(0);
     })
 
@@ -374,9 +374,21 @@ describe('command:build babelrc', function () {
       expect(content).to.contain(';background-position:-2px -2px}')
       expect(content).to.contain(';background-position:-208px -2px}')
       while ((css = regexp.exec(content))) {
-        expect(css[1]).to.contain('width:202px;height:127px;background:url(images.png)')
+        expect(css[1]).to.contain('width:202px;height:127px;background:url(matchspritename.png?')
       }
     });
+
+    it('build sprite image matching url prop', () => {
+      expect(fs.existsSync('dist/matchspritename.png')).to.equal(true)
+    });
+
+    it('build sprite with @import url', function () {
+      var content = fs.readFileSync('dist/entry.css', 'utf8')
+      expect(fs.existsSync('dist/utilities/aliassprite.png')).to.equal(true)
+      expect(fs.existsSync('dist/utilities/relativesprite.png')).to.equal(true)
+      expect(content).to.contain('.aliassprite.loading1,.aliassprite.loading3')
+      expect(content).to.contain('.relativesprite.loading1,.relativesprite.loading3')
+    })
 
     it('build sprite width __sprite_map__', function (done) {
       var content = fs.readFileSync('dist/entry.js', 'utf8');
@@ -397,8 +409,10 @@ describe('command:build babelrc', function () {
 
     it('build app width split code', function (done) {
       var content = fs.readFileSync('dist/index.html', 'utf8');
-      expect(fs.existsSync('dist/_c_/0.chunk.js')).to.equal(true);
+      expect(fs.existsSync('dist/_c_/gotaname.chunk.js')).to.equal(true);
+      expect(content).to.not.contain('1.chunk.js?7f5f84');
       expect(content).to.not.contain('0.chunk.js?7f5f84');
+      expect(content).to.not.contain('gotaname.chunk.js');
       done();
     });
 
@@ -414,17 +428,28 @@ describe('command:build babelrc', function () {
       done();
     });
 
-    it('build with uglifyJs options supports ie8', () => {
+    it('build app that supports ie8', () => {
       var content = fs.readFileSync('dist/entry.js', 'utf8')
       expect(content).to.not.contain('testDefault.default')
-      expect(content).to.contain('testDefault={"class":"TEST"}')
       expect(content).to.contain('testDefault["default"]')
+      expect(content).to.contain('testDefault={"class":"TEST"}')
+      // n.__esModule=!0 webpack 原本会用 Object.defineProperty 方法
+      expect(content).to.match(/\w\.__esModule=!0/g)
     })
 
     it('build correct with setting alias', () => {
-      var content = fs.readFileSync('dist/vendor.js', 'utf8')
+      var content = fs.readFileSync('dist/vendor.js', 'utf8') 
+        + fs.readFileSync('dist/entry.js', 'utf8')
       expect(content).to.contain('this is alias file')
       expect(content).to.not.contain('this is vux divider file')
+    })
+
+    it('build correct css files with cssVueLoader', () => {
+      const js = fs.readFileSync('dist/cssLoader.js', 'utf8')
+      const css = fs.readFileSync('dist/cssLoader.css', 'utf8')
+      // 不要将 vue-loader 的 component-normalizer 也打包进来了
+      expect(css).to.not.contain('.staticRenderFns')
+      expect(css).to.contain('-webkit-linear-gradient(left,#0a1176,#281059)')
     })
 
   });

@@ -1,0 +1,16 @@
+// $icons: sprite-map("icons/*.png");
+
+body {
+  background: #f1f1f1;
+  user-select: none;
+
+  &.white {
+    background: #fefefe;
+  }
+
+  .weui-dialog {
+    max-height: 90%;
+    overflow: auto;
+    transition: left .2s ease;
+  }
+}

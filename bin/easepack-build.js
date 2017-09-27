@@ -48,14 +48,10 @@ if (!config.output) {
 
 var compiler = easepack(config);
 
-if (config.webpackDevServer) {
-  compiler.run();
+if (config.watch) {
+  compiler.watch(compilerCallback);
 } else {
-  if (config.watch) {
-    compiler.watch(compilerCallback);
-  } else {
-    compiler.run(compilerCallback);
-  }
+  compiler.run(compilerCallback);
 }
 
 function compilerCallback(err, stats) {
@@ -73,9 +69,6 @@ function compilerCallback(err, stats) {
     return;
   }
   process.stdout.write(`${stats.toString({
-    colors: true,
-    version: false,
-    chunkOrigins: false,
-    chunkModules: false
+    colors: true, version: false
   })}\n\n`);
 }

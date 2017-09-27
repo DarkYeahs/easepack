@@ -1,0 +1,17 @@
+@import "~utilities/aliassprite/*.png";
+@import "relativesprite/*.png";
+
+.aliassprite {
+  @each $name1 in $aliassprite-names {
+    &.#{$name1} {
+      display: block;
+    }
+  }
+}
+.relativesprite {
+  @each $name2 in $relativesprite-names {
+    &.#{$name2} {
+      display: inline-block;
+    }
+  }
+}
