@@ -52,7 +52,7 @@
     "http-proxy-middleware": "^0.17.4",
     "imagemin": "^5.2.2",
     "imagemin-pngquant": "^5.0.0",
-    "images": "^3.0.0",
+    "images": "3.0.0",
     "karma-webpack": "^2.0.4",
     "layout": "^2.2.0",
     "loader-utils": "^0.2.17",
