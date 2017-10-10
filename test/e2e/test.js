@@ -74,14 +74,19 @@ describe('test configuration plugins', () => {
         let config = compiler.config;
         let options = compiler.options;
         let alias = config.resolve.alias;
+        console.log(process.env.npm_package_version)
         //make sure read files repo dir 
-        expect(Object.keys(alias).length > 5).to.equal(true);
+        expect(Object.keys(alias).length > 10).to.equal(true);
         expect(alias.root).to.equal(context)
         expect(alias.abs).to.equal(options.alias.abs)
         expect(alias.mixin).to.equal(path.join(options.privateRepo, 'mixin.scss'));
         expect(alias.vuxDivider).to.equal(path.join(options.privateRepo, 'vuxDivider@1'));
         expect(alias.sprite).to.equal(require.resolve('../../lib/client/placehold.sprite'));
-        done();
+        // ignore files 
+        expect(alias.package).to.equal(undefined)
+        expect(alias.version2).to.equal(undefined)
+        expect(alias['.namestartwithdot']).to.equal(undefined)
+        done()
       });
     }
     new Rap().apply(compiler);
