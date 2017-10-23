@@ -3,6 +3,7 @@ var execa = require('execa');
 var fs = require('fs');
 var images = require('images');
 var getStream = require('get-stream');
+var { tempPath } = require('../../lib/plugins/ResolveTempDirPlugin')
 
 var expect = require('chai').expect;
 var rm = require('rimraf').sync;
@@ -27,6 +28,7 @@ describe('command:build', function () {
 
     before(function (done) {
       setup();
+      rm(tempPath());
       execa('node', [cli], {stdio: 'inherit'})
         .then(function (res) {
           result = res;
