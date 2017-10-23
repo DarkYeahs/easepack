@@ -1,3 +1,20 @@
+## v1.13.0
+
+### Feature
+
+##### autoRsync2
+
+同步编译后的代码到测试机上（`192.168.229.171`），不再通过提交SVN的方法上传代码
+
+```js
+easepack
+  .set('autoRsync2', true)
+  // 上传后的具体目录
+  .set('output', 'easepack-demo')
+  // 访问静态文件的根路径
+  .set('publicPath', '//dev.cc.163.com/activity/beta/easepack-demo/')
+```
+
 ## v1.12.0
 
 ### Improvement
