@@ -98,8 +98,15 @@ describe('test configuration plugins', () => {
   })
 
   describe('correct check version', () => {
+    let componentJson
+
+    before(done => {
+      componentJson = path.join(compiler.options.tempPath, 'component.json')
+      fs.writeFile(componentJson, '{"version":"0.0.0"}', done)
+    })
+
     it('lastest version', (done) => {
-      compiler.options.upToDate = false
+      compiler.options.upToDate = true
       compiler.plugin = (name, callback) => {
         callback(() => {
           expect(compiler.options.upToDate).to.equal(false)
@@ -113,7 +120,7 @@ describe('test configuration plugins', () => {
       compiler.options.upToDate = true
       compiler.plugin = (name, callback) => {
         callback(() => {
-          expect(compiler.options.upToDate).to.equal(false)
+          expect(compiler.options.upToDate).to.equal(true)
           done()
         })
       }

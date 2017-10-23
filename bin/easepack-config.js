@@ -24,6 +24,7 @@ function Config() {
   }
 
   this.autoRsync = false;
+  this.autoRsync2 = false
   this.rsyncMsg = false;
 
   this.useBase64 = '2kb';
