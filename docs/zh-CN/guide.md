@@ -155,17 +155,30 @@ easepack.match('assets/spinner.gif', {
 background-image: url(//cdn.example.com/assets/spinner.a53582.gif);
 ```
 
-##### autoRsync
+##### ~~autoRsync~~ `已废弃`
 
 `boolean`
 
 当我们开发项目后，需要同步代码到测试机上（`192.168.229.171`），将 autoRsync 设成 true 即可。
 
-##### rsyncMsg
+##### ~~rsyncMsg~~ `已废弃`
 
 `string`
 
 指定 autoRsync 的日志消息。
+
+##### autoRsync2
+
+同步编译后的代码到测试机上（`192.168.229.171`），不再通过提交SVN的方法上传代码
+
+```js
+easepack
+  .set('autoRsync2', true)
+  // 上传后的具体目录
+  .set('output', 'easepack-demo')
+  // 访问静态文件的根路径
+  .set('publicPath', '//dev.cc.163.com/activity/beta/easepack-demo/')
+```
 
 ##### ~~spriteUrl~~ `已废弃`
 
