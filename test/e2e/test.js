@@ -49,6 +49,9 @@ describe('test configuration plugins', () => {
         this[key] = value
       }
     },
+    emitError (err) {
+      console.log(err)
+    },
     context: context
   };
 
