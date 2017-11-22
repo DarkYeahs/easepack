@@ -108,6 +108,20 @@ describe('test configuration plugins', () => {
       fs.writeFile(componentJson, '{"version":"0.0.0"}', done)
     })
 
+    it('version less than', () => {
+      expect(CheckVersion.vlt('1.0.0', '1.0.1')).to.equal(true)
+      expect(CheckVersion.vlt('1.0.0', '1.1.0')).to.equal(true)
+      expect(CheckVersion.vlt('1.0.0', '2.0.0')).to.equal(true)
+      
+      expect(CheckVersion.vlt('1.0.0', '')).to.equal(false)
+      expect(CheckVersion.vlt('', '1.0.0')).to.equal(false)
+
+      expect(CheckVersion.vlt('1.0.1', '1.0.0')).to.equal(false)
+      expect(CheckVersion.vlt('1.1.0', '1.0.0')).to.equal(false)
+      expect(CheckVersion.vlt('2.0.0', '1.0.0')).to.equal(false)
+      expect(CheckVersion.vlt('1.0.0', '1.0.0')).to.equal(false)
+    })
+
     it('lastest version', (done) => {
       compiler.options.upToDate = true
       compiler.plugin = (name, callback) => {
