@@ -9,17 +9,6 @@ var ResolveTempDirPlugin = require('./lib/plugins/ResolveTempDirPlugin');
 
 const CheckVersionPlugin = require('./lib/plugins/CheckVersionPlugin')
 
-const easepack = module.exports = function (options) {
-  var complier = new Complier(options);
-  complier.apply(new ResolveTempDirPlugin());
-  complier.apply(new CheckVersionPlugin())
-  complier.apply(new ResolveAliasPlugin());
-  complier.apply(new NetworkInfoPlugin());
-  complier.apply(new EntryMatchPlugin());
-  complier.apply(new AddBannerPlugin());
-  return complier;
-}
-
 // Unix    => foo/bar
 // Windows => foo/bar
 utils.slash = function (input) {
@@ -29,6 +18,17 @@ utils.slash = function (input) {
 		return input
 	}
 	return input.replace(/\\/g, '/')
+}
+
+const easepack = module.exports = function (options) {
+  var complier = new Complier(options);
+  complier.apply(new ResolveTempDirPlugin());
+  complier.apply(new CheckVersionPlugin())
+  complier.apply(new ResolveAliasPlugin());
+  complier.apply(new NetworkInfoPlugin());
+  complier.apply(new EntryMatchPlugin());
+  complier.apply(new AddBannerPlugin());
+  return complier;
 }
 
 const karma = easepack.karma = {}

@@ -49,6 +49,9 @@ describe('test configuration plugins', () => {
         this[key] = value
       }
     },
+    emitError (err) {
+      console.log(err)
+    },
     context: context
   };
 
@@ -103,6 +106,20 @@ describe('test configuration plugins', () => {
     before(done => {
       componentJson = path.join(compiler.options.tempPath, 'component.json')
       fs.writeFile(componentJson, '{"version":"0.0.0"}', done)
+    })
+
+    it('version less than', () => {
+      expect(CheckVersion.vlt('1.0.0', '1.0.1')).to.equal(true)
+      expect(CheckVersion.vlt('1.0.0', '1.1.0')).to.equal(true)
+      expect(CheckVersion.vlt('1.0.0', '2.0.0')).to.equal(true)
+      
+      expect(CheckVersion.vlt('1.0.0', '')).to.equal(false)
+      expect(CheckVersion.vlt('', '1.0.0')).to.equal(false)
+
+      expect(CheckVersion.vlt('1.0.1', '1.0.0')).to.equal(false)
+      expect(CheckVersion.vlt('1.1.0', '1.0.0')).to.equal(false)
+      expect(CheckVersion.vlt('2.0.0', '1.0.0')).to.equal(false)
+      expect(CheckVersion.vlt('1.0.0', '1.0.0')).to.equal(false)
     })
 
     it('lastest version', (done) => {
