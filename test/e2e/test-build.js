@@ -353,7 +353,7 @@ describe('command:build babelrc', function () {
     after(teardown);
 
     it('build with expected files', function () {
-      expect(files.length).to.equal(12);
+      expect(files.length).to.equal(13);
       expect(result.code).to.equal(0);
     })
 
@@ -452,6 +452,10 @@ describe('command:build babelrc', function () {
       // 不要将 vue-loader 的 component-normalizer 也打包进来了
       expect(css).to.not.contain('.staticRenderFns')
       expect(css).to.contain('-webkit-linear-gradient(left,#0a1176,#281059)')
+    })
+
+    it('build html require a url js file', () => {
+      expect(fs.existsSync('dist/extlibs/libs.js')).to.equal(true);
     })
 
   });
