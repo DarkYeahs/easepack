@@ -1,8 +1,12 @@
-## v1.13.1
+## v1.13.2
 
 ### Improvement
 
 html文件允许引用一个不是 `entry` 的JS文件，`easepack` 会将其视为URL处理。
+
+### Fixbug
+
+* 修复同名 html 和 js url冲突问题
 
 ## v1.13.0
 
