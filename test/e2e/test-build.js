@@ -353,7 +353,7 @@ describe('command:build babelrc', function () {
     after(teardown);
 
     it('build with expected files', function () {
-      expect(files.length).to.equal(13);
+      expect(files.length).to.equal(16);
       expect(result.code).to.equal(0);
     })
 
@@ -458,5 +458,10 @@ describe('command:build babelrc', function () {
       expect(fs.existsSync('dist/extlibs/libs.js')).to.equal(true);
     })
 
+    it('build html/js same name url matched', () => {
+      expect(fs.existsSync('dist/htmlurl/same.html')).to.equal(true);
+      expect(fs.existsSync('dist/same.html')).to.equal(true);
+      expect(fs.existsSync('dist/same.js')).to.equal(true);
+    })
   });
 });
