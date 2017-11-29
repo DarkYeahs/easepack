@@ -31,3 +31,13 @@ easepack
   .match('images.{png,jpg}', {
     url: 'matchspritename.[ext]?[hash]'
   })
+
+// 测试同名 js html url 的问题
+easepack
+  .match('htmlurl/same.html')
+  .match('htmlurl/same2.html', {
+    url: 'same.[ext]'
+  })
+  .match('htmlurl/*.js', {
+    url: '[name].[ext]?[hash]'
+  })
