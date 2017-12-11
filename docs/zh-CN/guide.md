@@ -8,7 +8,27 @@ easepack 是面向前端的工程构建工具。解决前端工程中性能优�
 
 ## 安装
 
-使用 npm （Node.js Version, 6.x preferred）:
+* 方案一：使用 git clone（Node.js Version, 6.x preferred）
+
+Clone 文件到 {你的目录} 上
+
+```bash
+git clone ssh://git@git-cc.nie.netease.com:32200/frontend/easepack.git
+```
+
+安装依赖
+
+```bash
+cd {你的目录}/easepack && npm install
+```
+
+修改 PATH 环境变量
+
+```bash
+PATH;{你的目录}/easepack/bin
+```
+
+* 方案二：使用 npm （Node.js Version, 6.x preferred）:
 
 ```bash
 npm install git+ssh://git@git-cc.nie.netease.com:32200/frontend/easepack.git -g
@@ -295,6 +315,12 @@ easepack.set('useBase64', false);
 `boolean`
 
 是否提取 CSS 到单独文件。
+
+##### hashedModuleIds
+
+`boolean`
+
+该插件会根据模块的相对路径生成一个四位数的hash作为模块id, 建议用于生产环境。
 
 ##### webpackDevServer
 
