@@ -303,6 +303,12 @@ easepack.set('useBase64', false);
 
 是否提取 CSS 到单独文件。
 
+##### hashedModuleIds
+
+`boolean`
+
+该插件会根据模块的相对路径生成一个四位数的hash作为模块id, 建议用于生产环境。
+
 ##### webpackDevServer
 
 `boolean`

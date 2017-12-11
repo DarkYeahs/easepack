@@ -34,6 +34,7 @@ function Config() {
   this.useImagemin = false;
   this.useUglifyjs = false;
   this.useEs2015 = false;
+  this.hashedModuleIds = false;
   this.useCommonsChunk = false;
 
   this.useExtract = true;
