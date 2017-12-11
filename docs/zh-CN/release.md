@@ -1,4 +1,4 @@
-## v1.13.2
+## v1.13.3
 
 ### Improvement
 
@@ -6,7 +6,9 @@ html文件允许引用一个不是 `entry` 的JS文件，`easepack` 会将其视
 
 ### Fixbug
 
-* 修复同名 html 和 js url冲突问题
+* 修复同名 html 和 js url 冲突问题
+
+* 修复在 `webpackDevServer` 下，可能会出现无限刷新页面的问题
 
 ## v1.13.0
 
