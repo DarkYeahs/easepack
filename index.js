@@ -28,6 +28,10 @@ const easepack = module.exports = function (options) {
   complier.apply(new NetworkInfoPlugin());
   complier.apply(new EntryMatchPlugin());
   complier.apply(new AddBannerPlugin());
+  // cost time log
+  if (options.moreDetails) {
+    console.log('> Start building project...')
+  }
   return complier;
 }
 
