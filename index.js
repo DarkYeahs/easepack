@@ -1,4 +1,5 @@
 var utils = require('loader-utils')
+var Stats = require('./lib/Stats');
 var Complier = require('./lib/Compiler');
 
 var AddBannerPlugin = require('./lib/plugins/AddBannerPlugin');
@@ -30,7 +31,7 @@ const easepack = module.exports = function (options) {
   complier.apply(new AddBannerPlugin());
   // cost time log
   if (options.moreDetails) {
-    console.log('> Start building project...')
+    Stats.normal('> Start building project...\n')
   }
   return complier;
 }

@@ -69,6 +69,9 @@ function compilerCallback(err, stats) {
     return;
   }
   process.stdout.write(`${stats.toString({
-    colors: true, version: false
+    colors: true,
+    version: false,
+    chunks: config.moreDetails,
+    children: config.moreDetails
   })}\n\n`);
 }
