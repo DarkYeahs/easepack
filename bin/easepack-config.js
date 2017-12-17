@@ -43,8 +43,9 @@ function Config() {
   this.upToDate = true;
   this.banner = '';
   this.privateRepo = false;
-
+  
   this.port = 8080;
+  this.moreDetails = false;
 }
 
 Config.prototype.match = function (pattern, props) {
