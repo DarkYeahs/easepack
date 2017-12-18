@@ -68,10 +68,15 @@ function compilerCallback(err, stats) {
     }
     return;
   }
+  if (config.moreDetails) {
+    process.stdout.write('\n> Webpack log:\n')
+  }
   process.stdout.write(`${stats.toString({
     colors: true,
     version: false,
     chunks: config.moreDetails,
-    children: config.moreDetails
+    children: {
+      assets: config.moreDetails
+    }
   })}\n\n`);
 }
