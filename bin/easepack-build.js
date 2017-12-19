@@ -68,9 +68,6 @@ function compilerCallback(err, stats) {
     }
     return;
   }
-  if (config.moreDetails) {
-    process.stdout.write('\n> Webpack log:\n')
-  }
   process.stdout.write(`${stats.toString({
     colors: true,
     version: false,

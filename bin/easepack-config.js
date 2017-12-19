@@ -8,6 +8,7 @@ function Config() {
   this.context = path.resolve('.');
   this.alias = {};
   this.matches = [];
+  this.rules = [];
   this.plugins = [];
   this.touched = {};
 
@@ -117,6 +118,11 @@ Config.prototype.media = function (media, value) {
 };
 
 Config.prototype.addPlugin = function (plugin) {
+  this.plugins.push(plugin);
+  return this;
+};
+
+Config.prototype.addRule = function (plugin) {
   this.plugins.push(plugin);
   return this;
 };
