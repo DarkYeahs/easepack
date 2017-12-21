@@ -22,6 +22,10 @@ utils.slash = function (input) {
 }
 
 const easepack = module.exports = function (options) {
+  // cost time log
+  if (options.moreDetails) {
+    Stats.normal('> Start building project...\n')
+  }
   var complier = new Complier(options);
   complier.apply(new ResolveTempDirPlugin());
   complier.apply(new CheckVersionPlugin())
@@ -29,10 +33,6 @@ const easepack = module.exports = function (options) {
   complier.apply(new NetworkInfoPlugin());
   complier.apply(new EntryMatchPlugin());
   complier.apply(new AddBannerPlugin());
-  // cost time log
-  if (options.moreDetails) {
-    Stats.normal('> Start building project...\n')
-  }
   return complier;
 }
 
