@@ -8,6 +8,7 @@ function Config() {
   this.context = path.resolve('.');
   this.alias = {};
   this.matches = [];
+  this.rules = [];
   this.plugins = [];
   this.touched = {};
 
@@ -45,6 +46,7 @@ function Config() {
   this.privateRepo = false;
 
   this.port = 8080;
+  this.moreDetails = false;
 }
 
 Config.prototype.match = function (pattern, props) {
@@ -116,6 +118,11 @@ Config.prototype.media = function (media, value) {
 };
 
 Config.prototype.addPlugin = function (plugin) {
+  this.plugins.push(plugin);
+  return this;
+};
+
+Config.prototype.addRule = function (plugin) {
   this.plugins.push(plugin);
   return this;
 };

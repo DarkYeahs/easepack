@@ -10,6 +10,12 @@ var vendorChunk =
       )
     }
   });
+var manifestChunk =
+  new easepack.webpack.optimize.CommonsChunkPlugin({
+    name: 'manifest',
+    chunks: ['vendor'],
+    filename: '[name].js?[chunkhash:6]'
+  });
 
 easepack
   .set('screwIe8', false)
@@ -25,6 +31,7 @@ easepack
   })
   .set('privateRepo','../mock-components')
   .addPlugin(vendorChunk)
+  .addPlugin(manifestChunk);
 
 easepack
   .match('*.{js,html}')
