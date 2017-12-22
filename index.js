@@ -12,14 +12,7 @@ const CheckVersionPlugin = require('./lib/plugins/CheckVersionPlugin')
 
 // Unix    => foo/bar
 // Windows => foo/bar
-utils.slash = function (input) {
-  const isExtendedLengthPath = /^\\\\\?\\/.test(input)
-	const hasNonAscii = /[^\u0000-\u0080]+/.test(input)
-	if (isExtendedLengthPath || hasNonAscii) {
-		return input
-	}
-	return input.replace(/\\/g, '/')
-}
+utils.slash = require('./lib/utils/slash')
 
 const easepack = module.exports = function (options) {
   // cost time log
