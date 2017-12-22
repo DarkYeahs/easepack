@@ -38,7 +38,7 @@ const easepack = module.exports = function (options) {
 
 const karma = easepack.karma = {}
 
-exportPlugins(karma, 'preprocessor', './lib/plugins/karma/preprocessor')
+exportPlugins(karma, 'preprocessor', './lib/karma/preprocessor')
 exportPlugins(easepack, 'webpack', 'webpack')
 
 function exportPlugins(obj, prop, name) {

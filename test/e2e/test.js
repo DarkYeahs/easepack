@@ -52,6 +52,8 @@ describe('test configuration plugins', () => {
     emitError (err) {
       console.log(err)
     },
+    costTime () {
+    },
     context: context
   };
 
