@@ -353,7 +353,7 @@ describe('command:build babelrc', function () {
     after(teardown);
 
     it('build with expected files', function () {
-      expect(files.length).to.equal(16);
+      expect(files.length).to.equal(17);
       expect(result.code).to.equal(0);
     })
 
@@ -403,9 +403,11 @@ describe('command:build babelrc', function () {
 
     it('build app width commons chunk plugin', function (done) {
       var content = fs.readFileSync('dist/index.html', 'utf8');
+      expect(fs.existsSync('dist/vendor.js')).to.equal(true);
+      expect(fs.existsSync('dist/manifest.js')).to.equal(true);
       expect(content).to.contain('<script src="./entry.js"></script>');
       expect(content).to.contain('<script src="./vendor.js?');
-      expect(fs.existsSync('dist/vendor.js')).to.equal(true);
+      expect(content).to.contain('<script src="./manifest.js?');
       done();
     });
 

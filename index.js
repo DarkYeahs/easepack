@@ -1,4 +1,5 @@
 var utils = require('loader-utils')
+var Stats = require('./lib/Stats');
 var Complier = require('./lib/Compiler');
 
 var AddBannerPlugin = require('./lib/plugins/AddBannerPlugin');
@@ -11,16 +12,13 @@ const CheckVersionPlugin = require('./lib/plugins/CheckVersionPlugin')
 
 // Unix    => foo/bar
 // Windows => foo/bar
-utils.slash = function (input) {
-  const isExtendedLengthPath = /^\\\\\?\\/.test(input)
-	const hasNonAscii = /[^\u0000-\u0080]+/.test(input)
-	if (isExtendedLengthPath || hasNonAscii) {
-		return input
-	}
-	return input.replace(/\\/g, '/')
-}
+utils.slash = require('./lib/utils/slash')
 
 const easepack = module.exports = function (options) {
+  // cost time log
+  if (options.moreDetails) {
+    Stats.normal('> Start building project...\n')
+  }
   var complier = new Complier(options);
   complier.apply(new ResolveTempDirPlugin());
   complier.apply(new CheckVersionPlugin())
@@ -33,7 +31,7 @@ const easepack = module.exports = function (options) {
 
 const karma = easepack.karma = {}
 
-exportPlugins(karma, 'preprocessor', './lib/plugins/karma/preprocessor')
+exportPlugins(karma, 'preprocessor', './lib/karma/preprocessor')
 exportPlugins(easepack, 'webpack', 'webpack')
 
 function exportPlugins(obj, prop, name) {

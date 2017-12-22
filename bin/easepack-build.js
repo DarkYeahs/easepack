@@ -17,7 +17,7 @@ program
   .option('-rm, --rsync-msg [message]', 'set rsync message for this compilation')
   .option('--port [port]', 'set server port')
   .option('--up-to-date', 'build without updating components')
-  //.option('--display-chunks', 'display the separation of the modules into chunks')
+  .option('--more-details', 'display more detail information')
   .parse(process.argv);
 
 program._media = program.media;
@@ -69,6 +69,11 @@ function compilerCallback(err, stats) {
     return;
   }
   process.stdout.write(`${stats.toString({
-    colors: true, version: false
+    colors: true,
+    version: false,
+    chunks: config.moreDetails,
+    children: {
+      assets: config.moreDetails
+    }
   })}\n\n`);
 }
