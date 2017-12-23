@@ -122,6 +122,7 @@ describe('test configuration plugins', () => {
       expect(CheckVersion.vlt('1.1.0', '1.0.0')).to.equal(false)
       expect(CheckVersion.vlt('2.0.0', '1.0.0')).to.equal(false)
       expect(CheckVersion.vlt('1.0.0', '1.0.0')).to.equal(false)
+      expect(CheckVersion.vlt('1.14.0', '1.13.3')).to.equal(false)
     })
 
     it('lastest version', (done) => {
