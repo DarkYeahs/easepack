@@ -1,3 +1,23 @@
+## v1.14.3
+
+### Feature
+
+##### moreDetails
+
+简化打包日志输出的逻辑，并添加 `moreDetails` 属性控制是否输出更丰富的日志信息
+
+```js
+easepack.set('moreDetails', true)
+```
+
+```bash
+easepack build -m dist --more-details
+```
+
+### Improvement
+
+* 内置 Server 支持 Access-Control-Allow-Origin
+
 ## v1.13.3
 
 ### Improvement
