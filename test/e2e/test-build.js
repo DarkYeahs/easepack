@@ -407,7 +407,7 @@ describe('command:build babelrc', function () {
       expect(fs.existsSync('dist/manifest.js')).to.equal(true);
       expect(/<script src="\.\/vendor\.js\?\w{6}"? crossorigin="anonymous"/.test(content)).to.equal(true);
       expect(/<script src="\.\/manifest\.js\?\w{6}"? crossorigin="anonymous"/.test(content)).to.equal(true);
-      expect(content).to.contain('<script src="./entry.js" crossorigin="anonymous"></script>');
+      expect(content).to.contain('<script src="./entry.js" crossorigin="anonymous" async></script>');
       done();
     });
 
@@ -458,6 +458,7 @@ describe('command:build babelrc', function () {
 
     it('build html require a url js file', () => {
       expect(fs.existsSync('dist/extlibs/libs.js')).to.equal(true);
+      expect(fs.existsSync('dist/extlibs/libs2.js')).to.equal(true);
     })
 
     it('build html/js same name url matched', () => {
