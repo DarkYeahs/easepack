@@ -166,12 +166,13 @@ describe('test htmlLoader', () => {
 
   it('contain css inject', (done) => {
     let output = hl.call({}, content);
-    expect(output).to.contain('<!--§script_inject!entry.js§§--><script');
     expect(output).to.contain('<div id="slide">\\r\\n  <img src="');
     expect(output).to.contain('\\r\\n  <!--§css_inject_h§  §-->');
     expect(output).to.contain('<!--§script§entry.js§-->');
     expect(output).to.contain('require("./image1.png")');
     expect(typeof content).to.equal('string');
+    expect(output).to.contain('<!--§script_inject!entry.js!§§--><script');
+    expect(output).to.contain('<!--§script_inject!entry_not_exist.js! crossorigin="anonymous"§§--><script');
     done();
   })
 });

@@ -96,7 +96,7 @@ describe('command:build', function () {
       expect(content).to.contain('<!-- <script src="entry.js"></script> -->');
       expect(content).to.contain('<!--[if IE 7]><script src="//cc.cdn.com/entry.js"');
       expect(content).to.contain('</div>\r\n<script src="//cc.cdn.com/entry.js">');
-      expect(content).to.contain('<script src="entry_not_exist.js">');
+      expect(content).to.contain('<script src="entry_not_exist.js" crossorigin="anonymous">');
       expect(content).to.contain('/__easepack_dev_server__/livereload.js?snipver=1"');
       expect(content).to.contain('href="//cc.cdn.com/entry.css" rel="stylesheet">\r\n</head>');
       done();
@@ -405,9 +405,9 @@ describe('command:build babelrc', function () {
       var content = fs.readFileSync('dist/index.html', 'utf8');
       expect(fs.existsSync('dist/vendor.js')).to.equal(true);
       expect(fs.existsSync('dist/manifest.js')).to.equal(true);
-      expect(content).to.contain('<script src="./entry.js"></script>');
-      expect(content).to.contain('<script src="./vendor.js?');
-      expect(content).to.contain('<script src="./manifest.js?');
+      expect(/<script src="\.\/vendor\.js\?\w{6}"? crossorigin="anonymous"/.test(content)).to.equal(true);
+      expect(/<script src="\.\/manifest\.js\?\w{6}"? crossorigin="anonymous"/.test(content)).to.equal(true);
+      expect(content).to.contain('<script src="./entry.js" crossorigin="anonymous"></script>');
       done();
     });
 
